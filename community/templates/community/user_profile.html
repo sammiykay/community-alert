@@ -1,0 +1,726 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Profile - Community Alert System{% endblock %}
+
+{% block extra_css %}
+<style>
+    #profileMap {
+        height: 300px;
+        width: 100%;
+        border-radius: 8px;
+        border: 2px solid #dee2e6;
+    }
+    .profile-section {
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+        margin-bottom: 2rem;
+    }
+    .profile-header {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+        color: white;
+        padding: 2rem;
+        border-radius: 8px 8px 0 0;
+    }
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin-right: 1.5rem;
+    }
+    .stats-card {
+        background: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+        border: 1px solid #e9ecef;
+        transition: transform 0.2s;
+    }
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+    .stats-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+    .alert-item {
+        border-left: 4px solid;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        background: white;
+        border-radius: 0 8px 8px 0;
+        transition: transform 0.2s;
+    }
+    .alert-item:hover {
+        transform: translateX(5px);
+    }
+    .severity-low { border-left-color: #28a745; }
+    .severity-medium { border-left-color: #ffc107; }
+    .severity-high { border-left-color: #fd7e14; }
+    .severity-critical { border-left-color: #dc3545; }
+    .location-info-box {
+        background: #e7f3ff;
+        border: 1px solid #b8daff;
+        border-radius: 6px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    .notification-settings {
+        background: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+    }
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 34px;
+    }
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+    input:checked + .slider {
+        background-color: #007bff;
+    }
+    input:checked + .slider:before {
+        transform: translateX(26px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Profile Header -->
+    <div class="profile-section">
+        <div class="profile-header">
+            <div class="d-flex align-items-center">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <h2 class="mb-1">{{ user.get_full_name|default:user.username }}</h2>
+                    <p class="mb-1">
+                        <i class="fas fa-envelope"></i> {{ user.email }}
+                        {% if user.email_verified %}
+                            <i class="fas fa-check-circle text-success ms-1" title="Email verified"></i>
+                        {% else %}
+                            <i class="fas fa-exclamation-circle text-warning ms-1" title="Email not verified"></i>
+                        {% endif %}
+                    </p>
+                    <p class="mb-0">
+                        <span class="badge bg-light text-dark">
+                            <i class="fas fa-user-tag"></i> {{ user.get_role_display }}
+                        </span>
+                        <span class="badge bg-light text-dark ms-2">
+                            <i class="fas fa-calendar"></i> Member since {{ user.date_joined|date:"M Y" }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Profile Stats -->
+        <div class="p-4">
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <div class="stats-card">
+                        <div class="stats-number text-primary">{{ user.created_alerts.count }}</div>
+                        <div class="text-muted">Alerts Created</div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="stats-card">
+                        <div class="stats-number text-success">{{ user.alertvote_set.count }}</div>
+                        <div class="text-muted">Votes Cast</div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="stats-card">
+                        <div class="stats-number text-info">{{ user.communities.count }}</div>
+                        <div class="text-muted">Communities</div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="stats-card">
+                        <div class="stats-number text-warning">{{ user.notifications.count }}</div>
+                        <div class="text-muted">Notifications</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Profile Settings -->
+        <div class="col-lg-8">
+            <div class="profile-section">
+                <div class="p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4><i class="fas fa-user-cog text-primary"></i> Profile Settings</h4>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </button>
+                    </div>
+                    
+                    <!-- Personal Information -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-muted">PERSONAL INFORMATION</h6>
+                            <p><strong>First Name:</strong> {{ user.first_name|default:"Not set" }}</p>
+                            <p><strong>Last Name:</strong> {{ user.last_name|default:"Not set" }}</p>
+                            <p><strong>Phone:</strong> {{ user.phone_number|default:"Not set" }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold text-muted">ACCOUNT DETAILS</h6>
+                            <p><strong>Username:</strong> {{ user.username }}</p>
+                            <p><strong>Email:</strong> {{ user.email }}</p>
+                            <p><strong>Last Login:</strong> {{ user.last_login|date:"M d, Y H:i"|default:"Never" }}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Settings -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-muted">LOCATION SETTINGS</h6>
+                        
+                        {% if user.latitude and user.longitude %}
+                        <div class="location-info-box">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <i class="fas fa-map-marker-alt text-primary"></i>
+                                    <strong>Current Location:</strong> {{ user.latitude }}, {{ user.longitude }}
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="showLocationMap()">
+                                    <i class="fas fa-map"></i> View on Map
+                                </button>
+                            </div>
+                            <div>
+                                <strong>Notification Radius:</strong> {{ user.notification_radius_km }} km
+                            </div>
+                        </div>
+                        
+                        <div id="profileMap" style="display: none;" class="mb-3"></div>
+                        {% else %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Location not set.</strong> Set your location to receive nearby alerts and improve your experience.
+                            <button type="button" class="btn btn-primary btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                                Set Location
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Communities -->
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-muted">MY COMMUNITIES</h6>
+                        {% if user.communities.exists %}
+                        <div class="row">
+                            {% for community in user.communities.all %}
+                            <div class="col-md-6 mb-2">
+                                <div class="d-flex align-items-center p-2 bg-light rounded">
+                                    <i class="fas fa-home text-primary me-2"></i>
+                                    <div>
+                                        <strong>{{ community.name }}</strong><br>
+                                        <small class="text-muted">{{ community.description|truncatewords:10 }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <p class="text-muted">You haven't joined any communities yet.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Notification Settings -->
+            <div class="profile-section">
+                <div class="p-4">
+                    <h4><i class="fas fa-bell text-primary"></i> Notification Preferences</h4>
+                    
+                    <form method="post" id="notificationForm">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="update_notifications">
+                        
+                        <div class="notification-settings">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>Email Notifications</strong><br>
+                                            <small class="text-muted">Receive alerts via email</small>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" name="email_notifications" 
+                                                   {% if user.email_notifications %}checked{% endif %}>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>Push Notifications</strong><br>
+                                            <small class="text-muted">Browser push notifications</small>
+                                        </div>
+                                        <label class="switch">
+                                            <input type="checkbox" name="push_notifications" 
+                                                   {% if user.push_notifications %}checked{% endif %}>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="notification_radius" class="form-label">
+                                    <strong>Notification Radius</strong>
+                                </label>
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <input type="range" class="form-range" name="notification_radius_km" 
+                                               id="notification_radius" min="0.5" max="50" step="0.5" 
+                                               value="{{ user.notification_radius_km }}" 
+                                               oninput="updateRadiusDisplay(this.value)">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span class="badge bg-primary" id="radiusDisplay">{{ user.notification_radius_km }} km</span>
+                                    </div>
+                                </div>
+                                <small class="text-muted">You'll receive notifications for alerts within this distance from your location.</small>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Notification Settings
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Activity -->
+        <div class="col-lg-4">
+            <div class="profile-section">
+                <div class="p-4">
+                    <h4><i class="fas fa-history text-primary"></i> Recent Activity</h4>
+                    
+                    {% if user_alerts %}
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-muted">MY RECENT ALERTS</h6>
+                        {% for alert in user_alerts %}
+                        <div class="alert-item severity-{{ alert.severity }}">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="mb-1">
+                                    <a href="{% url 'alert_detail' alert.id %}" class="text-decoration-none">
+                                        {{ alert.title|truncatechars:40 }}
+                                    </a>
+                                </h6>
+                                <span class="badge bg-secondary">{{ alert.get_severity_display }}</span>
+                            </div>
+                            <small class="text-muted">
+                                <i class="fas fa-map-marker-alt"></i> {{ alert.community.name }}<br>
+                                <i class="fas fa-clock"></i> {{ alert.created_at|timesince }} ago
+                            </small>
+                        </div>
+                        {% endfor %}
+                        
+                        <div class="text-center">
+                            <a href="{% url 'alert_list' %}?created_by={{ user.id }}" class="btn btn-outline-primary btn-sm">
+                                View All My Alerts
+                            </a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-exclamation-triangle fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No alerts created yet.</p>
+                        <a href="{% url 'create_alert' %}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Create Your First Alert
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="profile-section">
+                <div class="p-4">
+                    <h4><i class="fas fa-bolt text-primary"></i> Quick Actions</h4>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'create_alert' %}" class="btn btn-danger">
+                            <i class="fas fa-exclamation-triangle"></i> Report New Alert
+                        </a>
+                        <a href="{% url 'nearby_alerts' %}" class="btn btn-info">
+                            <i class="fas fa-map-marker-alt"></i> View Nearby Alerts
+                        </a>
+                        <button type="button" class="btn btn-success" onclick="testNotifications()">
+                            <i class="fas fa-bell"></i> Test Notifications
+                        </button>
+                        <a href="{% url 'alert_list' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-list"></i> Browse All Alerts
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" id="profileEditForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="update_profile">
+                
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="first_name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" name="first_name" id="first_name" 
+                                   value="{{ user.first_name }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="last_name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" name="last_name" id="last_name" 
+                                   value="{{ user.last_name }}">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" name="phone_number" id="phone_number" 
+                               value="{{ user.phone_number }}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Location</label>
+                        <div class="mb-2">
+                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="getCurrentLocationForProfile()">
+                                <i class="fas fa-crosshairs"></i> Use Current Location
+                            </button>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="number" step="any" class="form-control" name="latitude" 
+                                       id="profile_latitude" placeholder="Latitude" 
+                                       value="{{ user.latitude|default:'' }}">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="number" step="any" class="form-control" name="longitude" 
+                                       id="profile_longitude" placeholder="Longitude" 
+                                       value="{{ user.longitude|default:'' }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    let profileMap;
+    
+    // Initialize profile location map
+    function initProfileMap() {
+        const userLocation = {
+            lat: {{ user.latitude|default:40.7589 }},
+            lng: {{ user.longitude|default:-73.9851 }}
+        };
+        
+        profileMap = new google.maps.Map(document.getElementById('profileMap'), {
+            zoom: 15,
+            center: userLocation,
+            mapTypeId: 'roadmap'
+        });
+        
+        {% if user.latitude and user.longitude %}
+        new google.maps.Marker({
+            position: userLocation,
+            map: profileMap,
+            title: 'Your Location',
+            icon: {
+                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+                    '<svg width="25" height="35" viewBox="0 0 25 35" xmlns="http://www.w3.org/2000/svg">' +
+                    '<path d="M12.5 0C5.6 0 0 5.6 0 12.5c0 12.5 12.5 22.5 12.5 22.5s12.5-10 12.5-22.5C25 5.6 19.4 0 12.5 0z" fill="#007bff"/>' +
+                    '<circle cx="12.5" cy="12.5" r="6" fill="white"/>' +
+                    '</svg>'
+                ),
+                scaledSize: new google.maps.Size(25, 35),
+                anchor: new google.maps.Point(12.5, 35)
+            }
+        });
+        
+        // Add notification radius circle
+        new google.maps.Circle({
+            strokeColor: '#007bff',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#007bff',
+            fillOpacity: 0.15,
+            map: profileMap,
+            center: userLocation,
+            radius: {{ user.notification_radius_km }} * 1000 // Convert km to meters
+        });
+        {% endif %}
+    }
+    
+    // Show location map
+    function showLocationMap() {
+        const mapDiv = document.getElementById('profileMap');
+        if (mapDiv.style.display === 'none') {
+            mapDiv.style.display = 'block';
+            // Initialize map after it becomes visible
+            setTimeout(initProfileMap, 100);
+        } else {
+            mapDiv.style.display = 'none';
+        }
+    }
+    
+    // Update radius display
+    function updateRadiusDisplay(value) {
+        document.getElementById('radiusDisplay').textContent = value + ' km';
+    }
+    
+    // Get current location for profile
+    function getCurrentLocationForProfile() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    document.getElementById('profile_latitude').value = position.coords.latitude.toFixed(6);
+                    document.getElementById('profile_longitude').value = position.coords.longitude.toFixed(6);
+                    
+                    // Show success message
+                    const alert = document.createElement('div');
+                    alert.className = 'alert alert-success alert-dismissible fade show mt-2';
+                    alert.innerHTML = `
+                        <i class="fas fa-check-circle"></i> Location detected successfully!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    `;
+                    document.getElementById('profile_latitude').parentNode.appendChild(alert);
+                    
+                    // Auto-remove after 3 seconds
+                    setTimeout(() => {
+                        if (alert.parentNode) {
+                            alert.remove();
+                        }
+                    }, 3000);
+                },
+                (error) => {
+                    alert('Unable to get your location. Please enter coordinates manually.');
+                    console.error('Geolocation error:', error);
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 300000
+                }
+            );
+        } else {
+            alert('Geolocation is not supported by this browser.');
+        }
+    }
+    
+    // Test notifications
+    function testNotifications() {
+        const csrfToken = getCsrfToken();
+        if (!csrfToken) {
+            showToast('Error: CSRF token not found', 'error');
+            return;
+        }
+        
+        fetch('/api/test-notification/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                showToast(`Test notification sent! Status: ${data.notification_status}`, 'success');
+            } else {
+                showToast(`Failed to send test notification: ${data.error}`, 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showToast('Error sending test notification. Please try again.', 'error');
+        });
+    }
+    
+    // Handle form submissions
+    document.addEventListener('DOMContentLoaded', function() {
+        // Profile edit form
+        const profileForm = document.getElementById('profileEditForm');
+        if (profileForm) {
+            profileForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const csrfToken = getCsrfToken();
+                if (!csrfToken) {
+                    showToast('Error: CSRF token not found', 'error');
+                    return;
+                }
+                
+                const formData = new FormData(this);
+                
+                fetch('{% url "user_profile" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        showToast('Profile updated successfully!', 'success');
+                        setTimeout(() => location.reload(), 1500);
+                    } else {
+                        showToast(`Error updating profile: ${data.error || 'Unknown error'}`, 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Error updating profile. Please try again.', 'error');
+                });
+            });
+        }
+        
+        // Notification settings form
+        const notificationForm = document.getElementById('notificationForm');
+        if (notificationForm) {
+            notificationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const csrfToken = getCsrfToken();
+                if (!csrfToken) {
+                    showToast('Error: CSRF token not found', 'error');
+                    return;
+                }
+                
+                const formData = new FormData(this);
+                
+                fetch('{% url "user_profile" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        showToast('Notification settings updated successfully!', 'success');
+                    } else {
+                        showToast(`Error updating settings: ${data.error || 'Unknown error'}`, 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Error updating notification settings. Please try again.', 'error');
+                });
+            });
+        }
+    });
+    
+    // Utility functions
+    function getCsrfToken() {
+        const tokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
+        return tokenElement ? tokenElement.value : null;
+    }
+    
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `alert alert-${type === 'error' ? 'danger' : 'success'} alert-dismissible fade show position-fixed`;
+        toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);';
+        toast.innerHTML = `
+            <i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'check-circle'}"></i> ${message}
+            <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
+        `;
+        document.body.appendChild(toast);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.remove();
+            }
+        }, 5000);
+    }
+</script>
+
+<!-- Load Google Maps API if location is set -->
+{% if user.latitude and user.longitude %}
+<script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key={{ settings.GOOGLE_MAPS_API_KEY|default:'AIzaSyBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' }}">
+</script>
+{% endif %}
+{% endblock %}

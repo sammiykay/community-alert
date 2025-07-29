@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AJAX Test</title>
+</head>
+<body>
+    <h1>AJAX Test Page</h1>
+    <button onclick="testAjax()">Test AJAX Request</button>
+    <div id="result"></div>
+
+    <script>
+        function getCsrfToken() {
+            // For this test, we'll use a dummy token or get it from cookies
+            return document.cookie.split('; ')
+                .find(row => row.startsWith('csrftoken='))
+                ?.split('=')[1] || 'dummy-token';
+        }
+
+        function testAjax() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing...';
+
+            fetch('/profile/', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'action': 'update_notifications',
+                    'email_notifications': 'on',
+                    'notification_radius_km': '5.0'
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': getCsrfToken(),
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                console.log('Response headers:', [...response.headers.entries()]);
+                return response.text();
+            })
+            .then(text => {
+                console.log('Response text:', text);
+                try {
+                    const data = JSON.parse(text);
+                    resultDiv.innerHTML = `<pre>JSON Response: ${JSON.stringify(data, null, 2)}</pre>`;
+                } catch(e) {
+                    resultDiv.innerHTML = `<pre>HTML Response (first 500 chars): ${text.substring(0, 500)}</pre>`;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultDiv.innerHTML = `Error: ${error.message}`;
+            });
+        }
+    </script>
+</body>
+</html>

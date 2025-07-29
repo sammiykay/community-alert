@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - Community Alert System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4><i class="fas fa-sign-in-alt"></i> Login to Community Alert System</h4>
+                <p class="mb-0 text-muted">Enter your email address and password</p>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <strong>Login Failed:</strong>
+                        {% if form.non_field_errors %}
+                            {% for error in form.non_field_errors %}
+                                <div>{{ error }}</div>
+                            {% endfor %}
+                        {% else %}
+                            <div>Please check your email address and password.</div>
+                        {% endif %}
+                        {% for field, errors in form.errors.items %}
+                            {% if field != '__all__' %}
+                                {% for error in errors %}
+                                    <div>{{ field|title }}: {{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" name="username" id="id_username" placeholder="Enter your email address" required>
+                        <div class="form-text">Use the email address you registered with</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_password" class="form-label">Password</label>
+                        <input type="password" class="form-control" name="password" id="id_password" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </div>
+                </form>
+                
+                <hr>
+                
+                <div class="text-center">
+                    <p class="mb-2">
+                        <a href="{% url 'password_reset' %}" class="text-decoration-none">
+                            Forgot your password?
+                        </a>
+                    </p>
+                    <p>
+                        Don't have an account? 
+                        <a href="{% url 'register' %}" class="text-decoration-none">
+                            Sign up here
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

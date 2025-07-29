@@ -1,0 +1,865 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ alert.title }} - Community Alert System{% endblock %}
+
+{% block extra_css %}
+<style>
+    #alertMap {
+        height: 400px;
+        width: 100%;
+        border-radius: 8px;
+        border: 2px solid #dee2e6;
+        margin-bottom: 1rem;
+    }
+    .severity-badge {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+    .alert-meta {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        border: 1px solid #e9ecef;
+    }
+    .vote-buttons .btn {
+        margin: 0 5px;
+        transition: all 0.3s ease;
+    }
+    .vote-buttons .btn:hover {
+        transform: translateY(-2px);
+    }
+    .vote-buttons .btn.active {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .comment-thread {
+        border-left: 3px solid #dee2e6;
+        margin-left: 1rem;
+        padding-left: 1rem;
+    }
+    .media-preview {
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .media-preview:hover {
+        transform: scale(1.05);
+    }
+    .alert-header {
+        background: linear-gradient(135deg, #dc3545, #b02a37);
+        color: white;
+        padding: 2rem;
+        border-radius: 8px 8px 0 0;
+        margin-bottom: 0;
+    }
+    .emergency-banner {
+        background: linear-gradient(45deg, #ff6b6b, #feca57);
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+    }
+    .location-info-box {
+        background: #e7f3ff;
+        border: 1px solid #b8daff;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .map-controls {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1000;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .nearby-alerts-preview {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+    .interactive-timeline {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .comment-form {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .social-share {
+        background: white;
+        border-radius: 8px;
+        padding: 1rem;
+        border: 1px solid #e9ecef;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Emergency Banner for Critical Alerts -->
+    {% if alert.severity == 'critical' %}
+    <div class="col-12">
+        <div class="emergency-banner text-center">
+            <h4 class="mb-2"><i class="fas fa-exclamation-triangle fa-2x"></i></h4>
+            <h5>CRITICAL SECURITY ALERT</h5>
+            <p class="mb-0">This is a high-priority security incident. Please take immediate precautions and follow safety protocols.</p>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Main Alert Content -->
+    <div class="col-lg-8">
+        <div class="card mb-4 shadow-lg">
+            <div class="alert-header">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h2 class="mb-3">{{ alert.title }}</h2>
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <span class="badge bg-light text-dark"><i class="fas fa-tag"></i> {{ alert.category.name }}</span>
+                            <span class="badge severity-badge
+                                {% if alert.severity == 'low' %}bg-success
+                                {% elif alert.severity == 'medium' %}bg-warning text-dark
+                                {% elif alert.severity == 'high' %}bg-warning text-dark
+                                {% else %}bg-light text-danger{% endif %}">
+                                {% if alert.severity == 'low' %}🟢{% elif alert.severity == 'medium' %}🟡{% elif alert.severity == 'high' %}🟠{% else %}🔴{% endif %} {{ alert.get_severity_display }}
+                            </span>
+                            <span class="badge bg-light text-dark">
+                                {% if alert.status == 'active' %}🔴 Active{% elif alert.status == 'resolved' %}✅ Resolved{% elif alert.status == 'under_review' %}🔍 Under Review{% else %}⚪ {{ alert.get_status_display }}{% endif %}
+                            </span>
+                            {% if alert.is_verified %}
+                            <span class="badge bg-light text-primary">
+                                <i class="fas fa-check-circle"></i> Verified
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                
+                {% if user.is_authenticated and user == alert.created_by or user.role in 'moderator,admin' %}
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'edit_alert' alert.id %}">
+                            <i class="fas fa-edit"></i> Edit Alert
+                        </a></li>
+                        {% if user.role in 'moderator,admin' %}
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-warning" href="#">
+                            <i class="fas fa-flag"></i> Mark as Verified
+                        </a></li>
+                        <li><a class="dropdown-item text-danger" href="#">
+                            <i class="fas fa-trash"></i> Delete Alert
+                        </a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="card-body">
+                <!-- Alert Description -->
+                <div class="mb-4">
+                    <h5>Description</h5>
+                    <p class="lead">{{ alert.description|linebreaks }}</p>
+                </div>
+                
+                <!-- Media Gallery -->
+                {% if alert.media.exists %}
+                <div class="mb-4">
+                    <h5>Media</h5>
+                    <div class="row">
+                        {% for media in alert.media.all %}
+                        <div class="col-md-4 mb-3">
+                            {% if media.media_type == 'image' %}
+                            <img src="{{ media.file.url }}" class="img-fluid media-preview" 
+                                 alt="{{ media.caption|default:'Alert image' }}" 
+                                 data-bs-toggle="modal" data-bs-target="#mediaModal{{ media.id }}">
+                            {% else %}
+                            <video controls class="w-100 media-preview">
+                                <source src="{{ media.file.url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            {% endif %}
+                            {% if media.caption %}
+                            <small class="text-muted d-block mt-1">{{ media.caption }}</small>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Enhanced Location Section -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5><i class="fas fa-map-marker-alt text-danger"></i> Incident Location</h5>
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-outline-primary" onclick="centerOnAlert()">
+                                <i class="fas fa-crosshairs"></i> Center
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="toggleSatellite()">
+                                <i class="fas fa-satellite"></i> Satellite
+                            </button>
+                            <button type="button" class="btn btn-outline-info" onclick="showNearbyAlerts()">
+                                <i class="fas fa-layer-group"></i> Nearby
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div style="position: relative;">
+                        <div id="alertMap" class="mb-3"></div>
+                        <div class="map-controls" id="mapControls" style="display: none;">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="showTraffic" onchange="toggleTraffic()">
+                                <label class="form-check-label" for="showTraffic">
+                                    <small>Traffic</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="location-info-box">
+                        <div class="row">
+                            <div class="col-md-8">
+                                {% if alert.address %}
+                                <p class="mb-2">
+                                    <i class="fas fa-map-marker-alt text-danger"></i>
+                                    <strong>Address:</strong> {{ alert.address }}
+                                </p>
+                                {% endif %}
+                                <p class="mb-2">
+                                    <i class="fas fa-compass text-info"></i>
+                                    <strong>Coordinates:</strong> {{ alert.latitude }}, {{ alert.longitude }}
+                                </p>
+                                <p class="mb-0">
+                                    <i class="fas fa-home text-success"></i>
+                                    <strong>Community:</strong> 
+                                    <a href="{% url 'community_detail' alert.community.id %}" class="text-decoration-none">{{ alert.community.name }}</a>
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="getDirections()">
+                                    <i class="fas fa-directions"></i> Get Directions
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm mt-1" onclick="shareLocation()">
+                                    <i class="fas fa-share-alt"></i> Share Location
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="nearby-alerts-preview" id="nearbyAlertsPreview" style="display: none;">
+                        <h6><i class="fas fa-exclamation-triangle text-warning"></i> Nearby Recent Alerts</h6>
+                        <div id="nearbyAlertsList"></div>
+                        <div class="text-center mt-2">
+                            <a href="{% url 'nearby_alerts' %}?lat={{ alert.latitude }}&lng={{ alert.longitude }}" class="btn btn-warning btn-sm">
+                                View All Nearby Alerts
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Voting Section -->
+                {% if user.is_authenticated %}
+                <div class="vote-buttons mb-4">
+                    <div class="d-flex align-items-center">
+                        <span class="me-3">Is this alert helpful?</span>
+                        <button class="btn btn-outline-success btn-sm vote-btn {% if user_vote == 'up' %}active{% endif %}" 
+                                data-vote="up" data-alert="{{ alert.id }}">
+                            <i class="fas fa-thumbs-up"></i> Helpful (<span id="upvote-count">{{ alert.upvotes }}</span>)
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm vote-btn {% if user_vote == 'down' %}active{% endif %}" 
+                                data-vote="down" data-alert="{{ alert.id }}">
+                            <i class="fas fa-thumbs-down"></i> Not Helpful (<span id="downvote-count">{{ alert.downvotes }}</span>)
+                        </button>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <!-- Enhanced Comments Section -->
+                <div class="comments-section">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5><i class="fas fa-comments text-primary"></i> Community Discussion</h5>
+                        <span class="badge bg-light text-dark">{{ comments.count }} comments</span>
+                    </div>
+                    
+                    {% if user.is_authenticated %}
+                    <!-- Enhanced Comment Form -->
+                    <div class="comment-form">
+                        <h6><i class="fas fa-plus-circle text-success"></i> Add Your Comment</h6>
+                        <form method="post" action="#" id="commentForm">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <textarea class="form-control" name="content" rows="4" 
+                                          placeholder="Share your thoughts, additional information, or ask questions about this alert..."
+                                          required></textarea>
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle"></i>
+                                    Be respectful and provide helpful information. Avoid sharing personal details.
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="anonymousComment">
+                                    <label class="form-check-label" for="anonymousComment">
+                                        <small>Post anonymously</small>
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-comment"></i> Post Comment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div class="comment-form text-center">
+                        <i class="fas fa-user-lock fa-2x text-muted mb-3"></i>
+                        <p class="text-muted">Join the discussion by logging in</p>
+                        <a href="{% url 'login' %}" class="btn btn-primary">Login to Comment</a>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Comments List -->
+                    {% for comment in comments %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-user-circle fa-2x text-muted me-2"></i>
+                                    <div>
+                                        <strong>{{ comment.user.get_full_name|default:comment.user.username }}</strong>
+                                        <small class="text-muted d-block">{{ comment.created_at|timesince }} ago</small>
+                                    </div>
+                                </div>
+                                {% if user.role in 'moderator,admin' %}
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item text-danger" href="#">
+                                            <i class="fas fa-trash"></i> Delete Comment
+                                        </a></li>
+                                    </ul>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <p class="mb-0">{{ comment.content|linebreaks }}</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center py-4 text-muted">
+                        <i class="fas fa-comments fa-3x mb-3"></i>
+                        <p>No comments yet. Be the first to share your thoughts!</p>
+                        {% if not user.is_authenticated %}
+                        <a href="{% url 'login' %}" class="btn btn-primary">Login to Comment</a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+        <!-- Alert Metadata -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Alert Details</h5>
+            </div>
+            <div class="card-body alert-meta">
+                <div class="row mb-2">
+                    <div class="col-sm-6"><strong>Reported by:</strong></div>
+                    <div class="col-sm-6">{{ alert.created_by.get_full_name|default:alert.created_by.username }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-6"><strong>Community:</strong></div>
+                    <div class="col-sm-6">
+                        <a href="{% url 'community_detail' alert.community.id %}" class="text-decoration-none">
+                            {{ alert.community.name }}
+                        </a>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-6"><strong>Incident Time:</strong></div>
+                    <div class="col-sm-6">{{ alert.incident_datetime|date:"M j, Y g:i A" }}</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-6"><strong>Reported:</strong></div>
+                    <div class="col-sm-6">{{ alert.created_at|timesince }} ago</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-6"><strong>Views:</strong></div>
+                    <div class="col-sm-6">{{ alert.view_count }}</div>
+                </div>
+                {% if alert.updated_at != alert.created_at %}
+                <div class="row mb-2">
+                    <div class="col-sm-6"><strong>Last Updated:</strong></div>
+                    <div class="col-sm-6">{{ alert.updated_at|timesince }} ago</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Related Alerts -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5><i class="fas fa-list"></i> Related Alerts</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Other alerts in {{ alert.community.name }}</p>
+                <div class="d-grid">
+                    <a href="{% url 'alert_list' %}?community={{ alert.community.id }}" class="btn btn-outline-primary">
+                        View Community Alerts
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enhanced Safety & Actions -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5><i class="fas fa-shield-alt"></i> Safety & Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning mb-3">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Emergency:</strong> If you're witnessing an active crime or emergency, 
+                    call <strong>911</strong> immediately rather than posting here.
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-outline-success" onclick="reportSafetyUpdate()">
+                        <i class="fas fa-check-circle"></i> Report Safety Update
+                    </button>
+                    <button type="button" class="btn btn-outline-warning" onclick="requestMoreInfo()">
+                        <i class="fas fa-question-circle"></i> Request More Information
+                    </button>
+                    <button type="button" class="btn btn-outline-info" onclick="subscribeToUpdates()">
+                        <i class="fas fa-bell"></i> Get Updates
+                    </button>
+                    {% if user.role in 'moderator,admin' %}
+                        <hr>
+                        <button type="button" class="btn btn-outline-danger" onclick="flagAlert()">
+                            <i class="fas fa-flag"></i> Flag Alert
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Social Sharing -->
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-share-alt"></i> Share Alert</h5>
+            </div>
+            <div class="card-body social-share">
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-outline-primary" onclick="shareViaEmail()">
+                        <i class="fas fa-envelope"></i> Share via Email
+                    </button>
+                    <button type="button" class="btn btn-outline-success" onclick="copyAlertLink()">
+                        <i class="fas fa-link"></i> Copy Link
+                    </button>
+                    <div class="form-text text-center">
+                        <small>Help others stay informed about this incident</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Media Modals for Images -->
+{% for media in alert.media.all %}
+{% if media.media_type == 'image' %}
+<div class="modal fade" id="mediaModal{{ media.id }}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ media.caption|default:'Alert Image' }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="{{ media.file.url }}" class="img-fluid" alt="{{ media.caption|default:'Alert image' }}">
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    let map;
+    let alertMarker;
+    let nearbyMarkers = [];
+    let trafficLayer;
+    let isTrafficVisible = false;
+    let isSatelliteView = false;
+    
+    // Initialize enhanced map
+    function initMap() {
+        const alertLocation = { 
+            lat: parseFloat('{{ alert.latitude }}'), 
+            lng: parseFloat('{{ alert.longitude }}') 
+        };
+        
+        map = new google.maps.Map(document.getElementById('alertMap'), {
+            zoom: 16,
+            center: alertLocation,
+            mapTypeId: 'roadmap',
+            styles: [
+                {
+                    featureType: 'poi',
+                    elementType: 'labels',
+                    stylers: [{ visibility: 'on' }]
+                }
+            ],
+            streetViewControl: true,
+            mapTypeControl: true,
+            fullscreenControl: true,
+            zoomControl: true
+        });
+        
+        // Initialize traffic layer
+        trafficLayer = new google.maps.TrafficLayer();
+        
+        // Add enhanced marker for alert location
+        alertMarker = new google.maps.Marker({
+            position: alertLocation,
+            map: map,
+            title: '{{ alert.title|escapejs }}',
+            animation: google.maps.Animation.DROP,
+            icon: {
+                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+                    '<svg width="35" height="45" viewBox="0 0 35 45" xmlns="http://www.w3.org/2000/svg">' +
+                    '<path d="M17.5 0C7.8 0 0 7.8 0 17.5c0 17.5 17.5 27.5 17.5 27.5s17.5-10 17.5-27.5C35 7.8 27.2 0 17.5 0z" fill="#dc3545"/>' +
+                    '<circle cx="17.5" cy="17.5" r="10" fill="white"/>' +
+                    '<text x="17.5" y="22" text-anchor="middle" fill="#dc3545" font-size="14" font-weight="bold">!</text>' +
+                    '</svg>'
+                ),
+                scaledSize: new google.maps.Size(35, 45),
+                anchor: new google.maps.Point(17.5, 45)
+            }
+        });
+        
+        // Enhanced info window
+        const infoWindow = new google.maps.InfoWindow({
+            content: `
+                <div style="max-width: 280px; padding: 10px;">
+                    <h6 style="color: #dc3545; margin-bottom: 10px;">
+                        <i class="fas fa-exclamation-triangle"></i> ${'{{ alert.title|escapejs }}'}
+                    </h6>
+                    <div style="margin-bottom: 8px;">
+                        <span style="background: #{{ alert.severity == 'critical' and 'dc3545' or alert.severity == 'high' and 'fd7e14' or alert.severity == 'medium' and 'ffc107' or '28a745' }}; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px;">
+                            {{ alert.get_severity_display }}
+                        </span>
+                    </div>
+                    <p style="margin-bottom: 8px;"><strong>Category:</strong> {{ alert.category.name }}</p>
+                    <p style="margin-bottom: 8px;"><strong>Status:</strong> {{ alert.get_status_display }}</p>
+                    <p style="margin-bottom: 8px;"><strong>Reported:</strong> {{ alert.created_at|timesince }} ago</p>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <button onclick="getDirections()" style="background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                            <i class="fas fa-directions"></i> Directions
+                        </button>
+                    </div>
+                </div>
+            `
+        });
+        
+        alertMarker.addListener('click', () => {
+            infoWindow.open(map, alertMarker);
+        });
+        
+        // Auto-open info window
+        setTimeout(() => {
+            infoWindow.open(map, alertMarker);
+        }, 1000);
+        
+        // Show map controls
+        document.getElementById('mapControls').style.display = 'block';
+        
+        // Load nearby alerts
+        loadNearbyAlerts();
+    }
+    
+    // Center map on alert
+    function centerOnAlert() {
+        const alertLocation = { 
+            lat: parseFloat('{{ alert.latitude }}'), 
+            lng: parseFloat('{{ alert.longitude }}') 
+        };
+        map.setCenter(alertLocation);
+        map.setZoom(16);
+    }
+    
+    // Toggle satellite view
+    function toggleSatellite() {
+        isSatelliteView = !isSatelliteView;
+        map.setMapTypeId(isSatelliteView ? 'satellite' : 'roadmap');
+        
+        const btn = event.target.closest('button');
+        if (isSatelliteView) {
+            btn.classList.add('active');
+            btn.innerHTML = '<i class="fas fa-map"></i> Map';
+        } else {
+            btn.classList.remove('active');
+            btn.innerHTML = '<i class="fas fa-satellite"></i> Satellite';
+        }
+    }
+    
+    // Toggle traffic layer
+    function toggleTraffic() {
+        isTrafficVisible = !isTrafficVisible;
+        if (isTrafficVisible) {
+            trafficLayer.setMap(map);
+        } else {
+            trafficLayer.setMap(null);
+        }
+    }
+    
+    // Load and show nearby alerts
+    function loadNearbyAlerts() {
+        fetch(`/api/alerts/nearby/?lat={{ alert.latitude }}&lng={{ alert.longitude }}&radius=2&exclude={{ alert.id }}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results && data.results.length > 0) {
+                    showNearbyAlerts(data.results);
+                }
+            })
+            .catch(error => {
+                console.log('No nearby alerts data available:', error);
+            });
+    }
+    
+    // Show nearby alerts on map and in preview
+    function showNearbyAlerts(alerts) {
+        // Clear existing nearby markers
+        nearbyMarkers.forEach(marker => marker.setMap(null));
+        nearbyMarkers = [];
+        
+        // Show preview box
+        const previewBox = document.getElementById('nearbyAlertsPreview');
+        const alertsList = document.getElementById('nearbyAlertsList');
+        
+        if (alerts && alerts.length > 0) {
+            // Add markers to map
+            alerts.forEach(alert => {
+                const marker = new google.maps.Marker({
+                    position: { lat: alert.latitude, lng: alert.longitude },
+                    map: map,
+                    title: alert.title,
+                    icon: {
+                        url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+                            '<svg width="25" height="30" viewBox="0 0 25 30" xmlns="http://www.w3.org/2000/svg">' +
+                            '<path d="M12.5 0C5.6 0 0 5.6 0 12.5c0 12.5 12.5 17.5 12.5 17.5s12.5-5 12.5-17.5C25 5.6 19.4 0 12.5 0z" fill="#ffc107"/>' +
+                            '<circle cx="12.5" cy="12.5" r="6" fill="white"/>' +
+                            '<text x="12.5" y="16" text-anchor="middle" fill="#ffc107" font-size="10">!</text>' +
+                            '</svg>'
+                        ),
+                        scaledSize: new google.maps.Size(25, 30),
+                        anchor: new google.maps.Point(12.5, 30)
+                    }
+                });
+                
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `
+                        <div style="max-width: 200px;">
+                            <h6>${alert.title}</h6>
+                            <p><strong>Severity:</strong> ${alert.severity}</p>
+                            <p><small>${alert.created_at}</small></p>
+                        </div>
+                    `
+                });
+                
+                marker.addListener('click', () => {
+                    infoWindow.open(map, marker);
+                });
+                
+                nearbyMarkers.push(marker);
+            });
+            
+            // Show preview list
+            alertsList.innerHTML = alerts.slice(0, 3).map(alert => `
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                        <strong>${alert.title}</strong><br>
+                        <small class="text-muted">${alert.created_at}</small>
+                    </div>
+                    <span class="badge bg-warning">${alert.severity}</span>
+                </div>
+            `).join('');
+            
+            previewBox.style.display = 'block';
+        }
+    }
+    
+    // Get directions to alert location
+    function getDirections() {
+        const destination = `{{ alert.latitude }},{{ alert.longitude }}`;
+        const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+        window.open(url, '_blank');
+    }
+    
+    // Share location
+    function shareLocation() {
+        const url = window.location.href;
+        if (navigator.share) {
+            navigator.share({
+                title: '{{ alert.title|escapejs }}',
+                text: 'Security Alert: {{ alert.title|escapejs }}',
+                url: url,
+            });
+        } else {
+            copyToClipboard(url);
+            showToast('Location link copied to clipboard!');
+        }
+    }
+    
+    // Enhanced action functions
+    function reportSafetyUpdate() {
+        // This would open a modal or redirect to update form
+        alert('Safety update feature coming soon!');
+    }
+    
+    function requestMoreInfo() {
+        // This would trigger a notification request
+        alert('Information request sent to the reporter!');
+    }
+    
+    function subscribeToUpdates() {
+        // This would subscribe user to alert updates
+        alert('You will receive updates about this alert!');
+    }
+    
+    function shareViaEmail() {
+        const subject = encodeURIComponent('Security Alert: {{ alert.title|escapejs }}');
+        const body = encodeURIComponent(`There's a security alert in {{ alert.community.name }}: {{ alert.title|escapejs }}\n\nView details: ${window.location.href}`);
+        window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+    
+    function copyAlertLink() {
+        copyToClipboard(window.location.href);
+        showToast('Alert link copied to clipboard!');
+    }
+    
+    // Utility functions
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            console.log('Text copied to clipboard');
+        }).catch(function(err) {
+            console.error('Error copying text: ', err);
+        });
+    }
+    
+    function showToast(message) {
+        // Simple toast notification
+        const toast = document.createElement('div');
+        toast.className = 'alert alert-success position-fixed';
+        toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 250px;';
+        toast.innerHTML = `
+            <i class="fas fa-check-circle"></i> ${message}
+            <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
+        `;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.remove();
+            }
+        }, 3000);
+    }
+    
+    // Voting functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const voteButtons = document.querySelectorAll('.vote-btn');
+        
+        voteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const voteType = this.dataset.vote;
+                const alertId = this.dataset.alert;
+                
+                fetch(`/alerts/${alertId}/vote/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    body: `vote_type=${voteType}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update vote counts
+                        document.getElementById('upvote-count').textContent = data.upvotes;
+                        document.getElementById('downvote-count').textContent = data.downvotes;
+                        
+                        // Update button states
+                        voteButtons.forEach(btn => btn.classList.remove('active'));
+                        if (data.user_vote) {
+                            document.querySelector(`[data-vote="${data.user_vote}"]`).classList.add('active');
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error submitting vote. Please try again.');
+                });
+            });
+        });
+    });
+</script>
+
+<!-- Load Google Maps API with enhanced libraries -->
+<script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key={{ settings.GOOGLE_MAPS_API_KEY|default:'AIzaSyBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' }}&libraries=places,geometry&callback=initMap">
+</script>
+
+<!-- Enhanced fallback if Google Maps is not available -->
+<script>
+    setTimeout(function() {
+        if (typeof google === 'undefined') {
+            document.getElementById('alertMap').innerHTML = 
+                '<div class="alert alert-warning text-center d-flex flex-column justify-content-center" style="height: 380px;">' +
+                '<i class="fas fa-map-marked-alt fa-4x mb-3 text-muted"></i>' +
+                '<h5>Map Service Unavailable</h5>' +
+                '<p class="mb-3">Google Maps could not be loaded, but you can still view the coordinates.</p>' +
+                '<div class="location-info-box" style="max-width: 400px; margin: 0 auto;">' +
+                '<p><strong>Location:</strong> {{ alert.latitude }}, {{ alert.longitude }}</p>' +
+                '{% if alert.address %}<p><strong>Address:</strong> {{ alert.address }}</p>{% endif %}' +
+                '<button class="btn btn-primary" onclick="openInMaps()">Open in Maps App</button>' +
+                '</div>' +
+                '</div>';
+        }
+    }, 5000);
+    
+    function openInMaps() {
+        const url = `https://www.google.com/maps?q={{ alert.latitude }},{{ alert.longitude }}`;
+        window.open(url, '_blank');
+    }
+</script>
+{% endblock %}

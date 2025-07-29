@@ -1,0 +1,722 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Alert - Community Alert System{% endblock %}
+
+{% block extra_css %}
+<style>
+    #map {
+        height: 450px;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        border: 2px solid #dee2e6;
+    }
+    .form-section {
+        margin-bottom: 2rem;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 1.5rem;
+        background: #f8f9fa;
+    }
+    .form-section h5 {
+        color: #495057;
+        margin-bottom: 1rem;
+    }
+    .required-field::after {
+        content: " *";
+        color: #dc3545;
+        font-weight: bold;
+    }
+    .location-info {
+        background: #e7f3ff;
+        border: 1px solid #b8daff;
+        border-radius: 6px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    .map-controls {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin: 10px;
+        padding: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    .severity-selector {
+        transition: all 0.3s ease;
+    }
+    .severity-selector:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .media-preview {
+        display: none;
+        margin-top: 1rem;
+    }
+    .media-preview img {
+        max-width: 200px;
+        max-height: 150px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin: 5px;
+    }
+    .coordinate-inputs {
+        background: #f8f9fa;
+        border-radius: 6px;
+        padding: 1rem;
+    }
+    .btn-location {
+        background: #17a2b8;
+        border-color: #17a2b8;
+        color: white;
+    }
+    .btn-location:hover {
+        background: #138496;
+        border-color: #117a8b;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-lg">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Report Security Alert</h3>
+                    <p class="mb-0 small">Provide details about the security incident to alert your community.</p>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" id="alertForm">
+                        {% csrf_token %}
+                        
+                        {% if form.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            <strong><i class="fas fa-exclamation-circle"></i> Please correct the following errors:</strong>
+                            <ul class="mb-0 mt-2">
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                        <li>{{ field|title }}: {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Basic Information -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-info-circle text-primary"></i> Alert Information</h5>
+                            
+                            <div class="mb-3">
+                                <label for="id_title" class="form-label required-field">Alert Title</label>
+                                <input type="text" class="form-control form-control-lg" name="title" id="id_title" 
+                                       placeholder="Brief, descriptive title for the alert" required maxlength="200"
+                                       value="{{ form.title.value|default:'' }}">
+                                <div class="form-text">Be specific and clear (e.g., "Car break-in on Oak Street" rather than "Incident")</div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_category" class="form-label required-field">Category</label>
+                                    <select class="form-select" name="category" id="id_category" required>
+                                        <option value="">Select a category</option>
+                                        {% for category in form.category.field.queryset %}
+                                        <option value="{{ category.id }}" 
+                                                {% if form.category.value == category.id|stringformat:"s" %}selected{% endif %}>
+                                            {{ category.name }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_severity" class="form-label required-field">Severity Level</label>
+                                    <select class="form-select severity-selector" name="severity" id="id_severity" required>
+                                        <option value="">Select severity</option>
+                                        <option value="low" {% if form.severity.value == 'low' %}selected{% endif %}>
+                                            🟢 Low - Minor incident
+                                        </option>
+                                        <option value="medium" {% if form.severity.value == 'medium' %}selected{% endif %}>
+                                            🟡 Medium - Concerning incident
+                                        </option>
+                                        <option value="high" {% if form.severity.value == 'high' %}selected{% endif %}>
+                                            🟠 High - Serious incident
+                                        </option>
+                                        <option value="critical" {% if form.severity.value == 'critical' %}selected{% endif %}>
+                                            🔴 Critical - Emergency situation
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="id_description" class="form-label required-field">Description</label>
+                                <textarea class="form-control" name="description" id="id_description" rows="5" 
+                                          placeholder="Provide detailed information about what happened, when, and any other relevant details" 
+                                          required>{{ form.description.value|default:'' }}</textarea>
+                                <div class="form-text">Include as much detail as possible: What happened? When? Who was involved? What did you observe?</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Location Information -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-map-marker-alt text-primary"></i> Location Information</h5>
+                            
+                            <div class="location-info">
+                                <i class="fas fa-info-circle"></i>
+                                <strong>Set Location:</strong> Click on the map below to set the exact location of the incident.
+                                You can also drag the marker to fine-tune the position.
+                                <div class="mt-2">
+                                    <button type="button" class="btn btn-location btn-sm" onclick="getCurrentLocation()">
+                                        <i class="fas fa-crosshairs"></i> Use My Current Location
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="searchLocation()">
+                                        <i class="fas fa-search"></i> Search Address
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Map Container -->
+                            <div id="map" class="mb-3"></div>
+                            
+                            <!-- Search Box -->
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="searchBox" 
+                                       placeholder="Search for address or landmark..." 
+                                       style="display: none;">
+                            </div>
+                            
+                            <div class="coordinate-inputs">
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="id_latitude" class="form-label required-field">Latitude</label>
+                                        <input type="number" step="any" class="form-control" name="latitude" id="id_latitude" 
+                                               placeholder="Click on map" required 
+                                               value="{{ form.latitude.value|default:'' }}">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="id_longitude" class="form-label required-field">Longitude</label>
+                                        <input type="number" step="any" class="form-control" name="longitude" id="id_longitude" 
+                                               placeholder="Click on map" required 
+                                               value="{{ form.longitude.value|default:'' }}">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="id_community" class="form-label required-field">Community</label>
+                                        <select class="form-select" name="community" id="id_community" required>
+                                            <option value="">Auto-detect from location</option>
+                                            {% for community in form.community.field.queryset %}
+                                            <option value="{{ community.id }}" 
+                                                    {% if form.community.value == community.id|stringformat:"s" %}selected{% endif %}>
+                                                {{ community.name }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="id_address" class="form-label">Street Address or Landmark</label>
+                                    <input type="text" class="form-control" name="address" id="id_address" 
+                                           placeholder="e.g., 123 Main St or Near Central Park"
+                                           value="{{ form.address.value|default:'' }}">
+                                    <div class="form-text">This will be auto-filled when you click on the map, but you can edit it.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Incident Details -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-clock text-primary"></i> Incident Timing</h5>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_incident_datetime" class="form-label required-field">When did this happen?</label>
+                                    <input type="datetime-local" class="form-control" name="incident_datetime" 
+                                           id="id_incident_datetime" required 
+                                           value="{{ form.incident_datetime.value|date:'Y-m-d\TH:i'|default:'' }}">
+                                    <div class="form-text">Select the approximate time when the incident occurred.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="id_status" class="form-label">Current Status</label>
+                                    <select class="form-select" name="status" id="id_status">
+                                        <option value="active" {% if form.status.value == 'active' %}selected{% endif %}>
+                                            🔴 Active - Ongoing or unresolved
+                                        </option>
+                                        <option value="resolved" {% if form.status.value == 'resolved' %}selected{% endif %}>
+                                            ✅ Resolved - Issue has been addressed
+                                        </option>
+                                        <option value="under_review" {% if form.status.value == 'under_review' %}selected{% endif %}>
+                                            🔍 Under Review - Being investigated
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Media Upload -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-camera text-primary"></i> Media Evidence (Optional)</h5>
+                            
+                            <div class="mb-3">
+                                <label for="media_files" class="form-label">Photos or Videos</label>
+                                <input type="file" class="form-control" name="media_files" id="media_files" 
+                                       multiple accept="image/*,video/*" onchange="previewMedia(this)">
+                                <div class="form-text">
+                                    <i class="fas fa-info-circle"></i>
+                                    Upload multiple images or videos (Max 50MB per file). 
+                                    Supported formats: JPEG, PNG, GIF, MP4, WebM
+                                </div>
+                            </div>
+                            
+                            <div id="mediaPreview" class="media-preview">
+                                <h6>Selected files:</h6>
+                                <div id="previewContainer"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Privacy Settings -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-shield-alt text-primary"></i> Privacy & Visibility</h5>
+                            
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" name="is_public" id="id_is_public" 
+                                       {% if form.is_public.value != False %}checked{% endif %}>
+                                <label class="form-check-label" for="id_is_public">
+                                    <strong>Make this alert public</strong><br>
+                                    <small class="text-muted">Allow all community members to view this alert. Uncheck to share only with moderators.</small>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Emergency Notice -->
+                        <div class="alert alert-warning border-warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Emergency Situations:</strong> If this is an immediate emergency requiring police, fire, or medical response, 
+                            <strong>please call 911 first</strong>, then report here to inform the community.
+                        </div>
+                        
+                        <!-- Submit Buttons -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{% url 'home' %}" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                            <div>
+                                <button type="button" class="btn btn-outline-primary btn-lg me-2" onclick="previewAlert()">
+                                    <i class="fas fa-eye"></i> Preview
+                                </button>
+                                <button type="submit" class="btn btn-danger btn-lg">
+                                    <i class="fas fa-exclamation-triangle"></i> Submit Alert
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Preview Modal -->
+<div class="modal fade" id="previewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Alert Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="previewContent">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Edit</button>
+                <button type="button" class="btn btn-danger" onclick="submitForm()">Submit Alert</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    let map;
+    let marker;
+    let geocoder;
+    let searchBox;
+    let communityBoundaries = [];
+    
+    // Community data from Django
+    const communities = [
+        {% for community in form.community.field.queryset %}
+        {
+            id: {{ community.id }},
+            name: "{{ community.name|escapejs }}",
+            lat: {{ community.latitude }},
+            lng: {{ community.longitude }},
+            radius: {{ community.radius_km }}
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+    
+    // Initialize map
+    function initMap() {
+        // Default to configured center or New York City
+        const defaultLocation = { 
+            lat: {{ settings.DEFAULT_MAP_CENTER_LAT|default:40.7589 }}, 
+            lng: {{ settings.DEFAULT_MAP_CENTER_LNG|default:-73.9851 }} 
+        };
+        
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: {{ settings.DEFAULT_MAP_ZOOM|default:13 }},
+            center: defaultLocation,
+            mapTypeId: 'roadmap',
+            styles: [
+                {
+                    featureType: 'poi',
+                    elementType: 'labels',
+                    stylers: [{ visibility: 'on' }]
+                }
+            ]
+        });
+        
+        geocoder = new google.maps.Geocoder();
+        
+        // Add search box
+        const searchInput = document.getElementById('searchBox');
+        searchBox = new google.maps.places.SearchBox(searchInput);
+        
+        // Add community boundaries
+        drawCommunityBoundaries();
+        
+        // Try to get user's current location
+        getCurrentLocation();
+        
+        // Add click listener to map
+        map.addListener('click', (event) => {
+            placeMarker(event.latLng);
+        });
+        
+        // Listen for search box results
+        searchBox.addListener('places_changed', () => {
+            const places = searchBox.getPlaces();
+            if (places.length === 0) return;
+            
+            const place = places[0];
+            if (place.geometry && place.geometry.location) {
+                placeMarker(place.geometry.location);
+                map.setCenter(place.geometry.location);
+                map.setZoom(16);
+            }
+        });
+        
+        // Load existing location if editing
+        const existingLat = document.getElementById('id_latitude').value;
+        const existingLng = document.getElementById('id_longitude').value;
+        
+        if (existingLat && existingLng) {
+            const existingLocation = new google.maps.LatLng(
+                parseFloat(existingLat), 
+                parseFloat(existingLng)
+            );
+            placeMarker(existingLocation);
+            map.setCenter(existingLocation);
+        }
+    }
+    
+    // Draw community boundaries on map
+    function drawCommunityBoundaries() {
+        communities.forEach(community => {
+            const circle = new google.maps.Circle({
+                strokeColor: '#007bff',
+                strokeOpacity: 0.6,
+                strokeWeight: 2,
+                fillColor: '#007bff',
+                fillOpacity: 0.1,
+                map: map,
+                center: { lat: community.lat, lng: community.lng },
+                radius: community.radius * 1000, // Convert km to meters
+                clickable: false
+            });
+            
+            const marker = new google.maps.Marker({
+                position: { lat: community.lat, lng: community.lng },
+                map: map,
+                title: community.name,
+                icon: {
+                    url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+                        '<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">' +
+                        '<circle cx="10" cy="10" r="8" fill="#007bff" stroke="white" stroke-width="2"/>' +
+                        '<text x="10" y="14" text-anchor="middle" fill="white" font-size="10">C</text>' +
+                        '</svg>'
+                    ),
+                    scaledSize: new google.maps.Size(20, 20)
+                }
+            });
+            
+            communityBoundaries.push({ circle, marker, data: community });
+        });
+    }
+    
+    // Get current location
+    function getCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const userLocation = new google.maps.LatLng(
+                        position.coords.latitude,
+                        position.coords.longitude
+                    );
+                    
+                    // Only center if no existing location is set
+                    if (!document.getElementById('id_latitude').value) {
+                        map.setCenter(userLocation);
+                        placeMarker(userLocation);
+                    }
+                },
+                (error) => {
+                    console.log('Location access denied or failed:', error);
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 300000
+                }
+            );
+        }
+    }
+    
+    // Place marker and update form fields
+    function placeMarker(location) {
+        // Remove existing marker
+        if (marker) {
+            marker.setMap(null);
+        }
+        
+        // Create new marker
+        marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            title: 'Incident Location',
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            icon: {
+                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+                    '<svg width="30" height="40" viewBox="0 0 30 40" xmlns="http://www.w3.org/2000/svg">' +
+                    '<path d="M15 0C6.7 0 0 6.7 0 15c0 15 15 25 15 25s15-10 15-25C30 6.7 23.3 0 15 0z" fill="#dc3545"/>' +
+                    '<circle cx="15" cy="15" r="8" fill="white"/>' +
+                    '<text x="15" y="19" text-anchor="middle" fill="#dc3545" font-size="12">!</text>' +
+                    '</svg>'
+                ),
+                scaledSize: new google.maps.Size(30, 40),
+                anchor: new google.maps.Point(15, 40)
+            }
+        });
+        
+        // Update form fields
+        updateLocationFields(location);
+        
+        // Add drag listener to marker
+        marker.addListener('dragend', (event) => {
+            updateLocationFields(event.latLng);
+        });
+        
+        // Reverse geocoding for address
+        geocoder.geocode({ location: location }, (results, status) => {
+            if (status === 'OK' && results[0]) {
+                document.getElementById('id_address').value = results[0].formatted_address;
+            }
+        });
+        
+        // Auto-select community
+        autoSelectCommunity(location);
+    }
+    
+    // Update location form fields
+    function updateLocationFields(location) {
+        document.getElementById('id_latitude').value = location.lat().toFixed(6);
+        document.getElementById('id_longitude').value = location.lng().toFixed(6);
+        
+        // Clear previous validation styling
+        ['id_latitude', 'id_longitude'].forEach(id => {
+            document.getElementById(id).classList.remove('is-invalid');
+        });
+    }
+    
+    // Auto-select appropriate community based on location
+    function autoSelectCommunity(location) {
+        let closestCommunity = null;
+        let minDistance = Infinity;
+        
+        communities.forEach(community => {
+            const distance = google.maps.geometry.spherical.computeDistanceBetween(
+                location,
+                new google.maps.LatLng(community.lat, community.lng)
+            ) / 1000; // Convert to km
+            
+            if (distance <= community.radius && distance < minDistance) {
+                minDistance = distance;
+                closestCommunity = community;
+            }
+        });
+        
+        const communitySelect = document.getElementById('id_community');
+        if (closestCommunity) {
+            communitySelect.value = closestCommunity.id;
+            communitySelect.classList.remove('is-invalid');
+        } else {
+            communitySelect.value = '';
+        }
+    }
+    
+    // Search location function
+    function searchLocation() {
+        const searchInput = document.getElementById('searchBox');
+        if (searchInput.style.display === 'none') {
+            searchInput.style.display = 'block';
+            searchInput.focus();
+        } else {
+            searchInput.style.display = 'none';
+        }
+    }
+    
+    // Media preview function
+    function previewMedia(input) {
+        const previewDiv = document.getElementById('mediaPreview');
+        const previewContainer = document.getElementById('previewContainer');
+        
+        previewContainer.innerHTML = '';
+        
+        if (input.files && input.files.length > 0) {
+            previewDiv.style.display = 'block';
+            
+            Array.from(input.files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    img.onload = () => URL.revokeObjectURL(img.src);
+                    previewContainer.appendChild(img);
+                } else if (file.type.startsWith('video/')) {
+                    const video = document.createElement('video');
+                    video.src = URL.createObjectURL(file);
+                    video.controls = true;
+                    video.style.maxWidth = '200px';
+                    video.style.maxHeight = '150px';
+                    video.style.margin = '5px';
+                    previewContainer.appendChild(video);
+                }
+            });
+        } else {
+            previewDiv.style.display = 'none';
+        }
+    }
+    
+    // Preview alert function
+    function previewAlert() {
+        const title = document.getElementById('id_title').value;
+        const description = document.getElementById('id_description').value;
+        const category = document.getElementById('id_category');
+        const severity = document.getElementById('id_severity');
+        const address = document.getElementById('id_address').value;
+        
+        if (!title || !description) {
+            alert('Please fill in the title and description first.');
+            return;
+        }
+        
+        const previewContent = `
+            <div class="alert alert-info">
+                <h5>${title}</h5>
+                <p><strong>Category:</strong> ${category.options[category.selectedIndex]?.text || 'Not selected'}</p>
+                <p><strong>Severity:</strong> ${severity.options[severity.selectedIndex]?.text || 'Not selected'}</p>
+                <p><strong>Location:</strong> ${address || 'Coordinates set on map'}</p>
+                <p><strong>Description:</strong></p>
+                <p>${description}</p>
+            </div>
+        `;
+        
+        document.getElementById('previewContent').innerHTML = previewContent;
+        new bootstrap.Modal(document.getElementById('previewModal')).show();
+    }
+    
+    // Submit form function
+    function submitForm() {
+        document.getElementById('alertForm').submit();
+    }
+    
+    // Set current date/time as default for incident
+    document.addEventListener('DOMContentLoaded', function() {
+        const incidentInput = document.getElementById('id_incident_datetime');
+        if (!incidentInput.value) {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            incidentInput.value = now.toISOString().slice(0, 16);
+        }
+        
+        // Form validation
+        document.getElementById('alertForm').addEventListener('submit', function(e) {
+            const latitude = document.getElementById('id_latitude').value;
+            const longitude = document.getElementById('id_longitude').value;
+            
+            if (!latitude || !longitude) {
+                e.preventDefault();
+                
+                // Add visual feedback
+                ['id_latitude', 'id_longitude'].forEach(id => {
+                    document.getElementById(id).classList.add('is-invalid');
+                });
+                
+                // Show error alert
+                const errorAlert = `
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong><i class="fas fa-map-marker-alt"></i> Location Required</strong><br>
+                        Please click on the map to set the incident location.
+                    </div>
+                `;
+                
+                const form = document.getElementById('alertForm');
+                form.insertAdjacentHTML('afterbegin', errorAlert);
+                
+                // Scroll to top
+                form.scrollIntoView({ behavior: 'smooth' });
+                
+                return false;
+            }
+        });
+    });
+</script>
+
+<!-- Load Google Maps API with Places and Geometry libraries -->
+<script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key={{ settings.GOOGLE_MAPS_API_KEY|default:'AIzaSyBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' }}&libraries=places,geometry&callback=initMap">
+</script>
+
+<!-- Fallback if Google Maps is not available -->
+<script>
+    // Fallback for when Google Maps API is not available
+    setTimeout(function() {
+        if (typeof google === 'undefined') {
+            document.getElementById('map').innerHTML = 
+                '<div class="alert alert-warning text-center d-flex flex-column justify-content-center" style="height: 400px;">' +
+                '<i class="fas fa-map-marked-alt fa-4x mb-3 text-muted"></i>' +
+                '<h5>Map Service Unavailable</h5>' +
+                '<p class="mb-3">Google Maps could not be loaded. You can still create an alert by entering coordinates manually.</p>' +
+                '<button class="btn btn-primary" onclick="enableManualLocation()">Enter Location Manually</button>' +
+                '</div>';
+        }
+    }, 5000);
+    
+    function enableManualLocation() {
+        // Enable coordinate inputs for manual entry
+        document.getElementById('id_latitude').readOnly = false;
+        document.getElementById('id_longitude').readOnly = false;
+        document.getElementById('id_latitude').placeholder = 'Enter latitude (e.g., 40.7589)';
+        document.getElementById('id_longitude').placeholder = 'Enter longitude (e.g., -73.9851)';
+        
+        // Show help text
+        const helpText = document.createElement('div');
+        helpText.className = 'form-text text-info';
+        helpText.innerHTML = '<i class="fas fa-info-circle"></i> You can find coordinates using online tools like Google Maps. Right-click on a location and copy the coordinates.';
+        document.getElementById('id_latitude').parentNode.appendChild(helpText);
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,528 @@
+INFO 2025-07-29 20:19:13,043 autoreload 6849 125631651311744 Watching for file changes with StatReloader
+INFO 2025-07-29 20:19:15,670 basehttp 6849 125631591257792 "GET / HTTP/1.1" 200 8322
+WARNING 2025-07-29 20:19:19,442 log 6849 125631591257792 Not Found: /favicon.ico
+WARNING 2025-07-29 20:19:19,443 basehttp 6849 125631591257792 "GET /favicon.ico HTTP/1.1" 404 6902
+ERROR 2025-07-29 20:19:25,378 log 6849 125631591257792 Internal Server Error: /alerts/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 85, in alert_list
+    return render(request, 'community/alert_list.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: community/alert_list.html
+ERROR 2025-07-29 20:19:25,381 basehttp 6849 125631591257792 "GET /alerts/ HTTP/1.1" 500 89213
+INFO 2025-07-29 20:19:43,169 basehttp 6849 125631591257792 "GET /login/ HTTP/1.1" 200 5960
+INFO 2025-07-29 20:19:46,086 basehttp 6849 125631591257792 "GET /login/ HTTP/1.1" 200 5960
+INFO 2025-07-29 20:19:47,813 basehttp 6849 125631591257792 "GET /register/ HTTP/1.1" 200 6841
+INFO 2025-07-29 20:19:51,688 basehttp 6849 125631591257792 "GET / HTTP/1.1" 200 8322
+ERROR 2025-07-29 20:19:53,069 log 6849 125631591257792 Internal Server Error: /alerts/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 85, in alert_list
+    return render(request, 'community/alert_list.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: community/alert_list.html
+ERROR 2025-07-29 20:19:53,073 basehttp 6849 125631591257792 "GET /alerts/ HTTP/1.1" 500 89213
+INFO 2025-07-29 20:20:14,866 basehttp 6849 125631591257792 "GET / HTTP/1.1" 200 12208
+ERROR 2025-07-29 20:20:22,180 log 6849 125631591257792 Internal Server Error: /alerts/3c1caf14-67ed-4ebd-ad3c-824939941733/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 115, in alert_detail
+    return render(request, 'community/alert_detail.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: community/alert_detail.html
+ERROR 2025-07-29 20:20:22,181 basehttp 6849 125631591257792 "GET /alerts/3c1caf14-67ed-4ebd-ad3c-824939941733/ HTTP/1.1" 500 87854
+INFO 2025-07-29 20:20:27,292 basehttp 6849 125631591257792 "GET /register/ HTTP/1.1" 200 6841
+INFO 2025-07-29 20:23:59,374 basehttp 6849 125631591257792 "GET / HTTP/1.1" 200 12208
+INFO 2025-07-29 20:24:01,049 basehttp 6849 125631591257792 "GET / HTTP/1.1" 200 12208
+INFO 2025-07-29 20:24:04,862 basehttp 6849 125631591257792 "GET /alerts/3c1caf14-67ed-4ebd-ad3c-824939941733/ HTTP/1.1" 200 14174
+ERROR 2025-07-29 20:24:21,969 log 6849 125631591257792 Internal Server Error: /alerts/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 85, in alert_list
+    return render(request, 'community/alert_list.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: community/alert_list.html
+ERROR 2025-07-29 20:24:21,970 basehttp 6849 125631591257792 "GET /alerts/?community=3bbd74a3-5efc-4fa9-995a-20379abe4634 HTTP/1.1" 500 91611
+ERROR 2025-07-29 20:24:28,378 log 6849 125631591257792 Internal Server Error: /communities/3bbd74a3-5efc-4fa9-995a-20379abe4634/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 264, in community_detail
+    return render(request, 'community/community_detail.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: community/community_detail.html
+ERROR 2025-07-29 20:24:28,382 basehttp 6849 125631591257792 "GET /communities/3bbd74a3-5efc-4fa9-995a-20379abe4634/ HTTP/1.1" 500 89235
+ERROR 2025-07-29 20:24:54,900 log 6849 125631591257792 Internal Server Error: /alerts/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 85, in alert_list
+    return render(request, 'community/alert_list.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 489, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 710, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '.name' from 'categories|first.name'
+ERROR 2025-07-29 20:24:54,908 basehttp 6849 125631591257792 "GET /alerts/?community=3bbd74a3-5efc-4fa9-995a-20379abe4634 HTTP/1.1" 500 340807
+INFO 2025-07-29 20:24:57,747 autoreload 6849 125631651311744 /home/sammiykay/Desktop/projects/alert/alert_system/alert_system/settings.py changed, reloading.
+INFO 2025-07-29 20:24:58,627 autoreload 10238 136839964627072 Watching for file changes with StatReloader
+INFO 2025-07-29 20:26:11,201 autoreload 10238 136839964627072 /home/sammiykay/Desktop/projects/alert/alert_system/alert_system/urls.py changed, reloading.
+INFO 2025-07-29 20:26:12,015 autoreload 11485 135798907527296 Watching for file changes with StatReloader
+INFO 2025-07-29 20:27:02,993 autoreload 11485 135798907527296 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-29 20:27:04,048 autoreload 12128 123556052746368 Watching for file changes with StatReloader
+INFO 2025-07-29 20:31:23,401 basehttp 12128 123555992737472 "GET /alerts/3c1caf14-67ed-4ebd-ad3c-824939941733/ HTTP/1.1" 200 14176
+INFO 2025-07-29 20:32:37,866 autoreload 12128 123556052746368 /home/sammiykay/Desktop/projects/alert/alert_system/alert_system/settings.py changed, reloading.
+INFO 2025-07-29 20:32:38,729 autoreload 14136 134760187330688 Watching for file changes with StatReloader
+INFO 2025-07-29 20:37:35,697 basehttp 14136 134760127329984 "GET / HTTP/1.1" 200 12210
+INFO 2025-07-29 20:37:40,453 basehttp 14136 134760127329984 "GET /register/ HTTP/1.1" 200 6841
+INFO 2025-07-29 20:38:43,734 basehttp 14136 134760127329984 "POST /register/ HTTP/1.1" 200 7135
+INFO 2025-07-29 20:38:58,781 basehttp 14136 134760127329984 "POST /register/ HTTP/1.1" 302 0
+INFO 2025-07-29 20:38:58,789 basehttp 14136 134760127329984 "GET /login/ HTTP/1.1" 200 6263
+INFO 2025-07-29 20:39:06,948 basehttp 14136 134760127329984 "POST /login/ HTTP/1.1" 200 6300
+INFO 2025-07-29 20:39:16,159 basehttp 14136 134760127329984 "POST /login/ HTTP/1.1" 200 6300
+INFO 2025-07-29 20:39:25,797 basehttp 14136 134760127329984 "POST /login/ HTTP/1.1" 200 6300
+INFO 2025-07-29 20:41:16,379 basehttp 14136 134760118937280 "GET /admin HTTP/1.1" 301 0
+INFO 2025-07-29 20:41:16,486 basehttp 14136 134760034727616 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-07-29 20:41:16,569 basehttp 14136 134760034727616 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4170
+INFO 2025-07-29 20:41:16,675 basehttp 14136 134760034727616 "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-07-29 20:41:16,683 basehttp 14136 134760017942208 "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-07-29 20:41:16,683 basehttp 14136 134760118937280 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-07-29 20:41:16,683 basehttp 14136 134760026334912 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-07-29 20:41:16,685 basehttp 14136 134760009549504 "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-07-29 20:41:16,686 basehttp 14136 134760001156800 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-07-29 20:41:19,155 basehttp 14136 134760034727616 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+WARNING 2025-07-29 20:41:20,044 log 14136 134760034727616 Not Found: /favicon.ico
+WARNING 2025-07-29 20:41:20,045 basehttp 14136 134760034727616 "GET /favicon.ico HTTP/1.1" 404 7049
+INFO 2025-07-29 20:45:11,664 basehttp 14136 134759992764096 "POST /login/ HTTP/1.1" 200 6300
+INFO 2025-07-29 20:45:20,927 basehttp 14136 134760034727616 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4339
+INFO 2025-07-29 20:45:20,947 basehttp 14136 134760034727616 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-07-29 20:45:20,960 basehttp 14136 134760001156800 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-07-29 20:45:20,961 basehttp 14136 134760118937280 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-07-29 20:45:20,963 basehttp 14136 134760009549504 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-07-29 20:45:20,963 basehttp 14136 134760017942208 "GET /static/admin/css/login.css HTTP/1.1" 304 0
+INFO 2025-07-29 20:45:20,963 basehttp 14136 134760026334912 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-07-29 20:45:21,511 basehttp 14136 134760034727616 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-07-29 20:45:27,433 basehttp 14136 134760034727616 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4339
+INFO 2025-07-29 20:47:13,482 autoreload 14136 134760187330688 /home/sammiykay/Desktop/projects/alert/alert_system/alert_system/settings.py changed, reloading.
+INFO 2025-07-29 20:47:14,175 autoreload 19825 138731926188160 Watching for file changes with StatReloader
+INFO 2025-07-29 20:48:58,052 autoreload 19825 138731926188160 /home/sammiykay/Desktop/projects/alert/alert_system/alert_system/settings.py changed, reloading.
+INFO 2025-07-29 20:48:58,748 autoreload 20582 127375783977088 Watching for file changes with StatReloader
+INFO 2025-07-29 20:49:23,531 autoreload 20582 127375783977088 /home/sammiykay/Desktop/projects/alert/alert_system/alert_system/settings.py changed, reloading.
+INFO 2025-07-29 20:49:24,351 autoreload 20798 127559753609344 Watching for file changes with StatReloader
+INFO 2025-07-29 20:51:18,581 autoreload 21637 131337252954240 Watching for file changes with StatReloader
+INFO 2025-07-29 20:51:21,604 basehttp 21637 131337192904384 "GET / HTTP/1.1" 200 12210
+INFO 2025-07-29 20:51:27,837 basehttp 21637 131337192904384 "GET /login/ HTTP/1.1" 200 6287
+INFO 2025-07-29 20:51:44,864 basehttp 21637 131337192904384 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-07-29 20:51:44,881 basehttp 21637 131337192904384 "GET / HTTP/1.1" 200 12980
+INFO 2025-07-29 20:51:48,717 basehttp 21637 131337192904384 "GET /profile/ HTTP/1.1" 200 28935
+INFO 2025-07-29 20:51:59,415 basehttp 21637 131337192904384 "POST /profile/ HTTP/1.1" 200 28935
+WARNING 2025-07-29 20:52:03,614 log 21637 131337192904384 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 20:52:03,614 basehttp 21637 131337192904384 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7160
+INFO 2025-07-29 20:52:16,902 basehttp 21637 131337192904384 "POST /profile/ HTTP/1.1" 200 28935
+INFO 2025-07-29 20:52:33,816 basehttp 21637 131337192904384 "POST /profile/ HTTP/1.1" 200 30676
+WARNING 2025-07-29 20:52:40,783 log 21637 131337192904384 Not Found: /api/test-notification/
+WARNING 2025-07-29 20:52:40,785 basehttp 21637 131337192904384 "POST /api/test-notification/ HTTP/1.1" 404 9106
+INFO 2025-07-29 20:52:49,878 autoreload 21637 131337252954240 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-29 20:52:50,567 autoreload 22437 138386144370816 Watching for file changes with StatReloader
+INFO 2025-07-29 20:52:59,150 autoreload 22437 138386144370816 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-29 20:52:59,768 autoreload 22522 137006081282176 Watching for file changes with StatReloader
+INFO 2025-07-29 20:53:21,494 autoreload 22522 137006081282176 /home/sammiykay/Desktop/projects/alert/alert_system/api/urls.py changed, reloading.
+INFO 2025-07-29 20:53:22,444 autoreload 22712 133001328169088 Watching for file changes with StatReloader
+INFO 2025-07-29 20:53:54,298 autoreload 22712 133001328169088 /home/sammiykay/Desktop/projects/alert/alert_system/api/views.py changed, reloading.
+INFO 2025-07-29 20:53:54,969 autoreload 22949 128489308577920 Watching for file changes with StatReloader
+ERROR 2025-07-29 20:55:20,923 log 23530 138756530188416 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/utils/deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/http/request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+ERROR 2025-07-29 20:55:20,967 log 23530 138756530188416 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/utils/deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/http/request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+INFO 2025-07-29 20:55:31,865 autoreload 22949 128489308577920 /home/sammiykay/Desktop/projects/alert/alert_system/alert_system/settings.py changed, reloading.
+INFO 2025-07-29 20:55:32,476 autoreload 23605 133673885618304 Watching for file changes with StatReloader
+INFO 2025-07-29 20:56:08,000 basehttp 23605 133673825662656 "GET /profile/ HTTP/1.1" 200 30256
+WARNING 2025-07-29 20:56:08,071 log 23605 133673825662656 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 20:56:08,071 basehttp 23605 133673825662656 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7160
+INFO 2025-07-29 20:56:25,463 basehttp 23605 133673825662656 "POST /profile/ HTTP/1.1" 200 31997
+INFO 2025-07-29 20:56:36,577 basehttp 23605 133673825662656 "POST /profile/ HTTP/1.1" 200 31997
+INFO 2025-07-29 20:57:56,082 autoreload 23605 133673885618304 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-29 20:57:56,720 autoreload 24620 131299562532992 Watching for file changes with StatReloader
+INFO 2025-07-29 20:58:33,616 autoreload 24620 131299562532992 /home/sammiykay/Desktop/projects/alert/alert_system/community/urls.py changed, reloading.
+INFO 2025-07-29 20:58:34,204 autoreload 24918 139152183332992 Watching for file changes with StatReloader
+INFO 2025-07-29 20:58:53,793 autoreload 24918 139152183332992 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-29 20:58:54,486 autoreload 25094 124867024765056 Watching for file changes with StatReloader
+INFO 2025-07-29 20:59:25,568 autoreload 25094 124867024765056 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-29 20:59:26,137 autoreload 25332 139161685278848 Watching for file changes with StatReloader
+INFO 2025-07-29 21:00:05,012 autoreload 25332 139161685278848 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-29 21:00:05,579 autoreload 25596 139785255727232 Watching for file changes with StatReloader
+INFO 2025-07-29 21:02:01,416 autoreload 25596 139785255727232 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-29 21:02:02,277 autoreload 26339 123323657138304 Watching for file changes with StatReloader
+INFO 2025-07-29 21:02:05,769 autoreload 26339 123323657138304 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-29 21:02:06,325 autoreload 26390 130277512376448 Watching for file changes with StatReloader
+INFO 2025-07-29 21:02:15,151 basehttp 26390 130277452347072 "GET /alerts/create/ HTTP/1.1" 200 40358
+WARNING 2025-07-29 21:02:15,269 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:02:15,273 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-29 21:24:55,283 basehttp 26390 130277452347072 "POST /alerts/create/ HTTP/1.1" 302 0
+ERROR 2025-07-29 21:24:55,508 log 26390 130277452347072 Internal Server Error: /alerts/ae06f44b-0297-42b7-b294-3e34dfba9738/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 115, in alert_detail
+    return render(request, 'community/alert_detail.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 489, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 710, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: ' == 'critical' and 'dc3545' or alert.severity == 'high' and 'fd7e14' or alert.severity == 'medium' and 'ffc107' or '28a745'' from 'alert.severity == 'critical' and 'dc3545' or alert.severity == 'high' and 'fd7e14' or alert.severity == 'medium' and 'ffc107' or '28a745''
+ERROR 2025-07-29 21:24:55,513 basehttp 26390 130277452347072 "GET /alerts/ae06f44b-0297-42b7-b294-3e34dfba9738/ HTTP/1.1" 500 245188
+WARNING 2025-07-29 21:24:55,597 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:24:55,597 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-29 21:25:04,360 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:25:04,361 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-29 21:25:04,492 log 26390 130277443954368 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:25:04,493 basehttp 26390 130277443954368 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-29 21:25:04,520 basehttp 26390 130277452347072 "GET /profile/ HTTP/1.1" 200 31600
+WARNING 2025-07-29 21:25:04,744 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:25:04,744 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-29 21:25:10,344 basehttp 26390 130277452347072 "POST /api/test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-29 21:25:12,570 basehttp 26390 130277452347072 "GET /profile/ HTTP/1.1" 200 31309
+WARNING 2025-07-29 21:25:12,670 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:25:12,672 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-29 21:25:16,640 basehttp 26390 130277452347072 "GET /alerts/nearby/ HTTP/1.1" 302 0
+INFO 2025-07-29 21:25:16,717 basehttp 26390 130277452347072 "GET /profile/ HTTP/1.1" 200 31632
+WARNING 2025-07-29 21:25:16,882 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:25:16,884 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-29 21:25:28,179 views 26390 130277452347072 AJAX request detected - Action: update_notifications, Headers: {'Content-Length': '655', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryvYNzTHZcNciXcrbH', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'kDYX2YCiZznP3MVKFisMiXtBsayqlCMJgfVmjO1beWUvCgWY08a07I3HIIyNFIJn', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-29 21:25:28,198 basehttp 26390 130277452347072 "POST /profile/ HTTP/1.1" 200 75
+INFO 2025-07-29 21:25:34,635 views 26390 130277452347072 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryizmCDv7BuGFH1ZWu', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'kDYX2YCiZznP3MVKFisMiXtBsayqlCMJgfVmjO1beWUvCgWY08a07I3HIIyNFIJn', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-29 21:25:34,642 basehttp 26390 130277452347072 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-29 21:25:35,321 views 26390 130277452347072 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryXIlIG0HRBfaCjTQ6', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'kDYX2YCiZznP3MVKFisMiXtBsayqlCMJgfVmjO1beWUvCgWY08a07I3HIIyNFIJn', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-29 21:25:35,328 basehttp 26390 130277452347072 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-29 21:25:35,838 views 26390 130277452347072 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryO7tsUNvSPNtwYJRh', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'kDYX2YCiZznP3MVKFisMiXtBsayqlCMJgfVmjO1beWUvCgWY08a07I3HIIyNFIJn', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-29 21:25:35,844 basehttp 26390 130277452347072 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-29 21:25:36,064 views 26390 130277452347072 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryqBKRohbhhhRJztWU', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'kDYX2YCiZznP3MVKFisMiXtBsayqlCMJgfVmjO1beWUvCgWY08a07I3HIIyNFIJn', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-29 21:25:36,068 basehttp 26390 130277452347072 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-29 21:25:54,173 views 26390 130277452347072 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryinaodvewqkuByfH8', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'kDYX2YCiZznP3MVKFisMiXtBsayqlCMJgfVmjO1beWUvCgWY08a07I3HIIyNFIJn', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-29 21:25:54,179 basehttp 26390 130277452347072 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-29 21:26:07,303 basehttp 26390 130277452347072 "GET /profile/ HTTP/1.1" 200 31310
+WARNING 2025-07-29 21:26:07,446 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:26:07,448 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-29 21:26:10,648 basehttp 26390 130277452347072 "GET /alerts/nearby/ HTTP/1.1" 302 0
+INFO 2025-07-29 21:26:10,684 basehttp 26390 130277452347072 "GET /profile/ HTTP/1.1" 200 31633
+WARNING 2025-07-29 21:26:10,781 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:26:10,782 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-29 21:26:15,501 basehttp 26390 130277452347072 "GET /alerts/nearby/ HTTP/1.1" 302 0
+INFO 2025-07-29 21:26:15,568 basehttp 26390 130277452347072 "GET /profile/ HTTP/1.1" 200 31633
+WARNING 2025-07-29 21:26:15,724 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:26:15,726 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+ERROR 2025-07-29 21:26:19,356 log 26390 130277452347072 Internal Server Error: /alerts/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 85, in alert_list
+    return render(request, 'community/alert_list.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 489, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 710, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '.name' from 'categories|first.name'
+ERROR 2025-07-29 21:26:19,359 basehttp 26390 130277452347072 "GET /alerts/ HTTP/1.1" 500 341445
+WARNING 2025-07-29 21:26:19,527 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:26:19,528 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-29 21:26:26,461 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:26:26,461 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-29 21:26:26,514 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:26:26,515 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-29 21:26:27,783 basehttp 26390 130277452347072 "GET / HTTP/1.1" 200 14925
+WARNING 2025-07-29 21:26:28,021 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:26:28,022 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-29 21:26:43,466 basehttp 26390 130277452347072 "GET /alerts/create/ HTTP/1.1" 200 40358
+WARNING 2025-07-29 21:26:43,845 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-29 21:26:43,845 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429

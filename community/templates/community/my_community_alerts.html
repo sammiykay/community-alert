@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+
+{% block title %}My Community Alerts - Community Alert System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .community-header {
+        background: linear-gradient(135deg, #17a2b8, #138496);
+        color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    
+    .community-card {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid #e9ecef;
+    }
+    
+    .alert-card {
+        border-left: 4px solid;
+        transition: transform 0.2s;
+        margin-bottom: 1rem;
+    }
+    
+    .alert-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .severity-low { border-left-color: #28a745; }
+    .severity-medium { border-left-color: #ffc107; }
+    .severity-high { border-left-color: #fd7e14; }
+    .severity-critical { border-left-color: #dc3545; }
+    
+    .community-badge {
+        background: #17a2b8;
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+    
+    .no-alerts {
+        text-align: center;
+        padding: 3rem;
+        color: #6c757d;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <!-- Header -->
+            <div class="community-header">
+                <h2><i class="fas fa-users"></i> My Community Alerts</h2>
+                <p class="mb-0">Stay informed about security incidents in your communities</p>
+            </div>
+            
+            <!-- Community Status -->
+            <div class="community-card">
+                <h5><i class="fas fa-info-circle text-primary"></i> Your Communities</h5>
+                {% if user_communities %}
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    {% for community in user_communities %}
+                    <span class="community-badge">{{ community.name }}</span>
+                    {% endfor %}
+                </div>
+                <p class="text-muted mb-0">
+                    You're receiving alerts from {{ user_communities.count }} 
+                    communit{{ user_communities.count|pluralize:"y,ies" }}.
+                    To join more communities, update your 
+                    <a href="{% url 'user_profile' %}">profile settings</a>.
+                </p>
+                {% else %}
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>No Communities Found</strong><br>
+                    You're not a member of any communities yet. 
+                    <a href="{% url 'user_profile' %}">Update your profile</a> to join communities and start receiving alerts.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    {% if user_communities %}
+    <div class="row">
+        <div class="col-12">
+            <!-- Alerts List -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4><i class="fas fa-exclamation-triangle text-warning"></i> Recent Alerts</h4>
+                <span class="badge bg-secondary">{{ alerts.count }} alert{{ alerts.count|pluralize }}</span>
+            </div>
+            
+            {% if alerts %}
+            <div class="row">
+                {% for alert in alerts %}
+                <div class="col-lg-6 col-xl-4 mb-3">
+                    <div class="card alert-card severity-{{ alert.severity }} h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <span class="badge bg-secondary">{{ alert.category.name }}</span>
+                                <span class="badge 
+                                    {% if alert.severity == 'low' %}bg-success
+                                    {% elif alert.severity == 'medium' %}bg-warning
+                                    {% elif alert.severity == 'high' %}bg-warning text-dark
+                                    {% else %}bg-danger{% endif %}">
+                                    {{ alert.get_severity_display }}
+                                </span>
+                            </div>
+                            
+                            <h6 class="card-title">
+                                <a href="{% url 'alert_detail' alert.id %}" class="text-decoration-none">
+                                    {{ alert.title }}
+                                </a>
+                            </h6>
+                            
+                            <p class="card-text text-muted small">
+                                {{ alert.description|truncatewords:15 }}
+                            </p>
+                            
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-users text-primary me-1"></i>
+                                    <small class="text-muted">{{ alert.community.name }}</small>
+                                </div>
+                                <small class="text-muted">
+                                    <i class="fas fa-clock"></i> {{ alert.created_at|timesince }} ago
+                                </small>
+                            </div>
+                            
+                            {% if alert.address %}
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-map-marker-alt"></i> {{ alert.address|truncatechars:40 }}
+                                </small>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-eye"></i> {{ alert.view_count }}
+                                    <i class="fas fa-thumbs-up ms-2"></i> {{ alert.upvotes }}
+                                    <i class="fas fa-thumbs-down ms-1"></i> {{ alert.downvotes }}
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge 
+                                    {% if alert.status == 'active' %}bg-danger
+                                    {% elif alert.status == 'resolved' %}bg-success
+                                    {% elif alert.status == 'under_review' %}bg-info
+                                    {% else %}bg-secondary{% endif %}">
+                                    {{ alert.get_status_display }}
+                                </span>
+                                <a href="{% url 'alert_detail' alert.id %}" class="btn btn-sm btn-outline-primary">
+                                    View Details <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Load more / Pagination could go here -->
+            {% if alerts.count >= 20 %}
+            <div class="text-center mt-4">
+                <a href="{% url 'alert_list' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-list"></i> View All Alerts
+                </a>
+            </div>
+            {% endif %}
+            
+            {% else %}
+            <div class="no-alerts">
+                <i class="fas fa-shield-alt fa-4x mb-3"></i>
+                <h4>No Recent Alerts</h4>
+                <p>Great! There are no recent security alerts in your communities.</p>
+                <p class="text-muted">
+                    When incidents are reported in your communities, they'll appear here.
+                </p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Quick Actions -->
+    <div class="row mt-4">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-bolt"></i> Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'create_alert' %}" class="btn btn-danger btn-lg w-100">
+                                <i class="fas fa-exclamation-triangle"></i><br>
+                                <small>Report Alert</small>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'alert_list' %}" class="btn btn-primary btn-lg w-100">
+                                <i class="fas fa-list"></i><br>
+                                <small>All Alerts</small>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'user_profile' %}" class="btn btn-secondary btn-lg w-100">
+                                <i class="fas fa-cog"></i><br>
+                                <small>Settings</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Auto-refresh alerts every 5 minutes
+    setTimeout(function() {
+        window.location.reload();
+    }, 300000); // 5 minutes
+    
+    // Add visual feedback for alert interactions
+    document.addEventListener('DOMContentLoaded', function() {
+        const alertCards = document.querySelectorAll('.alert-card');
+        
+        alertCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.borderLeftWidth = '8px';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.borderLeftWidth = '4px';
+            });
+        });
+    });
+</script>
+{% endblock %}

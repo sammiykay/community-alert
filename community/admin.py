@@ -16,17 +16,17 @@ class CustomUserAdmin(UserAdmin):
     
     fieldsets = UserAdmin.fieldsets + (
         ('Additional Info', {
-            'fields': ('phone_number', 'role', 'email_verified', 'latitude', 'longitude')
+            'fields': ('phone_number', 'role', 'email_verified', 'communities')
         }),
         ('Notifications', {
-            'fields': ('email_notifications', 'push_notifications', 'notification_radius_km')
+            'fields': ('email_notifications', 'push_notifications')
         }),
     )
 
 
 @admin.register(Community)
 class CommunityAdmin(admin.ModelAdmin):
-    list_display = ['name', 'latitude', 'longitude', 'radius_km', 'is_active', 'created_at']
+    list_display = ['name', 'created_by', 'is_active', 'created_at']
     list_filter = ['is_active', 'created_at']
     search_fields = ['name', 'description']
     ordering = ['name']
@@ -53,7 +53,7 @@ class AlertAdmin(admin.ModelAdmin):
             'fields': ('title', 'description', 'category', 'severity', 'status')
         }),
         ('Location', {
-            'fields': ('latitude', 'longitude', 'address', 'community')
+            'fields': ('address', 'community')
         }),
         ('Metadata', {
             'fields': ('incident_datetime', 'created_by', 'updated_by', 'is_public', 'is_verified')

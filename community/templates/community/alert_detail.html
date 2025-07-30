@@ -4,13 +4,6 @@
 
 {% block extra_css %}
 <style>
-    #alertMap {
-        height: 400px;
-        width: 100%;
-        border-radius: 8px;
-        border: 2px solid #dee2e6;
-        margin-bottom: 1rem;
-    }
     .severity-badge {
         font-size: 0.9rem;
         padding: 0.5rem 1rem;
@@ -75,30 +68,6 @@
         padding: 1.5rem;
         margin-bottom: 1rem;
     }
-    .map-controls {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        z-index: 1000;
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        padding: 10px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    }
-    .nearby-alerts-preview {
-        background: #fff3cd;
-        border: 1px solid #ffeaa7;
-        border-radius: 8px;
-        padding: 1rem;
-        margin-top: 1rem;
-    }
-    .interactive-timeline {
-        background: #f8f9fa;
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-    }
     .comment-form {
         background: #f8f9fa;
         border-radius: 8px;
@@ -110,6 +79,16 @@
         border-radius: 8px;
         padding: 1rem;
         border: 1px solid #e9ecef;
+    }
+    .community-badge {
+        background: #17a2b8;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 1rem;
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 1rem;
     }
 </style>
 {% endblock %}
@@ -210,72 +189,37 @@
                 </div>
                 {% endif %}
                 
-                <!-- Enhanced Location Section -->
+                <!-- Community and Location Section -->
                 <div class="mb-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5><i class="fas fa-map-marker-alt text-danger"></i> Incident Location</h5>
-                        <div class="btn-group btn-group-sm">
-                            <button type="button" class="btn btn-outline-primary" onclick="centerOnAlert()">
-                                <i class="fas fa-crosshairs"></i> Center
-                            </button>
-                            <button type="button" class="btn btn-outline-secondary" onclick="toggleSatellite()">
-                                <i class="fas fa-satellite"></i> Satellite
-                            </button>
-                            <button type="button" class="btn btn-outline-info" onclick="showNearbyAlerts()">
-                                <i class="fas fa-layer-group"></i> Nearby
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div style="position: relative;">
-                        <div id="alertMap" class="mb-3"></div>
-                        <div class="map-controls" id="mapControls" style="display: none;">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="showTraffic" onchange="toggleTraffic()">
-                                <label class="form-check-label" for="showTraffic">
-                                    <small>Traffic</small>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                    <h5><i class="fas fa-users text-primary"></i> Community & Location</h5>
                     
                     <div class="location-info-box">
                         <div class="row">
                             <div class="col-md-8">
+                                <p class="mb-2">
+                                    <i class="fas fa-users text-primary"></i>
+                                    <strong>Community:</strong> 
+                                    <span class="community-badge">{{ alert.community.name }}</span>
+                                </p>
                                 {% if alert.address %}
                                 <p class="mb-2">
                                     <i class="fas fa-map-marker-alt text-danger"></i>
-                                    <strong>Address:</strong> {{ alert.address }}
+                                    <strong>Specific Location:</strong> {{ alert.address }}
                                 </p>
                                 {% endif %}
-                                <p class="mb-2">
-                                    <i class="fas fa-compass text-info"></i>
-                                    <strong>Coordinates:</strong> {{ alert.latitude }}, {{ alert.longitude }}
-                                </p>
                                 <p class="mb-0">
-                                    <i class="fas fa-home text-success"></i>
-                                    <strong>Community:</strong> 
-                                    <a href="{% url 'community_detail' alert.community.id %}" class="text-decoration-none">{{ alert.community.name }}</a>
+                                    <i class="fas fa-clock text-info"></i>
+                                    <strong>Incident Time:</strong> {{ alert.incident_datetime|date:"M j, Y g:i A" }}
                                 </p>
                             </div>
                             <div class="col-md-4 text-end">
-                                <button type="button" class="btn btn-primary btn-sm" onclick="getDirections()">
-                                    <i class="fas fa-directions"></i> Get Directions
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm mt-1" onclick="shareLocation()">
-                                    <i class="fas fa-share-alt"></i> Share Location
-                                </button>
+                                <a href="{% url 'community_detail' alert.community.id %}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-users"></i> View Community
+                                </a>
+                                <a href="{% url 'alert_list' %}?community={{ alert.community.id }}" class="btn btn-outline-secondary btn-sm mt-1">
+                                    <i class="fas fa-list"></i> Community Alerts
+                                </a>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="nearby-alerts-preview" id="nearbyAlertsPreview" style="display: none;">
-                        <h6><i class="fas fa-exclamation-triangle text-warning"></i> Nearby Recent Alerts</h6>
-                        <div id="nearbyAlertsList"></div>
-                        <div class="text-center mt-2">
-                            <a href="{% url 'nearby_alerts' %}?lat={{ alert.latitude }}&lng={{ alert.longitude }}" class="btn btn-warning btn-sm">
-                                View All Nearby Alerts
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -514,219 +458,20 @@
 
 {% block extra_js %}
 <script>
-    let map;
-    let alertMarker;
-    let nearbyMarkers = [];
-    let isSatelliteView = false;
-    let osmLayer, satelliteLayer;
-    
-    // Initialize enhanced map with Leaflet
-    function initMap() {
-        const alertLocation = [parseFloat('{{ alert.latitude }}'), parseFloat('{{ alert.longitude }}')];
-        
-        // Initialize map
-        map = L.map('alertMap').setView(alertLocation, 16);
-        
-        // Define tile layers
-        osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        });
-        
-        satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: '© Esri, Maxar, Earthstar Geographics'
-        });
-        
-        // Add default layer
-        osmLayer.addTo(map);
-        
-        // Create custom marker icon
-        const alertIcon = L.divIcon({
-            html: '<div style="background: #dc3545; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">!</div>',
-            iconSize: [30, 30],
-            iconAnchor: [15, 15],
-            className: 'alert-marker'
-        });
-        
-        // Add marker for alert location
-        alertMarker = L.marker(alertLocation, { icon: alertIcon }).addTo(map);
-        
-        // Create popup content
-        const popupContent = `
-            <div style="max-width: 280px; padding: 10px;">
-                <h6 style="color: #dc3545; margin-bottom: 10px;">
-                    <i class="fas fa-exclamation-triangle"></i> {{ alert.title|escapejs }}
-                </h6>
-                <div style="margin-bottom: 8px;">
-                    <span style="background: {% if alert.severity == 'critical' %}#dc3545{% elif alert.severity == 'high' %}#fd7e14{% elif alert.severity == 'medium' %}#ffc107{% else %}#28a745{% endif %}; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px;">
-                        {{ alert.get_severity_display }}
-                    </span>
-                </div>
-                <p style="margin-bottom: 8px;"><strong>Category:</strong> {{ alert.category.name }}</p>
-                <p style="margin-bottom: 8px;"><strong>Status:</strong> {{ alert.get_status_display }}</p>
-                <p style="margin-bottom: 8px;"><strong>Reported:</strong> {{ alert.created_at|timesince }} ago</p>
-                <div style="text-align: center; margin-top: 10px;">
-                    <button onclick="getDirections()" style="background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
-                        <i class="fas fa-directions"></i> Directions
-                    </button>
-                </div>
-            </div>
-        `;
-        
-        alertMarker.bindPopup(popupContent).openPopup();
-        
-        // Show map controls
-        document.getElementById('mapControls').style.display = 'block';
-        
-        // Load nearby alerts
-        loadNearbyAlerts();
-    }
-    
-    // Center map on alert
-    function centerOnAlert() {
-        const alertLocation = [parseFloat('{{ alert.latitude }}'), parseFloat('{{ alert.longitude }}')];
-        map.setView(alertLocation, 16);
-    }
-    
-    // Toggle satellite view
-    function toggleSatellite() {
-        isSatelliteView = !isSatelliteView;
-        
-        if (isSatelliteView) {
-            map.removeLayer(osmLayer);
-            satelliteLayer.addTo(map);
-        } else {
-            map.removeLayer(satelliteLayer);
-            osmLayer.addTo(map);
-        }
-        
-        const btn = event.target.closest('button');
-        if (isSatelliteView) {
-            btn.classList.add('active');
-            btn.innerHTML = '<i class="fas fa-map"></i> Map';
-        } else {
-            btn.classList.remove('active');
-            btn.innerHTML = '<i class="fas fa-satellite"></i> Satellite';
-        }
-    }
-    
-    // Toggle traffic layer (placeholder for OpenStreetMap)
-    function toggleTraffic() {
-        // Note: Traffic data not available with free OpenStreetMap
-        // This could be extended with third-party traffic services
-        console.log('Traffic data not available with OpenStreetMap');
-    }
-    
-    // Load and show nearby alerts
-    function loadNearbyAlerts() {
-        fetch(`/api/alerts/nearby/?lat={{ alert.latitude }}&lng={{ alert.longitude }}&radius=2&exclude={{ alert.id }}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.results && data.results.length > 0) {
-                    showNearbyAlerts(data.results);
-                }
-            })
-            .catch(error => {
-                console.log('No nearby alerts data available:', error);
-            });
-    }
-    
-    // Show nearby alerts on map and in preview
-    function showNearbyAlerts(alerts) {
-        // Clear existing nearby markers
-        nearbyMarkers.forEach(marker => map.removeLayer(marker));
-        nearbyMarkers = [];
-        
-        // Show preview box
-        const previewBox = document.getElementById('nearbyAlertsPreview');
-        const alertsList = document.getElementById('nearbyAlertsList');
-        
-        if (alerts && alerts.length > 0) {
-            // Add markers to map
-            alerts.forEach(alert => {
-                const nearbyIcon = L.divIcon({
-                    html: '<div style="background: #ffc107; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3); font-size: 12px;">!</div>',
-                    iconSize: [20, 20],
-                    iconAnchor: [10, 10],
-                    className: 'nearby-alert-marker'
-                });
-                
-                const marker = L.marker([alert.latitude, alert.longitude], { icon: nearbyIcon }).addTo(map);
-                
-                const popupContent = `
-                    <div style="max-width: 200px;">
-                        <h6>${alert.title}</h6>
-                        <p><strong>Severity:</strong> ${alert.severity}</p>
-                        <p><small>${alert.created_at}</small></p>
-                    </div>
-                `;
-                
-                marker.bindPopup(popupContent);
-                nearbyMarkers.push(marker);
-            });
-            
-            // Show preview list
-            alertsList.innerHTML = alerts.slice(0, 3).map(alert => `
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <div>
-                        <strong>${alert.title}</strong><br>
-                        <small class="text-muted">${alert.created_at}</small>
-                    </div>
-                    <span class="badge bg-warning">${alert.severity}</span>
-                </div>
-            `).join('');
-            
-            previewBox.style.display = 'block';
-        }
-    }
-    
-    // Get directions to alert location
-    function getDirections() {
-        const lat = '{{ alert.latitude }}';
-        const lng = '{{ alert.longitude }}';
-        const destination = `${lat},${lng}`;
-        
-        // Try to open in various map applications
-        if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-            // iOS - try Apple Maps first, fallback to Google Maps
-            window.open(`maps://maps.apple.com/?daddr=${destination}`, '_blank');
-        } else if (navigator.userAgent.match(/Android/i)) {
-            // Android - try Google Maps
-            window.open(`geo:${destination}?q=${destination}`, '_blank');
-        } else {
-            // Desktop - open OpenStreetMap directions
-            window.open(`https://www.openstreetmap.org/directions?to=${destination}`, '_blank');
-        }
-    }
-    
-    // Share location
-    function shareLocation() {
-        const url = window.location.href;
-        if (navigator.share) {
-            navigator.share({
-                title: '{{ alert.title|escapejs }}',
-                text: 'Security Alert: {{ alert.title|escapejs }}',
-                url: url,
-            });
-        } else {
-            copyToClipboard(url);
-            showToast('Location link copied to clipboard!');
-        }
-    }
-    
     // Enhanced action functions
     function reportSafetyUpdate() {
         // This would open a modal or redirect to update form
-        alert('Safety update feature coming soon!');
+        showToast('Safety update feature coming soon!');
     }
     
     function requestMoreInfo() {
         // This would trigger a notification request
-        alert('Information request sent to the reporter!');
+        showToast('Information request sent to the reporter!');
     }
     
     function subscribeToUpdates() {
         // This would subscribe user to alert updates
-        alert('You will receive updates about this alert!');
+        showToast('You will receive updates about this alert!');
     }
     
     function shareViaEmail() {
@@ -738,6 +483,12 @@
     function copyAlertLink() {
         copyToClipboard(window.location.href);
         showToast('Alert link copied to clipboard!');
+    }
+    
+    function flagAlert() {
+        if (confirm('Are you sure you want to flag this alert for review?')) {
+            showToast('Alert has been flagged for review');
+        }
     }
     
     // Utility functions
@@ -797,47 +548,31 @@
                         if (data.user_vote) {
                             document.querySelector(`[data-vote="${data.user_vote}"]`).classList.add('active');
                         }
+                        
+                        showToast('Vote submitted successfully!');
+                    } else {
+                        showToast(data.error || 'Error submitting vote');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('Error submitting vote. Please try again.');
+                    showToast('Error submitting vote. Please try again.');
                 });
             });
         });
+        
+        // Add hover effects to cards
+        const alertCards = document.querySelectorAll('.card');
+        alertCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '';
+            });
+        });
     });
-</script>
-
-<!-- Initialize Leaflet Map -->
-<script>
-    // Initialize map when page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        // Small delay to ensure DOM is fully ready
-        setTimeout(initMap, 100);
-    });
-    
-    // Fallback if Leaflet is not available
-    setTimeout(function() {
-        if (typeof L === 'undefined') {
-            document.getElementById('alertMap').innerHTML = 
-                '<div class="alert alert-warning text-center d-flex flex-column justify-content-center" style="height: 380px;">' +
-                '<i class="fas fa-map-marked-alt fa-4x mb-3 text-muted"></i>' +
-                '<h5>Map Service Unavailable</h5>' +
-                '<p class="mb-3">OpenStreetMap could not be loaded, but you can still view the coordinates.</p>' +
-                '<div class="location-info-box" style="max-width: 400px; margin: 0 auto;">' +
-                '<p><strong>Location:</strong> {{ alert.latitude }}, {{ alert.longitude }}</p>' +
-                '{% if alert.address %}<p><strong>Address:</strong> {{ alert.address }}</p>{% endif %}' +
-                '<button class="btn btn-primary" onclick="openInMaps()">Open in Maps App</button>' +
-                '</div>' +
-                '</div>';
-        }
-    }, 3000);
-    
-    function openInMaps() {
-        const lat = '{{ alert.latitude }}';
-        const lng = '{{ alert.longitude }}';
-        const url = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}&zoom=16`;
-        window.open(url, '_blank');
-    }
 </script>
 {% endblock %}

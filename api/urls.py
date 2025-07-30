@@ -8,7 +8,7 @@ urlpatterns = [
     path('alerts/', views.api_alerts_list, name='alerts_list'),
     path('alerts/<uuid:alert_id>/', views.api_alert_detail, name='alert_detail'),
     path('alerts/create/', views.api_create_alert, name='create_alert'),
-    path('alerts/nearby/', views.api_nearby_alerts, name='nearby_alerts'),
+    path('alerts/community/', views.api_community_alerts, name='community_alerts'),
     
     # Community endpoints
     path('communities/', views.api_communities_list, name='communities_list'),

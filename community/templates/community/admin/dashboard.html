@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - Community Alert System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .admin-header {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+    }
+    .stats-card {
+        background: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+        border: 1px solid #e9ecef;
+        transition: transform 0.2s;
+        height: 100%;
+    }
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+    .stats-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #28a745;
+    }
+    .quick-actions {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .recent-items {
+        background: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        border: 1px solid #e9ecef;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Admin Header -->
+    <div class="admin-header text-center">
+        <h2><i class="fas fa-user-shield"></i> Administrator Dashboard</h2>
+        <p class="mb-0">Manage communities, categories, users, and system settings</p>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-number">{{ total_users }}</div>
+                <div class="text-muted">Total Users</div>
+                <small class="text-success">{{ admin_count }} admins, {{ moderator_count }} moderators</small>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-number">{{ total_communities }}</div>
+                <div class="text-muted">Communities</div>
+                <small class="text-info">Active communities managed</small>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-number">{{ total_categories }}</div>
+                <div class="text-muted">Alert Categories</div>
+                <small class="text-warning">Available alert types</small>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-number text-danger">{{ active_alerts }}</div>
+                <div class="text-muted">Active Alerts</div>
+                <small class="text-muted">{{ total_alerts }} total alerts</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <h5><i class="fas fa-bolt text-primary"></i> Quick Actions</h5>
+        <div class="row">
+            <div class="col-md-3 mb-2">
+                <a href="{% url 'create_community' %}" class="btn btn-success btn-block">
+                    <i class="fas fa-plus"></i> Add Community
+                </a>
+            </div>
+            <div class="col-md-3 mb-2">
+                <a href="{% url 'create_category' %}" class="btn btn-info btn-block">
+                    <i class="fas fa-tags"></i> Add Category
+                </a>
+            </div>
+            <div class="col-md-3 mb-2">
+                <a href="{% url 'manage_users' %}" class="btn btn-primary btn-block">
+                    <i class="fas fa-users"></i> Manage Users
+                </a>
+            </div>
+            <div class="col-md-3 mb-2">
+                <a href="{% url 'alert_list' %}" class="btn btn-warning btn-block">
+                    <i class="fas fa-exclamation-triangle"></i> View Alerts
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Recent Alerts -->
+        <div class="col-lg-6 mb-4">
+            <div class="recent-items">
+                <h5><i class="fas fa-history text-danger"></i> Recent Alerts</h5>
+                {% if recent_alerts %}
+                    {% for alert in recent_alerts %}
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <div>
+                            <strong>{{ alert.title|truncatechars:40 }}</strong><br>
+                            <small class="text-muted">
+                                <i class="fas fa-users"></i> {{ alert.community.name }} • 
+                                <i class="fas fa-tag"></i> {{ alert.category.name }} • 
+                                {{ alert.created_at|timesince }} ago
+                            </small>
+                        </div>
+                        <div>
+                            <span class="badge 
+                                {% if alert.severity == 'critical' %}bg-danger
+                                {% elif alert.severity == 'high' %}bg-warning
+                                {% elif alert.severity == 'medium' %}bg-info
+                                {% else %}bg-success{% endif %}">
+                                {{ alert.get_severity_display }}
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="text-center mt-3">
+                        <a href="{% url 'alert_list' %}" class="btn btn-outline-primary btn-sm">
+                            View All Alerts
+                        </a>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center py-3">No recent alerts</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Recent Users -->
+        <div class="col-lg-6 mb-4">
+            <div class="recent-items">
+                <h5><i class="fas fa-user-plus text-success"></i> Recent Users</h5>
+                {% if recent_users %}
+                    {% for user in recent_users %}
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <div>
+                            <strong>{{ user.get_full_name|default:user.username }}</strong><br>
+                            <small class="text-muted">
+                                <i class="fas fa-envelope"></i> {{ user.email }} • 
+                                Joined {{ user.date_joined|timesince }} ago
+                            </small>
+                        </div>
+                        <div>
+                            <span class="badge 
+                                {% if user.role == 'admin' %}bg-danger
+                                {% elif user.role == 'moderator' %}bg-warning
+                                {% else %}bg-secondary{% endif %}">
+                                {{ user.get_role_display }}
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="text-center mt-3">
+                        <a href="{% url 'manage_users' %}" class="btn btn-outline-success btn-sm">
+                            Manage All Users
+                        </a>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center py-3">No recent users</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Management Links -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-cogs"></i> Management Areas</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'manage_communities' %}" class="btn btn-outline-primary btn-lg w-100">
+                                <i class="fas fa-users d-block mb-2"></i>
+                                Communities
+                                <small class="d-block">{{ total_communities }} total</small>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'manage_categories' %}" class="btn btn-outline-info btn-lg w-100">
+                                <i class="fas fa-tags d-block mb-2"></i>
+                                Categories
+                                <small class="d-block">{{ total_categories }} total</small>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'manage_users' %}" class="btn btn-outline-success btn-lg w-100">
+                                <i class="fas fa-user-cog d-block mb-2"></i>
+                                Users
+                                <small class="d-block">{{ total_users }} total</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Add hover effects
+    document.addEventListener('DOMContentLoaded', function() {
+        const statsCards = document.querySelectorAll('.stats-card');
+        statsCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    });
+</script>
+{% endblock %}

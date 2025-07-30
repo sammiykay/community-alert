@@ -255,48 +255,30 @@ def api_categories_list(request):
 
 @login_required
 @require_http_methods(["GET"])
-def api_nearby_alerts(request):
-    """API endpoint for getting alerts near user's location"""
+def api_community_alerts(request):
+    """API endpoint for getting alerts from user's communities"""
     try:
         user = request.user
         
-        if not user.latitude or not user.longitude:
-            return JsonResponse({
-                'success': False,
-                'error': 'User location not set'
-            }, status=400)
-        
-        # Simple radius calculation
-        radius_km = float(user.notification_radius_km)
-        user_lat = float(user.latitude)
-        user_lng = float(user.longitude)
-        
-        lat_delta = radius_km / 111.0
-        lng_delta = radius_km / (111.0 * abs(user_lat))
-        
-        # Convert back to Decimal for database comparison
-        lat_min = Decimal(str(user_lat - lat_delta))
-        lat_max = Decimal(str(user_lat + lat_delta))
-        lng_min = Decimal(str(user_lng - lng_delta))
-        lng_max = Decimal(str(user_lng + lng_delta))
-        
+        # Get alerts from user's communities
         alerts = Alert.objects.filter(
+            community__in=user.communities.all(),
             is_public=True,
-            status='active',
-            latitude__range=(lat_min, lat_max),
-            longitude__range=(lng_min, lng_max)
+            status='active'
         ).select_related('category', 'community', 'created_by').order_by('-created_at')
         
         alerts_data = [alert_to_dict(alert) for alert in alerts]
         
+        # Get user's communities
+        user_communities = [
+            {'id': str(c.id), 'name': c.name} 
+            for c in user.communities.filter(is_active=True)
+        ]
+        
         return JsonResponse({
             'success': True,
             'data': alerts_data,
-            'user_location': {
-                'latitude': str(user.latitude),
-                'longitude': str(user.longitude),
-                'radius_km': radius_km
-            }
+            'user_communities': user_communities
         })
         
     except Exception as e:

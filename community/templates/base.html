@@ -9,8 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Google Maps will be loaded per template as needed -->
     
     <style>
         .alert-card {
@@ -75,8 +74,8 @@
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'nearby_alerts' %}">
-                            <i class="fas fa-map-marker-alt"></i> Nearby
+                        <a class="nav-link" href="{% url 'my_community_alerts' %}">
+                            <i class="fas fa-users"></i> My Communities
                         </a>
                     </li>
                     <li class="nav-item">
@@ -84,6 +83,51 @@
                             <i class="fas fa-plus"></i> Create Alert
                         </a>
                     </li>
+                    {% if user.role == 'admin' %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-shield"></i> Admin Panel
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'admin_dashboard' %}">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'manage_communities' %}">
+                                <i class="fas fa-users"></i> Communities
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'manage_categories' %}">
+                                <i class="fas fa-tags"></i> Categories
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'manage_users' %}">
+                                <i class="fas fa-user-cog"></i> Users
+                            </a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-danger" href="#" id="superuserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-crown"></i> Superuser
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'superuser_dashboard' %}">
+                                <i class="fas fa-crown"></i> Superuser Dashboard
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'create_admin_user' %}">
+                                <i class="fas fa-user-plus"></i> Create Admin
+                            </a></li>
+                            <li><a class="dropdown-item" href="{% url 'manage_admin_users' %}">
+                                <i class="fas fa-users-cog"></i> Manage Admins
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/admin/" target="_blank">
+                                <i class="fas fa-database"></i> Django Admin
+                            </a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
                     {% endif %}
                 </ul>
                 
@@ -157,8 +201,7 @@
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Google Maps will be loaded per template as needed -->
     
     {% block extra_js %}{% endblock %}
 </body>

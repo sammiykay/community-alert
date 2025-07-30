@@ -34,19 +34,32 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = [
-            'first_name', 'last_name', 'phone_number', 
-            'latitude', 'longitude'
+            'first_name', 'last_name', 'phone_number', 'communities'
         ]
         widgets = {
-            'latitude': forms.NumberInput(attrs={'step': 'any', 'class': 'form-control'}),
-            'longitude': forms.NumberInput(attrs={'step': 'any', 'class': 'form-control'}),
+            'communities': forms.CheckboxSelectMultiple(),
         }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Add CSS classes to form fields
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            if field_name != 'communities':
+                field.widget.attrs['class'] = 'form-control'
+        # Filter active communities
+        self.fields['communities'].queryset = Community.objects.filter(is_active=True)
+
+
+class CommunityForm(forms.ModelForm):
+    """Form for creating communities (admin-only)"""
+    
+    class Meta:
+        model = Community
+        fields = ['name', 'description']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Community name (e.g., Akungba Akoko)'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Optional description of the community'}),
+        }
 
 
 class UserNotificationForm(forms.ModelForm):
@@ -55,11 +68,9 @@ class UserNotificationForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = [
-            'notification_radius_km',
             'email_notifications', 'push_notifications'
         ]
         widgets = {
-            'notification_radius_km': forms.NumberInput(attrs={'min': '0.1', 'max': '50', 'step': '0.1', 'class': 'form-control'}),
             'email_notifications': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'push_notifications': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
@@ -72,8 +83,7 @@ class AlertForm(forms.ModelForm):
         model = Alert
         fields = [
             'title', 'description', 'category', 'severity', 'status',
-            'latitude', 'longitude', 'address', 'community',
-            'incident_datetime', 'is_public'
+            'address', 'community', 'incident_datetime', 'is_public'
         ]
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brief title for the alert'}),
@@ -81,34 +91,27 @@ class AlertForm(forms.ModelForm):
             'category': forms.Select(attrs={'class': 'form-control'}),
             'severity': forms.Select(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
-            'latitude': forms.NumberInput(attrs={'step': 'any', 'class': 'form-control', 'placeholder': 'Click on map to set location'}),
-            'longitude': forms.NumberInput(attrs={'step': 'any', 'class': 'form-control', 'placeholder': 'Click on map to set location'}),
-            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Street address or landmark'}),
+            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Street address or landmark (optional)'}),
             'community': forms.Select(attrs={'class': 'form-control'}),
             'incident_datetime': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
             'is_public': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
     
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         # Filter active categories and communities
         self.fields['category'].queryset = AlertCategory.objects.filter(is_active=True)
         self.fields['community'].queryset = Community.objects.filter(is_active=True)
         
+        # If user is provided, filter communities to only those the user belongs to
+        if user and not user.is_staff:
+            self.fields['community'].queryset = user.communities.filter(is_active=True)
+        
         # Set default incident datetime to now
         if not self.instance.pk:
             from django.utils import timezone
             self.fields['incident_datetime'].initial = timezone.now()
-    
-    def clean(self):
-        cleaned_data = super().clean()
-        latitude = cleaned_data.get('latitude')
-        longitude = cleaned_data.get('longitude')
-        
-        if not latitude or not longitude:
-            raise ValidationError('Please set the location by clicking on the map or entering coordinates.')
-        
-        return cleaned_data
 
 
 class AlertCommentForm(forms.Form):
@@ -191,3 +194,124 @@ class AlertSearchForm(forms.Form):
         required=False,
         empty_label='All Communities'
     )
+
+
+# ============================================================================
+# ADMIN FORMS
+# ============================================================================
+
+class AlertCategoryForm(forms.ModelForm):
+    """Form for creating and editing alert categories (admin-only)"""
+    
+    class Meta:
+        model = AlertCategory
+        fields = ['name', 'description', 'icon', 'color', 'is_active']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Category name (e.g., "Break-in & Burglary")'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'Brief description of this category'
+            }),
+            'icon': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Font Awesome icon class (e.g., "fas fa-user-secret")'
+            }),
+            'color': forms.TextInput(attrs={
+                'type': 'color',
+                'class': 'form-control form-control-color',
+                'value': '#007bff'
+            }),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+
+class AdminUserForm(forms.ModelForm):
+    """Form for editing users (admin-only)"""
+    
+    class Meta:
+        model = CustomUser
+        fields = [
+            'username', 'email', 'first_name', 'last_name', 
+            'role', 'is_active', 'email_notifications', 'push_notifications',
+            'communities'
+        ]
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'role': forms.Select(attrs={'class': 'form-control'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'email_notifications': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'push_notifications': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'communities': forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input'}),
+        }
+
+
+# ============================================================================
+# SUPERUSER FORMS
+# ============================================================================
+
+class CreateAdminUserForm(forms.ModelForm):
+    """Form for creating new administrator users (superuser-only)"""
+    
+    password1 = forms.CharField(
+        label='Password',
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        help_text='Password must be at least 8 characters long.'
+    )
+    password2 = forms.CharField(
+        label='Confirm Password',
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        help_text='Enter the same password as before, for verification.'
+    )
+    
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'first_name', 'last_name']
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Unique username for the administrator'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Administrator email address'
+            }),
+            'first_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'First name'
+            }),
+            'last_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Last name'
+            }),
+        }
+    
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise ValidationError("Passwords don't match")
+        return password2
+    
+    def clean_password1(self):
+        password1 = self.cleaned_data.get("password1")
+        if password1 and len(password1) < 8:
+            raise ValidationError("Password must be at least 8 characters long")
+        return password1
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        user.role = 'admin'
+        user.is_staff = True
+        user.email_notifications = True
+        user.push_notifications = True
+        if commit:
+            user.save()
+        return user

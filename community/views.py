@@ -1,14 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.db import models
 from django.db.models import Q, F
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 from .models import Alert, AlertCategory, Community, CustomUser, AlertVote
-from .forms import UserRegistrationForm, AlertForm, UserProfileForm, UserNotificationForm
+from .forms import (
+    UserRegistrationForm, AlertForm, UserProfileForm, UserNotificationForm, CommunityForm,
+    AlertCategoryForm, AdminUserForm, CreateAdminUserForm
+)
 import math
 
 
@@ -118,14 +122,19 @@ def alert_detail(request, alert_id):
 @login_required
 def create_alert(request):
     """Create a new security alert"""
+    # Check if user belongs to any communities
+    if not request.user.communities.exists() and not request.user.is_staff:
+        messages.error(request, 'You must be a member of at least one community to create alerts.')
+        return redirect('user_profile')
+    
     if request.method == 'POST':
-        form = AlertForm(request.POST, request.FILES)
+        form = AlertForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             alert = form.save(commit=False)
             alert.created_by = request.user
             alert.save()
             
-            # Trigger notifications for high/critical alerts
+            # Trigger notifications for community members
             try:
                 from notifications.views import trigger_alert_notifications
                 notifications_sent = trigger_alert_notifications(alert)
@@ -138,7 +147,7 @@ def create_alert(request):
             
             return redirect('alert_detail', alert_id=alert.id)
     else:
-        form = AlertForm()
+        form = AlertForm(user=request.user)
     
     return render(request, 'community/create_alert.html', {'form': form})
 
@@ -154,7 +163,7 @@ def edit_alert(request, alert_id):
         return redirect('alert_detail', alert_id=alert.id)
     
     if request.method == 'POST':
-        form = AlertForm(request.POST, request.FILES, instance=alert)
+        form = AlertForm(request.POST, request.FILES, instance=alert, user=request.user)
         if form.is_valid():
             alert = form.save(commit=False)
             alert.updated_by = request.user
@@ -162,7 +171,7 @@ def edit_alert(request, alert_id):
             messages.success(request, 'Alert updated successfully!')
             return redirect('alert_detail', alert_id=alert.id)
     else:
-        form = AlertForm(instance=alert)
+        form = AlertForm(instance=alert, user=request.user)
     
     return render(request, 'community/edit_alert.html', {'form': form, 'alert': alert})
 
@@ -347,45 +356,26 @@ def community_detail(request, community_id):
     return render(request, 'community/community_detail.html', context)
 
 
-def nearby_alerts(request):
-    """Show alerts near user's location (requires location permission)"""
-    if not request.user.is_authenticated:
-        return redirect('login')
-    
+@login_required
+def my_community_alerts(request):
+    """Show alerts from user's communities"""
     user = request.user
-    if not user.latitude or not user.longitude:
-        messages.info(request, 'Please set your location in your profile to see nearby alerts.')
-        return redirect('user_profile')
     
-    # Simple radius calculation (this would be better with PostGIS)
-    from decimal import Decimal
-    
-    radius_km = float(user.notification_radius_km)
-    user_lat = float(user.latitude)
-    user_lng = float(user.longitude)
-    
-    lat_delta = radius_km / 111.0  # Approximate km per degree latitude
-    lng_delta = radius_km / (111.0 * math.cos(math.radians(user_lat)))
-    
-    # Convert back to Decimal for database comparison
-    lat_min = Decimal(str(user_lat - lat_delta))
-    lat_max = Decimal(str(user_lat + lat_delta))
-    lng_min = Decimal(str(user_lng - lng_delta))
-    lng_max = Decimal(str(user_lng + lng_delta))
-    
+    # Get alerts from user's communities
     alerts = Alert.objects.filter(
+        community__in=user.communities.all(),
         is_public=True,
-        status='active',
-        latitude__range=(lat_min, lat_max),
-        longitude__range=(lng_min, lng_max)
+        status='active'
     ).select_related('category', 'community', 'created_by').order_by('-created_at')
+    
+    # Get user's communities
+    user_communities = user.communities.filter(is_active=True)
     
     context = {
         'alerts': alerts,
-        'user_location': {'lat': float(user.latitude), 'lng': float(user.longitude)},
-        'radius_km': radius_km,
+        'user_communities': user_communities,
     }
-    return render(request, 'community/nearby_alerts.html', context)
+    return render(request, 'community/my_community_alerts.html', context)
 
 
 @login_required
@@ -439,3 +429,307 @@ def debug_headers(request):
             'action_in_post': request.POST.get('action'),
         }
     })
+
+
+def is_admin(user):
+    """Check if user is admin"""
+    return user.is_authenticated and user.role == 'admin'
+
+@user_passes_test(is_admin)
+def create_community(request):
+    """Create a new community (admin-only)"""
+    if request.method == 'POST':
+        form = CommunityForm(request.POST)
+        if form.is_valid():
+            community = form.save(commit=False)
+            community.created_by = request.user
+            community.save()
+            messages.success(request, f'Community "{community.name}" created successfully!')
+            return redirect('manage_communities')
+    else:
+        form = CommunityForm()
+    
+    return render(request, 'community/create_community.html', {'form': form})
+
+
+@user_passes_test(is_admin)
+def manage_communities(request):
+    """Manage communities (admin-only)"""
+    communities = Community.objects.all().order_by('name')
+    
+    # Pagination
+    paginator = Paginator(communities, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'page_obj': page_obj,
+    }
+    return render(request, 'community/manage_communities.html', context)
+
+
+@user_passes_test(is_admin)
+def edit_community(request, community_id):
+    """Edit a community (admin-only)"""
+    community = get_object_or_404(Community, id=community_id)
+    
+    if request.method == 'POST':
+        form = CommunityForm(request.POST, instance=community)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Community "{community.name}" updated successfully!')
+            return redirect('manage_communities')
+    else:
+        form = CommunityForm(instance=community)
+    
+    return render(request, 'community/edit_community.html', {'form': form, 'community': community})
+
+
+@user_passes_test(is_admin)
+@require_POST
+def toggle_community_status(request, community_id):
+    """Toggle community active status (admin-only)"""
+    community = get_object_or_404(Community, id=community_id)
+    community.is_active = not community.is_active
+    community.save()
+    
+    status = "activated" if community.is_active else "deactivated"
+    messages.success(request, f'Community "{community.name}" has been {status}.')
+    
+    return redirect('manage_communities')
+
+
+# ============================================================================
+# ADMIN MANAGEMENT VIEWS
+# ============================================================================
+
+@login_required
+@user_passes_test(is_admin)
+def admin_dashboard(request):
+    """Main admin dashboard with overview stats"""
+    context = {
+        'total_users': CustomUser.objects.count(),
+        'total_communities': Community.objects.count(),
+        'total_categories': AlertCategory.objects.count(),
+        'total_alerts': Alert.objects.count(),
+        'active_alerts': Alert.objects.filter(status='active').count(),
+        'recent_alerts': Alert.objects.select_related('community', 'category', 'created_by').order_by('-created_at')[:5],
+        'recent_users': CustomUser.objects.order_by('-date_joined')[:5],
+        'admin_count': CustomUser.objects.filter(role='admin').count(),
+        'moderator_count': CustomUser.objects.filter(role='moderator').count(),
+    }
+    return render(request, 'community/admin/dashboard.html', context)
+
+
+# Category Management
+@login_required
+@user_passes_test(is_admin)
+def manage_categories(request):
+    """Manage alert categories (admin-only)"""
+    categories = AlertCategory.objects.all().order_by('name')
+    
+    context = {
+        'categories': categories,
+        'total_categories': categories.count(),
+        'active_categories': categories.filter(is_active=True).count(),
+    }
+    return render(request, 'community/admin/manage_categories.html', context)
+
+
+@login_required
+@user_passes_test(is_admin)
+def create_category(request):
+    """Create a new alert category (admin-only)"""
+    if request.method == 'POST':
+        form = AlertCategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save()
+            messages.success(request, f'Category "{category.name}" created successfully!')
+            return redirect('manage_categories')
+    else:
+        form = AlertCategoryForm()
+    
+    return render(request, 'community/admin/create_category.html', {'form': form})
+
+
+@login_required
+@user_passes_test(is_admin)
+def edit_category(request, category_id):
+    """Edit an alert category (admin-only)"""
+    category = get_object_or_404(AlertCategory, id=category_id)
+    
+    if request.method == 'POST':
+        form = AlertCategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Category "{category.name}" updated successfully!')
+            return redirect('manage_categories')
+    else:
+        form = AlertCategoryForm(instance=category)
+    
+    return render(request, 'community/admin/edit_category.html', {
+        'form': form, 
+        'category': category
+    })
+
+
+@login_required
+@user_passes_test(is_admin)
+@require_POST
+def toggle_category_status(request, category_id):
+    """Toggle category active status (admin-only)"""
+    category = get_object_or_404(AlertCategory, id=category_id)
+    category.is_active = not category.is_active
+    category.save()
+    
+    status = "activated" if category.is_active else "deactivated"
+    messages.success(request, f'Category "{category.name}" has been {status}.')
+    
+    return redirect('manage_categories')
+
+
+# User Management (Admin-only)
+@login_required
+@user_passes_test(is_admin)
+def manage_users(request):
+    """Manage users (admin-only)"""
+    users = CustomUser.objects.select_related().order_by('-date_joined')
+    
+    # Filter by role if specified
+    role_filter = request.GET.get('role')
+    if role_filter:
+        users = users.filter(role=role_filter)
+    
+    # Search functionality
+    search_query = request.GET.get('search')
+    if search_query:
+        users = users.filter(
+            models.Q(username__icontains=search_query) |
+            models.Q(email__icontains=search_query) |
+            models.Q(first_name__icontains=search_query) |
+            models.Q(last_name__icontains=search_query)
+        )
+    
+    # Pagination
+    paginator = Paginator(users, 25)
+    page_number = request.GET.get('page')
+    users = paginator.get_page(page_number)
+    
+    context = {
+        'users': users,
+        'total_users': CustomUser.objects.count(),
+        'role_filter': role_filter,
+        'search_query': search_query,
+        'role_choices': CustomUser.ROLE_CHOICES,
+    }
+    return render(request, 'community/admin/manage_users.html', context)
+
+
+@login_required
+@user_passes_test(is_admin)
+def edit_user(request, user_id):
+    """Edit user details and role (admin-only)"""
+    user_to_edit = get_object_or_404(CustomUser, id=user_id)
+    
+    if request.method == 'POST':
+        form = AdminUserForm(request.POST, instance=user_to_edit)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'User "{user_to_edit.username}" updated successfully!')
+            return redirect('manage_users')
+    else:
+        form = AdminUserForm(instance=user_to_edit)
+    
+    return render(request, 'community/admin/edit_user.html', {
+        'form': form, 
+        'user_to_edit': user_to_edit
+    })
+
+
+# ============================================================================
+# SUPERUSER MANAGEMENT VIEWS
+# ============================================================================
+
+def is_superuser(user):
+    """Check if user is superuser"""
+    return user.is_authenticated and user.is_superuser
+
+
+@login_required
+@user_passes_test(is_superuser)
+def superuser_dashboard(request):
+    """Superuser dashboard with system-wide stats"""
+    context = {
+        'total_users': CustomUser.objects.count(),
+        'total_admins': CustomUser.objects.filter(role='admin').count(),
+        'total_moderators': CustomUser.objects.filter(role='moderator').count(),
+        'total_members': CustomUser.objects.filter(role='member').count(),
+        'total_communities': Community.objects.count(),
+        'total_categories': AlertCategory.objects.count(),
+        'total_alerts': Alert.objects.count(),
+        'recent_users': CustomUser.objects.order_by('-date_joined')[:10],
+        'recent_admins': CustomUser.objects.filter(role='admin').order_by('-date_joined')[:5],
+    }
+    return render(request, 'community/admin/superuser_dashboard.html', context)
+
+
+@login_required
+@user_passes_test(is_superuser)
+def create_admin_user(request):
+    """Create a new administrator user (superuser-only)"""
+    if request.method == 'POST':
+        form = CreateAdminUserForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.role = 'admin'  # Force admin role
+            user.is_staff = True  # Allow Django admin access
+            user.save()
+            
+            messages.success(request, f'Administrator "{user.username}" created successfully!')
+            return redirect('superuser_dashboard')
+    else:
+        form = CreateAdminUserForm()
+    
+    return render(request, 'community/admin/create_admin_user.html', {'form': form})
+
+
+@login_required
+@user_passes_test(is_superuser)
+def manage_admin_users(request):
+    """Manage administrator users (superuser-only)"""
+    admins = CustomUser.objects.filter(
+        models.Q(role='admin') | models.Q(is_superuser=True)
+    ).order_by('-date_joined')
+    
+    context = {
+        'admins': admins,
+        'total_admins': admins.filter(role='admin').count(),
+        'total_superusers': admins.filter(is_superuser=True).count(),
+    }
+    return render(request, 'community/admin/manage_admin_users.html', context)
+
+
+@login_required
+@user_passes_test(is_superuser)
+@require_POST
+def toggle_admin_status(request, user_id):
+    """Toggle user admin status (superuser-only)"""
+    user = get_object_or_404(CustomUser, id=user_id)
+    
+    if user == request.user:
+        messages.error(request, "You cannot modify your own admin status.")
+        return redirect('manage_admin_users')
+    
+    if user.role == 'admin':
+        user.role = 'member'
+        user.is_staff = False
+        status = "removed admin privileges from"
+    else:
+        user.role = 'admin'
+        user.is_staff = True
+        status = "granted admin privileges to"
+    
+    user.save()
+    messages.success(request, f'Successfully {status} "{user.username}".')
+    
+    return redirect('manage_admin_users')

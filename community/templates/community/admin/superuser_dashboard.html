@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+
+{% block title %}Superuser Dashboard - Community Alert System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .superuser-header {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+    }
+    .stats-card {
+        background: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+        border: 1px solid #e9ecef;
+        transition: transform 0.2s;
+        height: 100%;
+    }
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+    .stats-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #dc3545;
+    }
+    .quick-actions {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .recent-items {
+        background: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        border: 1px solid #e9ecef;
+    }
+    .warning-banner {
+        background: linear-gradient(45deg, #ffc107, #e0a800);
+        color: #212529;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        border: 1px solid #e0a800;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Warning Banner -->
+    <div class="warning-banner text-center">
+        <h6><i class="fas fa-exclamation-triangle"></i> Superuser Access</h6>
+        <small>You have full system access. Use these privileges responsibly.</small>
+    </div>
+
+    <!-- Superuser Header -->
+    <div class="superuser-header text-center">
+        <h2><i class="fas fa-user-crown"></i> Superuser Dashboard</h2>
+        <p class="mb-0">System-wide administration and user management</p>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-number">{{ total_users }}</div>
+                <div class="text-muted">Total Users</div>
+                <small class="text-info">All registered users</small>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-number text-danger">{{ total_admins }}</div>
+                <div class="text-muted">Administrators</div>
+                <small class="text-danger">Users with admin privileges</small>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-number text-warning">{{ total_moderators }}</div>
+                <div class="text-muted">Moderators</div>
+                <small class="text-warning">Community moderators</small>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-number text-success">{{ total_members }}</div>
+                <div class="text-muted">Members</div>
+                <small class="text-success">Regular community members</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Stats -->
+    <div class="row mb-4">
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-number text-primary">{{ total_communities }}</div>
+                <div class="text-muted">Communities</div>
+                <small class="text-muted">Active communities</small>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-number text-info">{{ total_categories }}</div>
+                <div class="text-muted">Categories</div>
+                <small class="text-muted">Alert categories</small>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-number text-warning">{{ total_alerts }}</div>
+                <div class="text-muted">Total Alerts</div>
+                <small class="text-muted">All system alerts</small>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="stats-card">
+                <div class="stats-number text-secondary">1</div>
+                <div class="text-muted">Superusers</div>
+                <small class="text-muted">System administrators</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <h5><i class="fas fa-rocket text-danger"></i> Superuser Actions</h5>
+        <div class="row">
+            <div class="col-md-3 mb-2">
+                <a href="{% url 'create_admin_user' %}" class="btn btn-danger btn-block">
+                    <i class="fas fa-user-plus"></i> Create Admin
+                </a>
+            </div>
+            <div class="col-md-3 mb-2">
+                <a href="{% url 'manage_admin_users' %}" class="btn btn-warning btn-block">
+                    <i class="fas fa-user-shield"></i> Manage Admins
+                </a>
+            </div>
+            <div class="col-md-3 mb-2">
+                <a href="{% url 'admin_dashboard' %}" class="btn btn-success btn-block">
+                    <i class="fas fa-tachometer-alt"></i> Admin Panel
+                </a>
+            </div>
+            <div class="col-md-3 mb-2">
+                <a href="/admin/" class="btn btn-info btn-block" target="_blank">
+                    <i class="fas fa-cogs"></i> Django Admin
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Recent Users -->
+        <div class="col-lg-6 mb-4">
+            <div class="recent-items">
+                <h5><i class="fas fa-users text-primary"></i> Recent Users</h5>
+                {% if recent_users %}
+                    {% for user in recent_users %}
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <div>
+                            <strong>{{ user.get_full_name|default:user.username }}</strong><br>
+                            <small class="text-muted">
+                                <i class="fas fa-envelope"></i> {{ user.email }} • 
+                                Joined {{ user.date_joined|timesince }} ago
+                            </small>
+                        </div>
+                        <div>
+                            <span class="badge 
+                                {% if user.role == 'admin' %}bg-danger
+                                {% elif user.role == 'moderator' %}bg-warning
+                                {% else %}bg-secondary{% endif %}">
+                                {{ user.get_role_display }}
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="text-center mt-3">
+                        <a href="{% url 'manage_users' %}" class="btn btn-outline-primary btn-sm">
+                            View All Users
+                        </a>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center py-3">No recent users</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Recent Admins -->
+        <div class="col-lg-6 mb-4">
+            <div class="recent-items">
+                <h5><i class="fas fa-user-shield text-danger"></i> Recent Administrators</h5>
+                {% if recent_admins %}
+                    {% for admin in recent_admins %}
+                    <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                        <div>
+                            <strong>{{ admin.get_full_name|default:admin.username }}</strong><br>
+                            <small class="text-muted">
+                                <i class="fas fa-envelope"></i> {{ admin.email }} • 
+                                Admin since {{ admin.date_joined|timesince }} ago
+                            </small>
+                        </div>
+                        <div>
+                            {% if admin.is_superuser %}
+                            <span class="badge bg-danger">Superuser</span>
+                            {% else %}
+                            <span class="badge bg-warning">Admin</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="text-center mt-3">
+                        <a href="{% url 'manage_admin_users' %}" class="btn btn-outline-danger btn-sm">
+                            Manage Administrators
+                        </a>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center py-3">No admin users found</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Management Links -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h5><i class="fas fa-shield-alt"></i> System Administration</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'create_admin_user' %}" class="btn btn-outline-danger btn-lg w-100">
+                                <i class="fas fa-user-plus d-block mb-2"></i>
+                                Create Administrator
+                                <small class="d-block">Add new admin user</small>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'manage_admin_users' %}" class="btn btn-outline-warning btn-lg w-100">
+                                <i class="fas fa-users-cog d-block mb-2"></i>
+                                Manage Admins
+                                <small class="d-block">{{ total_admins }} administrators</small>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="/admin/" class="btn btn-outline-info btn-lg w-100" target="_blank">
+                                <i class="fas fa-database d-block mb-2"></i>
+                                Django Admin
+                                <small class="d-block">Full database access</small>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Add hover effects
+    document.addEventListener('DOMContentLoaded', function() {
+        const statsCards = document.querySelectorAll('.stats-card');
+        statsCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    });
+</script>
+{% endblock %}

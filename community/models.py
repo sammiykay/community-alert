@@ -8,15 +8,9 @@ import uuid
 class Community(models.Model):
     """Represents a neighborhood or community area"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     description = models.TextField(blank=True)
-    # Geographic boundaries (simplified with center point and radius)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    radius_km = models.FloatField(
-        validators=[MinValueValidator(0.1), MaxValueValidator(50.0)],
-        help_text="Radius in kilometers"
-    )
+    created_by = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='created_communities')
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
@@ -41,10 +35,6 @@ class CustomUser(AbstractUser):
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='member')
     communities = models.ManyToManyField(Community, related_name='members', blank=True)
     
-    # User location (optional)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-    
     # Email verification
     email_verified = models.BooleanField(default=False)
     email_verification_token = models.CharField(max_length=100, blank=True)
@@ -52,11 +42,6 @@ class CustomUser(AbstractUser):
     # Notification preferences
     email_notifications = models.BooleanField(default=True)
     push_notifications = models.BooleanField(default=True)
-    notification_radius_km = models.FloatField(
-        default=5.0,
-        validators=[MinValueValidator(0.1), MaxValueValidator(50.0)],
-        help_text="Radius for receiving alerts in kilometers"
-    )
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -107,11 +92,9 @@ class Alert(models.Model):
     severity = models.CharField(max_length=10, choices=SEVERITY_CHOICES, default='medium')
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='active')
     
-    # Location information
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    address = models.CharField(max_length=300, blank=True)
+    # Community information
     community = models.ForeignKey(Community, on_delete=models.CASCADE, related_name='alerts')
+    address = models.CharField(max_length=300, blank=True, help_text="Optional specific address or location description")
     
     # User information
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='created_alerts')
@@ -135,9 +118,9 @@ class Alert(models.Model):
     class Meta:
         ordering = ['-created_at']
         indexes = [
-            models.Index(fields=['latitude', 'longitude']),
             models.Index(fields=['created_at']),
             models.Index(fields=['severity', 'status']),
+            models.Index(fields=['community', 'status']),
         ]
 
     def __str__(self):

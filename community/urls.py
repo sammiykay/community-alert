@@ -10,14 +10,40 @@ urlpatterns = [
     path('alerts/create/', views.create_alert, name='create_alert'),
     path('alerts/<uuid:alert_id>/edit/', views.edit_alert, name='edit_alert'),
     path('alerts/<uuid:alert_id>/vote/', views.vote_alert, name='vote_alert'),
-    path('alerts/nearby/', views.nearby_alerts, name='nearby_alerts'),
+    path('alerts/my-communities/', views.my_community_alerts, name='my_community_alerts'),
     
     # Community pages
     path('communities/<uuid:community_id>/', views.community_detail, name='community_detail'),
     
+    # Admin management
+    path('admin/', views.admin_dashboard, name='admin_dashboard'),
+    
+    # Admin community management
+    path('admin/communities/', views.manage_communities, name='manage_communities'),
+    path('admin/communities/create/', views.create_community, name='create_community'),
+    path('admin/communities/<uuid:community_id>/edit/', views.edit_community, name='edit_community'),
+    path('admin/communities/<uuid:community_id>/toggle/', views.toggle_community_status, name='toggle_community_status'),
+    
+    # Admin category management
+    path('admin/categories/', views.manage_categories, name='manage_categories'),
+    path('admin/categories/create/', views.create_category, name='create_category'),
+    path('admin/categories/<int:category_id>/edit/', views.edit_category, name='edit_category'),
+    path('admin/categories/<int:category_id>/toggle/', views.toggle_category_status, name='toggle_category_status'),
+    
+    # Admin user management
+    path('admin/users/', views.manage_users, name='manage_users'),
+    path('admin/users/<int:user_id>/edit/', views.edit_user, name='edit_user'),
+    
+    # Superuser management
+    path('superuser/', views.superuser_dashboard, name='superuser_dashboard'),
+    path('superuser/admins/', views.manage_admin_users, name='manage_admin_users'),
+    path('superuser/admins/create/', views.create_admin_user, name='create_admin_user'),
+    path('superuser/admins/<int:user_id>/toggle/', views.toggle_admin_status, name='toggle_admin_status'),
+    
     # User management
     path('register/', views.register, name='register'),
     path('profile/', views.user_profile, name='user_profile'),
+    path('test-notification/', views.test_notification, name='test_notification'),
     path('debug-headers/', views.debug_headers, name='debug_headers'),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),

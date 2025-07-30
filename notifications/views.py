@@ -14,14 +14,10 @@ class NotificationService:
     
     @staticmethod
     def send_alert_notification(alert, notification_type='email'):
-        """Send notification about new alert to relevant users"""
+        """Send notification about new alert to community members"""
         try:
-            # Find users who should be notified based on location and preferences
-            users_to_notify = NotificationService.get_users_in_radius(
-                alert.latitude, 
-                alert.longitude, 
-                alert.community
-            )
+            # Find users who should be notified (community members)
+            users_to_notify = NotificationService.get_community_members(alert.community)
             
             notifications_sent = 0
             
@@ -38,45 +34,13 @@ class NotificationService:
             return 0
     
     @staticmethod
-    def get_users_in_radius(latitude, longitude, community, max_radius_km=10):
-        """Get users within notification radius of the alert location"""
-        users = CustomUser.objects.filter(
+    def get_community_members(community):
+        """Get all active members of a community who want notifications"""
+        return CustomUser.objects.filter(
             communities=community,
             email_notifications=True,
             is_active=True
-        ).exclude(latitude__isnull=True, longitude__isnull=True)
-        
-        users_in_radius = []
-        
-        for user in users:
-            distance = NotificationService.calculate_distance(
-                float(latitude), float(longitude),
-                float(user.latitude), float(user.longitude)
-            )
-            
-            user_radius = min(user.notification_radius_km, max_radius_km)
-            if distance <= user_radius:
-                users_in_radius.append(user)
-                
-        return users_in_radius
-    
-    @staticmethod
-    def calculate_distance(lat1, lon1, lat2, lon2):
-        """Calculate distance between two points in kilometers"""
-        # Simple Haversine formula approximation
-        R = 6371  # Earth's radius in kilometers
-        
-        dlat = math.radians(lat2 - lat1)
-        dlon = math.radians(lon2 - lon1)
-        
-        a = (math.sin(dlat/2) * math.sin(dlat/2) + 
-             math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * 
-             math.sin(dlon/2) * math.sin(dlon/2))
-        
-        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
-        distance = R * c
-        
-        return distance
+        )
     
     @staticmethod
     def send_email_notification(user, alert):
@@ -87,13 +51,13 @@ class NotificationService:
             message = f"""
 Dear {user.get_full_name() or user.username},
 
-A new {alert.get_severity_display().lower()} security alert has been reported in your area:
+A new {alert.get_severity_display().lower()} security alert has been reported in your community:
 
 ALERT DETAILS:
 Title: {alert.title}
 Category: {alert.category.name}
 Severity: {alert.get_severity_display()}
-Location: {alert.address or f"Coordinates: {alert.latitude}, {alert.longitude}"}
+Location: {alert.address or 'No specific address provided'}
 Community: {alert.community.name}
 Reported: {alert.created_at.strftime("%B %d, %Y at %I:%M %p")}
 
@@ -103,13 +67,13 @@ DESCRIPTION:
 WHAT TO DO:
 • Stay alert and aware of your surroundings
 • Report any additional information to local authorities if relevant
-• If this is an emergency, call 911 immediately
+• If this is an emergency, call emergency services immediately
 
 View full details and community discussion at:
 {settings.BASE_URL if hasattr(settings, 'BASE_URL') else 'http://localhost:8000'}/alerts/{alert.id}/
 
 ---
-Community Alert System
+Community Alert System - {alert.community.name}
 To adjust your notification preferences, visit your profile settings.
             """
             
@@ -239,8 +203,8 @@ def trigger_alert_notifications(alert):
     Trigger notifications for a new alert
     This function should be called when a new alert is created
     """
-    if alert.is_public and alert.severity in ['high', 'critical']:
-        # Send notifications for high and critical alerts
+    if alert.is_public:
+        # Send notifications for all public alerts regardless of severity
         notifications_sent = NotificationService.send_alert_notification(alert)
         print(f"Sent {notifications_sent} notifications for alert: {alert.title}")
         return notifications_sent

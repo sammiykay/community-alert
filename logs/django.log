@@ -1349,3 +1349,986 @@ INFO 2025-07-30 12:37:50,593 basehttp 17853 130209449768640 "POST /profile/ HTTP
 INFO 2025-07-30 12:37:52,122 basehttp 17853 130209449768640 "GET /profile/ HTTP/1.1" 200 43151
 INFO 2025-07-30 12:37:57,021 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 31518
 INFO 2025-07-30 12:37:57,526 basehttp 17853 130209449768640 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=5 HTTP/1.1" 200 115
+INFO 2025-07-30 12:55:21,920 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 31433
+WARNING 2025-07-30 12:55:26,380 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:55:26,380 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:55:43,922 basehttp 17853 130209449768640 "GET /alerts/ HTTP/1.1" 200 81641
+WARNING 2025-07-30 12:55:43,999 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:55:43,999 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:56:35,972 basehttp 17853 130209449768640 "GET /alerts/ HTTP/1.1" 200 81641
+WARNING 2025-07-30 12:56:36,009 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:56:36,009 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:56:38,646 basehttp 17853 130209449768640 "GET /alerts/create/ HTTP/1.1" 200 42926
+WARNING 2025-07-30 12:56:38,739 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:56:38,740 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:56:53,257 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 31433
+WARNING 2025-07-30 12:56:53,396 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:56:53,396 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:57:10,837 basehttp 17853 130209449768640 "GET /profile/ HTTP/1.1" 200 43066
+WARNING 2025-07-30 12:57:10,962 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:57:10,962 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:57:39,044 basehttp 17853 130209449768640 "GET /alerts/ HTTP/1.1" 200 81641
+WARNING 2025-07-30 12:57:39,194 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:57:39,194 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:58:24,855 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 31433
+WARNING 2025-07-30 12:58:25,060 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:58:25,060 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 13:00:12,781 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 31433
+WARNING 2025-07-30 13:00:12,812 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 13:00:12,813 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 13:06:40,792 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 31355
+WARNING 2025-07-30 13:06:40,822 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 13:06:40,823 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 13:06:58,201 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 31355
+WARNING 2025-07-30 13:06:58,234 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 13:06:58,235 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 13:09:17,378 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 32107
+WARNING 2025-07-30 13:09:17,412 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 13:09:17,412 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 13:10:38,382 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 32143
+WARNING 2025-07-30 13:10:38,421 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 13:10:38,421 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 13:11:30,664 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 32165
+WARNING 2025-07-30 13:11:30,740 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 13:11:30,740 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 13:12:05,591 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 32183
+WARNING 2025-07-30 13:12:05,720 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 13:12:05,721 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 13:13:03,367 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 32255
+WARNING 2025-07-30 13:13:03,420 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 13:13:03,420 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 13:15:06,835 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 32133
+WARNING 2025-07-30 13:15:06,906 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 13:15:06,906 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 13:16:42,305 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 32168
+WARNING 2025-07-30 13:16:42,366 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 13:16:42,366 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 16:14:11,566 autoreload 166655 138164195598464 Watching for file changes with StatReloader
+INFO 2025-07-30 16:14:14,182 autoreload 166688 137792466296960 Watching for file changes with StatReloader
+INFO 2025-07-30 16:14:15,919 basehttp 166688 137792406329024 "GET / HTTP/1.1" 200 15066
+WARNING 2025-07-30 16:14:17,165 log 166688 137792406329024 Not Found: /favicon.ico
+WARNING 2025-07-30 16:14:17,166 basehttp 166688 137792406329024 "GET /favicon.ico HTTP/1.1" 404 7318
+INFO 2025-07-30 16:14:19,168 basehttp 166688 137792406329024 "GET /alerts/ae06f44b-0297-42b7-b294-3e34dfba9738/ HTTP/1.1" 200 35362
+INFO 2025-07-30 16:14:19,543 basehttp 166688 137792406329024 "GET /api/alerts/nearby/?lat=2.000000&lng=2.000000&radius=2&exclude=ae06f44b-0297-42b7-b294-3e34dfba9738 HTTP/1.1" 200 115
+INFO 2025-07-30 16:14:30,271 basehttp 166688 137792406329024 "GET /profile/ HTTP/1.1" 200 43995
+WARNING 2025-07-30 16:14:31,345 log 166688 137792406329024 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 16:14:31,346 basehttp 166688 137792406329024 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 16:26:06,493 autoreload 175755 136346017128576 Watching for file changes with StatReloader
+INFO 2025-07-30 16:26:33,931 autoreload 175755 136346017128576 /home/sammiykay/Desktop/projects/alert/alert_system/community/urls.py changed, reloading.
+INFO 2025-07-30 16:26:34,251 autoreload 176110 134754289782912 Watching for file changes with StatReloader
+INFO 2025-07-30 16:26:41,455 autoreload 176110 134754289782912 /home/sammiykay/Desktop/projects/alert/alert_system/community/urls.py changed, reloading.
+INFO 2025-07-30 16:26:41,792 autoreload 176195 134451926597760 Watching for file changes with StatReloader
+INFO 2025-07-30 16:38:41,008 autoreload 176195 134451926597760 /home/sammiykay/Desktop/projects/alert/alert_system/community/admin.py changed, reloading.
+INFO 2025-07-30 16:38:41,327 autoreload 184640 132517124812928 Watching for file changes with StatReloader
+INFO 2025-07-30 16:38:48,535 autoreload 184640 132517124812928 /home/sammiykay/Desktop/projects/alert/alert_system/community/admin.py changed, reloading.
+INFO 2025-07-30 16:38:48,870 autoreload 184746 136998142464128 Watching for file changes with StatReloader
+INFO 2025-07-30 16:39:48,862 autoreload 185624 135111738310784 Watching for file changes with StatReloader
+INFO 2025-07-30 16:39:52,066 autoreload 185688 128130631712896 Watching for file changes with StatReloader
+ERROR 2025-07-30 16:39:53,770 log 185688 128130571630272 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 33, in home
+    return render(request, 'community/home.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'nearby_alerts' not found. 'nearby_alerts' is not a valid view function or pattern name.
+ERROR 2025-07-30 16:39:53,773 basehttp 185688 128130571630272 "GET / HTTP/1.1" 500 154512
+WARNING 2025-07-30 16:39:55,648 log 185688 128130571630272 Not Found: /favicon.ico
+WARNING 2025-07-30 16:39:55,648 basehttp 185688 128130571630272 "GET /favicon.ico HTTP/1.1" 404 8514
+ERROR 2025-07-30 16:39:58,205 log 185688 128130571630272 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 33, in home
+    return render(request, 'community/home.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'nearby_alerts' not found. 'nearby_alerts' is not a valid view function or pattern name.
+ERROR 2025-07-30 16:39:58,206 basehttp 185688 128130571630272 "GET / HTTP/1.1" 500 154512
+INFO 2025-07-30 16:43:58,235 autoreload 189211 126117195677824 Watching for file changes with StatReloader
+ERROR 2025-07-30 16:44:00,501 log 189211 126117135636160 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: community_community.created_by_id
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 33, in home
+    return render(request, 'community/home.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 326, in render
+    if match:
+       ^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/models/query.py", line 398, in __bool__
+    self._fetch_all()
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/models/query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/db/backends/sqlite3/base.py", line 360, in execute
+    return super().execute(query, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: community_community.created_by_id
+ERROR 2025-07-30 16:44:00,507 basehttp 189211 126117135636160 "GET / HTTP/1.1" 500 239260
+INFO 2025-07-30 16:46:22,452 autoreload 191899 127714958897280 Watching for file changes with StatReloader
+INFO 2025-07-30 16:46:29,765 autoreload 192044 125842309902464 Watching for file changes with StatReloader
+INFO 2025-07-30 16:46:31,693 basehttp 192044 125842249914048 "GET / HTTP/1.1" 200 8448
+INFO 2025-07-30 16:46:34,479 basehttp 192044 125842249914048 "GET /register/ HTTP/1.1" 200 6967
+INFO 2025-07-30 16:46:40,686 basehttp 192044 125842249914048 "GET /login/ HTTP/1.1" 200 6413
+INFO 2025-07-30 16:46:51,565 basehttp 192044 125842249914048 "POST /login/ HTTP/1.1" 302 0
+ERROR 2025-07-30 16:46:51,606 log 192044 125842249914048 Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 33, in home
+    return render(request, 'community/home.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'nearby_alerts' not found. 'nearby_alerts' is not a valid view function or pattern name.
+ERROR 2025-07-30 16:46:51,608 basehttp 192044 125842249914048 "GET / HTTP/1.1" 500 172714
+INFO 2025-07-30 16:48:15,331 autoreload 192044 125842309902464 /home/sammiykay/Desktop/projects/alert/alert_system/api/views.py changed, reloading.
+INFO 2025-07-30 16:48:15,720 autoreload 194106 127343623168128 Watching for file changes with StatReloader
+INFO 2025-07-30 16:48:28,005 autoreload 194106 127343623168128 /home/sammiykay/Desktop/projects/alert/alert_system/api/views.py changed, reloading.
+INFO 2025-07-30 16:48:28,354 autoreload 194343 126229436952704 Watching for file changes with StatReloader
+INFO 2025-07-30 16:48:42,660 autoreload 194343 126229436952704 /home/sammiykay/Desktop/projects/alert/alert_system/api/urls.py changed, reloading.
+INFO 2025-07-30 16:48:43,031 autoreload 194597 131245320007808 Watching for file changes with StatReloader
+INFO 2025-07-30 16:48:59,924 basehttp 194597 131245259970240 "GET / HTTP/1.1" 200 9396
+INFO 2025-07-30 16:49:03,852 basehttp 194597 131245259970240 "GET /alerts/create/ HTTP/1.1" 200 39030
+INFO 2025-07-30 16:50:10,613 basehttp 194597 131245259970240 "GET /profile/ HTTP/1.1" 200 42513
+INFO 2025-07-30 16:54:56,176 basehttp 194597 131245259970240 "GET /profile/ HTTP/1.1" 200 42513
+INFO 2025-07-30 16:54:59,950 basehttp 194597 131245259970240 "GET /alerts/my-communities/ HTTP/1.1" 200 9300
+INFO 2025-07-30 16:55:04,286 basehttp 194597 131245259970240 "GET /profile/ HTTP/1.1" 200 42513
+INFO 2025-07-30 16:55:13,906 basehttp 194597 131245259970240 "GET /alerts/ HTTP/1.1" 200 37649
+INFO 2025-07-30 16:55:29,073 basehttp 194597 131245259970240 "GET /alerts/my-communities/ HTTP/1.1" 200 9300
+INFO 2025-07-30 16:55:30,275 basehttp 194597 131245259970240 "GET /alerts/create/ HTTP/1.1" 200 23342
+INFO 2025-07-30 16:58:20,385 basehttp 194597 131245259970240 "GET /profile/ HTTP/1.1" 200 42513
+INFO 2025-07-30 16:58:27,895 basehttp 194597 131245259970240 "GET /alerts/ HTTP/1.1" 200 12951
+INFO 2025-07-30 16:58:42,234 basehttp 194597 131245259970240 "GET /alerts/?category=&severity=&status=active&community=&search= HTTP/1.1" 200 12959
+INFO 2025-07-30 16:58:48,041 basehttp 194597 131245259970240 "GET /alerts/?category=&severity=medium&status=active&community=&search= HTTP/1.1" 200 12967
+INFO 2025-07-30 16:58:50,038 basehttp 194597 131245259970240 "GET /alerts/ HTTP/1.1" 200 12951
+INFO 2025-07-30 16:59:35,733 basehttp 194597 131245259970240 "GET / HTTP/1.1" 200 9396
+INFO 2025-07-30 16:59:37,696 basehttp 194597 131245259970240 "GET /alerts/create/ HTTP/1.1" 200 23342
+INFO 2025-07-30 16:59:43,399 basehttp 194597 131245259970240 "GET /admin/ HTTP/1.1" 200 11136
+INFO 2025-07-30 16:59:43,411 basehttp 194597 131245259970240 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:43,411 basehttp 194597 131245251577536 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:43,411 basehttp 194597 131245241087680 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:44,904 basehttp 194597 131245259970240 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:44,905 basehttp 194597 131245241087680 "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:44,907 basehttp 194597 131245241087680 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:44,910 basehttp 194597 131245259970240 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:44,927 basehttp 194597 131245251577536 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:44,930 basehttp 194597 131245251577536 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:47,791 basehttp 194597 131245251577536 "GET /admin/community/community/ HTTP/1.1" 200 12937
+INFO 2025-07-30 16:59:47,819 basehttp 194597 131245251577536 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:47,827 basehttp 194597 131245224302272 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:47,827 basehttp 194597 131245232694976 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:47,828 basehttp 194597 131245140866752 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:47,830 basehttp 194597 131245140866752 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:47,831 basehttp 194597 131245241087680 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:47,833 basehttp 194597 131245259970240 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 16:59:47,835 basehttp 194597 131245232694976 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:47,835 basehttp 194597 131245224302272 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:47,836 basehttp 194597 131245241087680 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:47,879 basehttp 194597 131245241087680 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:48,204 basehttp 194597 131245241087680 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:48,231 basehttp 194597 131245241087680 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:48,231 basehttp 194597 131245224302272 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-07-30 16:59:49,792 basehttp 194597 131245241087680 "GET /admin/community/community/add/ HTTP/1.1" 200 14843
+INFO 2025-07-30 16:59:49,818 basehttp 194597 131245241087680 "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-07-30 16:59:49,819 basehttp 194597 131245232694976 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-07-30 16:59:49,822 basehttp 194597 131245224302272 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 16:59:50,189 basehttp 194597 131245241087680 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11991
+INFO 2025-07-30 16:59:50,189 basehttp 194597 131245224302272 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-07-30 17:00:03,121 basehttp 194597 131245224302272 "POST /admin/community/community/add/ HTTP/1.1" 302 0
+INFO 2025-07-30 17:00:03,144 basehttp 194597 131245224302272 "GET /admin/community/community/ HTTP/1.1" 200 15436
+INFO 2025-07-30 17:00:03,210 basehttp 194597 131245224302272 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 17:00:03,212 basehttp 194597 131245241087680 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-07-30 17:00:03,534 basehttp 194597 131245224302272 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-07-30 17:00:07,316 basehttp 194597 131245224302272 "GET / HTTP/1.1" 200 9396
+INFO 2025-07-30 17:00:09,492 basehttp 194597 131245224302272 "GET /alerts/create/ HTTP/1.1" 200 23635
+INFO 2025-07-30 17:00:22,179 basehttp 194597 131245224302272 "GET /admin/ HTTP/1.1" 200 11564
+INFO 2025-07-30 17:00:28,851 basehttp 194597 131245224302272 "GET /admin/community/alertcategory/ HTTP/1.1" 200 12191
+INFO 2025-07-30 17:00:28,891 basehttp 194597 131245224302272 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 17:00:30,636 basehttp 194597 131245224302272 "GET /admin/community/alertcategory/add/ HTTP/1.1" 200 14348
+INFO 2025-07-30 17:00:30,658 basehttp 194597 131245224302272 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 17:01:00,148 basehttp 194597 131245224302272 "GET / HTTP/1.1" 200 9396
+INFO 2025-07-30 17:01:01,977 basehttp 194597 131245224302272 "GET /alerts/create/ HTTP/1.1" 200 23635
+INFO 2025-07-30 17:03:50,438 basehttp 194597 131245224302272 "GET / HTTP/1.1" 200 9396
+INFO 2025-07-30 17:03:56,327 basehttp 194597 131245224302272 "GET /alerts/my-communities/ HTTP/1.1" 200 9300
+ERROR 2025-07-30 17:03:58,027 log 194597 131245224302272 Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 323, in user_profile
+    return render(request, 'community/user_profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test_notification' not found. 'test_notification' is not a valid view function or pattern name.
+ERROR 2025-07-30 17:03:58,030 basehttp 194597 131245224302272 "GET /profile/ HTTP/1.1" 500 167633
+ERROR 2025-07-30 17:04:45,257 log 194597 131245224302272 Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 323, in user_profile
+    return render(request, 'community/user_profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test_notification' not found. 'test_notification' is not a valid view function or pattern name.
+ERROR 2025-07-30 17:04:45,259 basehttp 194597 131245224302272 "GET /profile/ HTTP/1.1" 500 167770
+ERROR 2025-07-30 17:04:48,614 log 194597 131245224302272 Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 323, in user_profile
+    return render(request, 'community/user_profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'api_test_notification' not found. 'api_test_notification' is not a valid view function or pattern name.
+ERROR 2025-07-30 17:04:48,616 basehttp 194597 131245224302272 "GET /profile/ HTTP/1.1" 500 167874
+ERROR 2025-07-30 17:04:51,331 log 194597 131245224302272 Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 323, in user_profile
+    return render(request, 'community/user_profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'api_test_notification' not found. 'api_test_notification' is not a valid view function or pattern name.
+ERROR 2025-07-30 17:04:51,333 basehttp 194597 131245224302272 "GET /profile/ HTTP/1.1" 500 167874
+ERROR 2025-07-30 17:07:15,230 log 194597 131245224302272 Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 323, in user_profile
+    return render(request, 'community/user_profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test_notification' not found. 'test_notification' is not a valid view function or pattern name.
+ERROR 2025-07-30 17:07:15,232 basehttp 194597 131245224302272 "GET /profile/ HTTP/1.1" 500 167770
+INFO 2025-07-30 17:07:32,085 basehttp 194597 131245224302272 "GET /alerts/create/ HTTP/1.1" 200 24957
+INFO 2025-07-30 17:08:03,868 basehttp 194597 131245224302272 "POST /alerts/create/ HTTP/1.1" 302 0
+INFO 2025-07-30 17:08:03,895 basehttp 194597 131245224302272 "GET /alerts/14abc2da-4bfa-44f3-a5ed-3897190d4a6c/ HTTP/1.1" 200 36378
+WARNING 2025-07-30 17:08:04,398 log 194597 131245224302272 Not Found: /api/alerts/nearby/
+WARNING 2025-07-30 17:08:04,398 basehttp 194597 131245224302272 "GET /api/alerts/nearby/?lat=&lng=&radius=2&exclude=14abc2da-4bfa-44f3-a5ed-3897190d4a6c HTTP/1.1" 404 10921
+INFO 2025-07-30 17:08:29,735 basehttp 194597 131245224302272 "GET /alerts/my-communities/ HTTP/1.1" 200 9300
+ERROR 2025-07-30 17:08:33,490 log 194597 131245224302272 Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 323, in user_profile
+    return render(request, 'community/user_profile.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/urls/resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'test_notification' not found. 'test_notification' is not a valid view function or pattern name.
+ERROR 2025-07-30 17:08:33,492 basehttp 194597 131245224302272 "GET /profile/ HTTP/1.1" 500 168109
+INFO 2025-07-30 17:09:16,431 autoreload 194597 131245320007808 /home/sammiykay/Desktop/projects/alert/alert_system/community/urls.py changed, reloading.
+INFO 2025-07-30 17:09:16,835 autoreload 215384 135354850066560 Watching for file changes with StatReloader
+INFO 2025-07-30 17:09:21,867 basehttp 215384 135354790090432 "GET /profile/ HTTP/1.1" 200 23360
+INFO 2025-07-30 17:09:30,374 views 215384 135354790090432 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '770', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryMsFB60gJMeeBVL7L', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=iKMRDQw650Pb7tcGoH6F3JL1wkrSKOQ0; sessionid=0zgad3u13zovzfkcz8u0dryil50gq9pg'}
+INFO 2025-07-30 17:09:30,384 basehttp 215384 135354790090432 "POST /profile/ HTTP/1.1" 200 61
+INFO 2025-07-30 17:09:31,408 basehttp 215384 135354790090432 "GET /profile/ HTTP/1.1" 200 23566
+INFO 2025-07-30 17:09:33,189 basehttp 215384 135354790090432 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:09:37,089 views 215384 135354790090432 AJAX request detected - Action: update_notifications, Headers: {'Content-Length': '542', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryLaP5lXgIBktiBzMk', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=iKMRDQw650Pb7tcGoH6F3JL1wkrSKOQ0; sessionid=0zgad3u13zovzfkcz8u0dryil50gq9pg'}
+INFO 2025-07-30 17:09:37,094 basehttp 215384 135354790090432 "POST /profile/ HTTP/1.1" 200 75
+INFO 2025-07-30 17:09:38,048 views 215384 135354790090432 AJAX request detected - Action: update_notifications, Headers: {'Content-Length': '542', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundarygIEM8rDgHghkD7Yg', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=iKMRDQw650Pb7tcGoH6F3JL1wkrSKOQ0; sessionid=0zgad3u13zovzfkcz8u0dryil50gq9pg'}
+INFO 2025-07-30 17:09:38,062 basehttp 215384 135354790090432 "POST /profile/ HTTP/1.1" 200 75
+INFO 2025-07-30 17:09:38,859 views 215384 135354790090432 AJAX request detected - Action: update_notifications, Headers: {'Content-Length': '542', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundarygEPOc6mCHtX6I6ej', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=iKMRDQw650Pb7tcGoH6F3JL1wkrSKOQ0; sessionid=0zgad3u13zovzfkcz8u0dryil50gq9pg'}
+INFO 2025-07-30 17:09:38,873 basehttp 215384 135354790090432 "POST /profile/ HTTP/1.1" 200 75
+INFO 2025-07-30 17:13:34,863 autoreload 215384 135354850066560 /home/sammiykay/Desktop/projects/alert/alert_system/alert_system/settings.py changed, reloading.
+INFO 2025-07-30 17:13:35,487 autoreload 219658 131571812696192 Watching for file changes with StatReloader
+INFO 2025-07-30 17:13:43,225 basehttp 219658 131571752695488 "GET /profile/ HTTP/1.1" 200 23567
+INFO 2025-07-30 17:13:49,205 views 219658 131571752695488 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '770', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary6EyfkAee5M3j7gjh', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=iKMRDQw650Pb7tcGoH6F3JL1wkrSKOQ0; sessionid=0zgad3u13zovzfkcz8u0dryil50gq9pg'}
+INFO 2025-07-30 17:13:49,214 basehttp 219658 131571752695488 "POST /profile/ HTTP/1.1" 200 61
+INFO 2025-07-30 17:13:50,272 basehttp 219658 131571752695488 "GET /profile/ HTTP/1.1" 200 23567
+INFO 2025-07-30 17:13:55,306 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:13:59,900 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:00,078 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:00,445 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:00,606 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:00,775 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:01,037 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:01,237 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:01,407 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:01,590 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:01,750 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:01,903 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:02,081 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:02,238 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:02,405 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:03,311 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:03,919 basehttp 219658 131571752695488 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 17:14:20,422 basehttp 219658 131571734861504 "GET /profile/ HTTP/1.1" 302 0
+INFO 2025-07-30 17:14:20,433 basehttp 219658 131571734861504 "GET /login/?next=/profile/ HTTP/1.1" 200 6413
+INFO 2025-07-30 17:14:24,921 basehttp 219658 131571734861504 "GET /register/ HTTP/1.1" 200 6967
+WARNING 2025-07-30 17:14:24,959 log 219658 131571734861504 Not Found: /favicon.ico
+WARNING 2025-07-30 17:14:24,959 basehttp 219658 131571734861504 "GET /favicon.ico HTTP/1.1" 404 8791
+INFO 2025-07-30 17:14:43,559 basehttp 219658 131571734861504 "POST /register/ HTTP/1.1" 302 0
+INFO 2025-07-30 17:14:43,562 basehttp 219658 131571734861504 "GET /login/ HTTP/1.1" 200 7074
+INFO 2025-07-30 17:14:47,328 basehttp 219658 131571734861504 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-07-30 17:14:47,342 basehttp 219658 131571734861504 "GET / HTTP/1.1" 200 10914
+INFO 2025-07-30 17:14:51,454 basehttp 219658 131571734861504 "GET /alerts/ HTTP/1.1" 200 19431
+INFO 2025-07-30 17:14:53,313 basehttp 219658 131571734861504 "GET /alerts/my-communities/ HTTP/1.1" 200 9306
+INFO 2025-07-30 17:14:58,118 basehttp 219658 131571734861504 "GET /profile/ HTTP/1.1" 200 22684
+INFO 2025-07-30 17:15:14,440 views 219658 131571734861504 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '771', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryoHS5oVHAXTZ9XIrL', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=1GkbOmktx9Xd7YQgA1MzvYcU6Uc8MIaM; sessionid=97aodr4flmatxjrqyd47x01zmfvbbjdi'}
+INFO 2025-07-30 17:15:14,457 basehttp 219658 131571734861504 "POST /profile/ HTTP/1.1" 200 61
+INFO 2025-07-30 17:15:15,499 basehttp 219658 131571734861504 "GET /profile/ HTTP/1.1" 200 22884
+INFO 2025-07-30 17:15:16,318 basehttp 219658 131571734861504 "GET /alerts/ HTTP/1.1" 200 19431
+INFO 2025-07-30 17:15:26,480 basehttp 219658 131571752695488 "GET /alerts/create/ HTTP/1.1" 200 26272
+INFO 2025-07-30 17:15:52,724 basehttp 219658 131571752695488 "POST /alerts/create/ HTTP/1.1" 302 0
+INFO 2025-07-30 17:15:52,747 basehttp 219658 131571752695488 "GET /alerts/40199cec-c651-4553-8e8d-97652f380f2e/ HTTP/1.1" 200 24913
+INFO 2025-07-30 17:18:23,163 autoreload 219658 131571812696192 /home/sammiykay/Desktop/projects/alert/alert_system/notifications/views.py changed, reloading.
+INFO 2025-07-30 17:18:23,635 autoreload 224489 140347197808768 Watching for file changes with StatReloader
+INFO 2025-07-30 17:19:37,615 autoreload 224489 140347197808768 /home/sammiykay/Desktop/projects/alert/alert_system/alert_system/settings.py changed, reloading.
+INFO 2025-07-30 17:19:37,990 autoreload 225709 128698799603840 Watching for file changes with StatReloader
+INFO 2025-07-30 17:19:49,327 autoreload 225709 128698799603840 /home/sammiykay/Desktop/projects/alert/alert_system/alert_system/settings.py changed, reloading.
+INFO 2025-07-30 17:19:49,739 autoreload 225924 129382887268480 Watching for file changes with StatReloader
+INFO 2025-07-30 17:19:59,121 autoreload 226078 140302081908864 Watching for file changes with StatReloader
+INFO 2025-07-30 17:20:18,233 autoreload 226472 129292600430720 Watching for file changes with StatReloader
+INFO 2025-07-30 17:20:24,404 basehttp 226472 129292540434112 "GET /alerts/create/ HTTP/1.1" 200 26272
+INFO 2025-07-30 17:20:35,968 basehttp 226472 129292540434112 "POST /alerts/create/ HTTP/1.1" 302 0
+INFO 2025-07-30 17:20:35,990 basehttp 226472 129292540434112 "GET /alerts/e6daa41b-b1cb-4d87-bb19-77b3b1f0edf6/ HTTP/1.1" 200 24553
+INFO 2025-07-30 17:24:02,376 autoreload 231045 132949254680704 Watching for file changes with StatReloader
+INFO 2025-07-30 17:24:04,622 basehttp 231045 132949194634944 "GET / HTTP/1.1" 200 14807
+INFO 2025-07-30 17:24:07,175 basehttp 231045 132949194634944 "GET /alerts/create/ HTTP/1.1" 200 26272
+INFO 2025-07-30 17:24:18,799 basehttp 231045 132949194634944 "POST /alerts/create/ HTTP/1.1" 302 0
+INFO 2025-07-30 17:24:18,823 basehttp 231045 132949194634944 "GET /alerts/f2fc5038-f006-4ed5-af47-bb4440710d20/ HTTP/1.1" 200 24593
+INFO 2025-07-30 17:25:18,628 autoreload 231045 132949254680704 /home/sammiykay/Desktop/projects/alert/alert_system/alert_system/settings.py changed, reloading.
+INFO 2025-07-30 17:27:00,767 autoreload 234314 128952279855232 Watching for file changes with StatReloader
+INFO 2025-07-30 17:27:02,574 basehttp 234314 128952219850432 "GET / HTTP/1.1" 200 16735
+INFO 2025-07-30 17:27:04,191 basehttp 234314 128952219850432 "GET / HTTP/1.1" 200 16735
+INFO 2025-07-30 17:27:05,594 basehttp 234314 128952219850432 "GET / HTTP/1.1" 200 16735
+INFO 2025-07-30 17:27:06,150 basehttp 234314 128952219850432 "GET / HTTP/1.1" 200 16735
+INFO 2025-07-30 17:27:06,737 basehttp 234314 128952219850432 "GET / HTTP/1.1" 200 16735
+INFO 2025-07-30 17:27:07,633 basehttp 234314 128952219850432 "GET / HTTP/1.1" 200 16735
+INFO 2025-07-30 17:27:08,288 basehttp 234314 128952219850432 "GET / HTTP/1.1" 200 16735
+INFO 2025-07-30 17:27:08,504 basehttp 234314 128952219850432 "GET / HTTP/1.1" 200 16735
+INFO 2025-07-30 17:27:08,985 basehttp 234314 128952219850432 "GET / HTTP/1.1" 200 16735
+INFO 2025-07-30 17:27:09,252 basehttp 234314 128952219850432 "GET / HTTP/1.1" 200 16735
+INFO 2025-07-30 17:27:12,945 basehttp 234314 128952219850432 "GET /alerts/create/ HTTP/1.1" 200 26287
+INFO 2025-07-30 17:29:38,963 basehttp 234314 128952219850432 "POST /alerts/create/ HTTP/1.1" 302 0
+INFO 2025-07-30 17:29:38,999 basehttp 234314 128952219850432 "GET /alerts/9b1b6d57-2974-4695-8986-f4ac84f536ee/ HTTP/1.1" 200 24295
+INFO 2025-07-30 17:30:08,047 basehttp 234314 128952210409152 "GET /profile/ HTTP/1.1" 200 25368
+INFO 2025-07-30 17:31:40,312 basehttp 234314 128952210409152 "GET / HTTP/1.1" 200 18683
+INFO 2025-07-30 17:31:42,517 basehttp 234314 128952210409152 "GET /alerts/ HTTP/1.1" 200 39436
+INFO 2025-07-30 17:31:43,420 basehttp 234314 128952210409152 "GET /alerts/my-communities/ HTTP/1.1" 200 25855
+INFO 2025-07-30 17:31:48,522 basehttp 234314 128952210409152 "GET /alerts/create/ HTTP/1.1" 200 26272
+INFO 2025-07-30 17:32:12,819 basehttp 234314 128952210409152 "GET /admin/ HTTP/1.1" 200 11546
+INFO 2025-07-30 17:32:17,822 basehttp 234314 128952210409152 "GET /admin/community/customuser/ HTTP/1.1" 200 16191
+INFO 2025-07-30 17:32:17,855 basehttp 234314 128952210409152 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 17:32:17,862 basehttp 234314 128952202016448 "GET /static/admin/img/icon-no.svg HTTP/1.1" 304 0
+INFO 2025-07-30 17:32:20,752 basehttp 234314 128952210409152 "GET /admin/community/customuser/1/change/ HTTP/1.1" 200 32287
+INFO 2025-07-30 17:32:20,789 basehttp 234314 128952202016448 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-07-30 17:32:20,789 basehttp 234314 128952191526592 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-07-30 17:32:20,790 basehttp 234314 128952183133888 "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-07-30 17:32:20,789 basehttp 234314 128952174741184 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+INFO 2025-07-30 17:32:20,793 basehttp 234314 128952210409152 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 17:32:21,218 basehttp 234314 128952174741184 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-07-30 17:32:21,218 basehttp 234314 128952210409152 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-07-30 17:32:21,219 basehttp 234314 128952191526592 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-07-30 17:35:12,003 autoreload 234314 128952279855232 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-30 17:35:12,515 autoreload 242740 132603386916992 Watching for file changes with StatReloader
+INFO 2025-07-30 17:35:46,091 autoreload 242740 132603386916992 /home/sammiykay/Desktop/projects/alert/alert_system/community/forms.py changed, reloading.
+INFO 2025-07-30 17:35:46,705 autoreload 243290 128550394163328 Watching for file changes with StatReloader
+INFO 2025-07-30 18:09:07,823 basehttp 243290 128550334166720 "GET /alerts/9b1b6d57-2974-4695-8986-f4ac84f536ee/ HTTP/1.1" 200 23966
+INFO 2025-07-30 18:09:14,478 basehttp 243290 128550334166720 "GET /alerts/create/ HTTP/1.1" 200 26287
+INFO 2025-07-30 18:11:59,273 basehttp 243290 128550334166720 "POST /alerts/create/ HTTP/1.1" 302 0
+INFO 2025-07-30 18:11:59,311 basehttp 243290 128550334166720 "GET /alerts/665877f9-93e0-4d78-91a1-38a19bfd5e9b/ HTTP/1.1" 200 24962
+INFO 2025-07-30 19:54:35,777 basehttp 243290 128550334166720 "GET /alerts/665877f9-93e0-4d78-91a1-38a19bfd5e9b/ HTTP/1.1" 200 24651
+INFO 2025-07-30 21:03:36,694 autoreload 243290 128550394163328 /home/sammiykay/Desktop/projects/alert/alert_system/community/urls.py changed, reloading.
+INFO 2025-07-30 21:03:37,140 autoreload 455895 133545692889216 Watching for file changes with StatReloader
+INFO 2025-07-30 21:06:33,659 autoreload 455895 133545692889216 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-30 21:06:34,136 autoreload 459459 123448707756160 Watching for file changes with StatReloader
+INFO 2025-07-30 21:06:41,414 autoreload 459459 123448707756160 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-30 21:06:41,912 autoreload 459698 125264185331840 Watching for file changes with StatReloader
+INFO 2025-07-30 21:18:02,938 basehttp 459698 125264125351616 "GET / HTTP/1.1" 200 22081
+INFO 2025-07-30 21:18:10,221 basehttp 459698 125264125351616 "GET /superuser/ HTTP/1.1" 200 16456
+INFO 2025-07-30 21:18:14,422 basehttp 459698 125264125351616 "GET /superuser/admins/create/ HTTP/1.1" 200 15235
+INFO 2025-07-30 21:18:40,082 basehttp 459698 125264125351616 "GET /admin/ HTTP/1.1" 200 11546
+INFO 2025-07-30 21:18:40,101 basehttp 459698 125264125351616 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-07-30 21:18:40,111 basehttp 459698 125264106469056 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-07-30 21:18:40,111 basehttp 459698 125264116958912 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-07-30 21:18:40,111 basehttp 459698 125264098076352 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:18:40,114 basehttp 459698 125264089683648 "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+INFO 2025-07-30 21:18:40,114 basehttp 459698 125264081290944 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-07-30 21:18:40,547 basehttp 459698 125264125351616 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:18:40,555 basehttp 459698 125264125351616 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-07-30 21:18:40,555 basehttp 459698 125264081290944 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0

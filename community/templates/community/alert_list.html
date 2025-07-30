@@ -417,7 +417,7 @@
             {% endif %}
             {% if current_filters.category %}
                 <span class="filter-tag">
-                    Category: {{ categories|first.name }}
+                    Category: {% for cat in categories %}{% if cat.id|stringformat:"s" == current_filters.category %}{{ cat.name }}{% endif %}{% endfor %}
                     <span class="remove" onclick="removeFilter('category')">&times;</span>
                 </span>
             {% endif %}
@@ -435,7 +435,7 @@
             {% endif %}
             {% if current_filters.community %}
                 <span class="filter-tag">
-                    Community: {{ communities|first.name }}
+                    Community: {% for comm in communities %}{% if comm.id|stringformat:"s" == current_filters.community %}{{ comm.name }}{% endif %}{% endfor %}
                     <span class="remove" onclick="removeFilter('community')">&times;</span>
                 </span>
             {% endif %}
@@ -553,7 +553,7 @@
                                 </div>
                                 <div class="d-flex gap-2">
                                     <button type="button" class="btn btn-outline-primary btn-sm" 
-                                            onclick="showOnMap({{ alert.latitude }}, {{ alert.longitude }}, '{{ alert.title|escapejs }}'); event.stopPropagation();">
+                                            onclick="showOnMap({{ alert.latitude|default:'null' }}, {{ alert.longitude|default:'null' }}, '{{ alert.title|escapejs }}'); event.stopPropagation();">
                                         <i class="fas fa-map-marker-alt"></i> Map
                                     </button>
                                     <button type="button" class="btn btn-outline-secondary btn-sm" 
@@ -707,9 +707,9 @@
     const alertsData = [
         {% for alert in page_obj %}
         {
-            id: {{ alert.id }},
-            lat: {{ alert.latitude }},
-            lng: {{ alert.longitude }},
+            id: "{{ alert.id }}",
+            lat: {{ alert.latitude|default:'null' }},
+            lng: {{ alert.longitude|default:'null' }},
             title: "{{ alert.title|escapejs }}",
             severity: "{{ alert.severity }}",
             status: "{{ alert.status }}",
@@ -724,42 +724,29 @@
     const communities = [
         {% for community in communities %}
         {
-            id: {{ community.id }},
+            id: "{{ community.id }}",
             name: "{{ community.name|escapejs }}",
-            lat: {{ community.latitude }},
-            lng: {{ community.longitude }},
-            radius: {{ community.radius_km }}
+            lat: {{ community.latitude|default:'null' }},
+            lng: {{ community.longitude|default:'null' }},
+            radius: {{ community.radius_km|default:'5' }}
         }{% if not forloop.last %},{% endif %}
         {% endfor %}
     ];
     
-    // Initialize map
+    // Initialize map with Leaflet
     function initMap() {
-        const defaultLocation = { 
-            lat: {{ settings.DEFAULT_MAP_CENTER_LAT|default:40.7589 }}, 
-            lng: {{ settings.DEFAULT_MAP_CENTER_LNG|default:-73.9851 }} 
-        };
+        const defaultLocation = [{{ settings.DEFAULT_MAP_CENTER_LAT|default:40.7589 }}, {{ settings.DEFAULT_MAP_CENTER_LNG|default:-73.9851 }}];
         
-        map = new google.maps.Map(document.getElementById('alertsMap'), {
-            zoom: {{ settings.DEFAULT_MAP_ZOOM|default:13 }},
-            center: defaultLocation,
-            mapTypeId: 'roadmap',
-            styles: [
-                {
-                    featureType: 'poi',
-                    elementType: 'labels',
-                    stylers: [{ visibility: 'on' }]
-                }
-            ]
-        });
+        // Initialize map
+        map = L.map('alertsMap').setView(defaultLocation, {{ settings.DEFAULT_MAP_ZOOM|default:13 }});
         
-        // Initialize marker clustering
-        if (typeof MarkerClusterer !== 'undefined') {
-            markerCluster = new MarkerClusterer(map, [], {
-                imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-                maxZoom: 15
-            });
-        }
+        // Add tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        
+        // Initialize marker clustering (using a simple approach)
+        markerCluster = L.layerGroup().addTo(map);
         
         // Load alerts on map
         loadAlertsOnMap();
@@ -771,61 +758,59 @@
     // Load alerts as markers on map
     function loadAlertsOnMap() {
         // Clear existing markers
-        markers.forEach(marker => marker.setMap(null));
+        markerCluster.clearLayers();
         markers = [];
         
         alertsData.forEach(alert => {
-            const marker = new google.maps.Marker({
-                position: { lat: alert.lat, lng: alert.lng },
-                map: map,
-                title: alert.title,
-                icon: {
-                    url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(getMarkerIcon(alert.severity)),
-                    scaledSize: new google.maps.Size(30, 35),
-                    anchor: new google.maps.Point(15, 35)
-                }
+            // Skip alerts without valid coordinates
+            if (alert.lat === null || alert.lng === null || alert.lat === undefined || alert.lng === undefined) {
+                return;
+            }
+            
+            // Create custom icon based on severity
+            const markerIcon = L.divIcon({
+                html: `<div style="background: ${getSeverityColor(alert.severity)}; color: white; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3); font-size: 12px;">!</div>`,
+                iconSize: [25, 25],
+                iconAnchor: [12.5, 12.5],
+                className: 'alert-marker'
             });
             
-            const infoWindow = new google.maps.InfoWindow({
-                content: `
-                    <div style="max-width: 250px; padding: 10px;">
-                        <h6 style="color: ${getSeverityColor(alert.severity)}; margin-bottom: 8px;">
-                            ${alert.title}
-                        </h6>
-                        <div style="margin-bottom: 8px;">
-                            <span style="background: ${getSeverityColor(alert.severity)}; color: white; padding: 2px 6px; border-radius: 10px; font-size: 11px;">
-                                ${alert.severity.toUpperCase()}
-                            </span>
-                            <span style="background: #6c757d; color: white; padding: 2px 6px; border-radius: 10px; font-size: 11px; margin-left: 4px;">
-                                ${alert.category}
-                            </span>
-                        </div>
-                        <p style="margin-bottom: 8px; font-size: 13px;">
-                            <strong>Community:</strong> ${alert.community}<br>
-                            <strong>Reported:</strong> ${alert.created_at}
-                        </p>
-                        <div style="text-align: center;">
-                            <a href="/alerts/${alert.id}/" style="background: #007bff; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-size: 12px;">
-                                View Details
-                            </a>
-                        </div>
+            const marker = L.marker([alert.lat, alert.lng], { icon: markerIcon });
+            
+            const popupContent = `
+                <div style="max-width: 250px; padding: 10px;">
+                    <h6 style="color: ${getSeverityColor(alert.severity)}; margin-bottom: 8px;">
+                        ${alert.title}
+                    </h6>
+                    <div style="margin-bottom: 8px;">
+                        <span style="background: ${getSeverityColor(alert.severity)}; color: white; padding: 2px 6px; border-radius: 10px; font-size: 11px;">
+                            ${alert.severity.toUpperCase()}
+                        </span>
+                        <span style="background: #6c757d; color: white; padding: 2px 6px; border-radius: 10px; font-size: 11px; margin-left: 4px;">
+                            ${alert.category}
+                        </span>
                     </div>
-                `
-            });
+                    <p style="margin-bottom: 8px; font-size: 13px;">
+                        <strong>Community:</strong> ${alert.community}<br>
+                        <strong>Reported:</strong> ${alert.created_at}
+                    </p>
+                    <div style="text-align: center;">
+                        <a href="/alerts/${alert.id}/" style="background: #007bff; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-size: 12px;">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            `;
             
-            marker.addListener('click', () => {
-                infoWindow.open(map, marker);
+            marker.bindPopup(popupContent);
+            
+            marker.on('click', () => {
                 highlightAlert(alert.id);
             });
             
+            markerCluster.addLayer(marker);
             markers.push(marker);
         });
-        
-        // Update marker cluster
-        if (markerCluster) {
-            markerCluster.clearMarkers();
-            markerCluster.addMarkers(markers);
-        }
     }
     
     // Get marker icon based on severity
@@ -870,7 +855,7 @@
                 // Trigger map resize
                 setTimeout(() => {
                     if (map) {
-                        google.maps.event.trigger(map, 'resize');
+                        map.invalidateSize();
                     }
                 }, 100);
             }
@@ -903,6 +888,9 @@
         
         // Real-time updates simulation
         setInterval(updateLastUpdatedTime, 30000); // Update every 30 seconds
+        
+        // Initialize map when page loads - small delay to ensure DOM is fully ready
+        setTimeout(initMap, 100);
     });
     
     // Enhanced utility functions
@@ -921,6 +909,12 @@
     }
     
     function showOnMap(lat, lng, title) {
+        // Check if coordinates are valid
+        if (lat === null || lng === null || lat === undefined || lng === undefined) {
+            showToast('Location coordinates not available for this alert', 'error');
+            return;
+        }
+        
         // Switch to map view
         document.getElementById('mapView').checked = true;
         document.getElementById('mapView').dispatchEvent(new Event('change'));
@@ -928,13 +922,13 @@
         // Center map on location
         setTimeout(() => {
             if (map) {
-                map.setCenter({ lat: lat, lng: lng });
-                map.setZoom(16);
+                map.setView([lat, lng], 16);
                 
-                // Find and open info window for this marker
+                // Find and open popup for this marker
                 markers.forEach(marker => {
-                    if (marker.getPosition().lat() === lat && marker.getPosition().lng() === lng) {
-                        google.maps.event.trigger(marker, 'click');
+                    const markerLatLng = marker.getLatLng();
+                    if (Math.abs(markerLatLng.lat - lat) < 0.0001 && Math.abs(markerLatLng.lng - lng) < 0.0001) {
+                        marker.openPopup();
                     }
                 });
             }
@@ -957,8 +951,7 @@
     
     function centerMapOnUser() {
         if (userLocation) {
-            map.setCenter(userLocation);
-            map.setZoom(15);
+            map.setView([userLocation.lat, userLocation.lng], 15);
         } else {
             getUserLocation();
         }
@@ -974,20 +967,16 @@
                     };
                     
                     // Add user location marker
-                    new google.maps.Marker({
-                        position: userLocation,
-                        map: map,
-                        title: 'Your Location',
-                        icon: {
-                            url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
-                                '<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">' +
-                                '<circle cx="10" cy="10" r="8" fill="#007bff" stroke="white" stroke-width="2"/>' +
-                                '<circle cx="10" cy="10" r="3" fill="white"/>' +
-                                '</svg>'
-                            ),
-                            scaledSize: new google.maps.Size(20, 20)
-                        }
+                    const userIcon = L.divIcon({
+                        html: '<div style="background: #007bff; border: 3px solid white; border-radius: 50%; width: 20px; height: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"><div style="background: white; border-radius: 50%; width: 8px; height: 8px; margin: 3px;"></div></div>',
+                        iconSize: [20, 20],
+                        iconAnchor: [10, 10],
+                        className: 'user-location-marker'
                     });
+                    
+                    L.marker([userLocation.lat, userLocation.lng], { icon: userIcon })
+                        .addTo(map)
+                        .bindPopup('Your Location');
                     
                     document.getElementById('locationStatus').textContent = 'Location detected';
                 },
@@ -1003,10 +992,12 @@
         const showClusters = document.getElementById('showClusters').checked;
         if (markerCluster) {
             if (showClusters) {
-                markerCluster.addMarkers(markers);
+                // Add all markers to cluster group
+                markers.forEach(marker => markerCluster.addLayer(marker));
             } else {
-                markerCluster.clearMarkers();
-                markers.forEach(marker => marker.setMap(map));
+                // Clear cluster and add markers individually
+                markerCluster.clearLayers();
+                markers.forEach(marker => marker.addTo(map));
             }
         }
     }
@@ -1016,21 +1007,24 @@
         
         if (showCommunities) {
             communities.forEach(community => {
-                const circle = new google.maps.Circle({
-                    strokeColor: '#007bff',
-                    strokeOpacity: 0.4,
-                    strokeWeight: 2,
+                // Skip communities without valid coordinates
+                if (community.lat === null || community.lng === null || community.lat === undefined || community.lng === undefined) {
+                    return;
+                }
+                
+                const circle = L.circle([community.lat, community.lng], {
+                    radius: community.radius * 1000, // Convert km to meters
+                    color: '#007bff',
+                    weight: 2,
+                    opacity: 0.4,
                     fillColor: '#007bff',
-                    fillOpacity: 0.1,
-                    map: map,
-                    center: { lat: community.lat, lng: community.lng },
-                    radius: community.radius * 1000
-                });
+                    fillOpacity: 0.1
+                }).addTo(map);
                 
                 communityBoundaries.push(circle);
             });
         } else {
-            communityBoundaries.forEach(boundary => boundary.setMap(null));
+            communityBoundaries.forEach(boundary => map.removeLayer(boundary));
             communityBoundaries = [];
         }
     }
@@ -1057,7 +1051,8 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'Accept': 'application/json'
             },
             body: JSON.stringify({ status: status })
         })
@@ -1108,26 +1103,57 @@
             console.error('Error copying text: ', err);
         });
     }
-</script>
-
-<!-- Load Google Maps API with marker clustering -->
-<script async defer 
-    src="https://maps.googleapis.com/maps/api/js?key={{ settings.GOOGLE_MAPS_API_KEY|default:'AIzaSyBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' }}&libraries=places,geometry&callback=initMap">
-</script>
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-
-<!-- Map fallback -->
-<script>
+    
+    // Additional functions for quick actions
+    function showMyAlerts() {
+        window.location.href = '{% url "alert_list" %}?created_by={{ user.id }}';
+    }
+    
+    function markAreaSafe() {
+        if (userLocation) {
+            const message = 'Mark your current area as safe? This will help other community members.';
+            if (confirm(message)) {
+                // This would typically call an API to mark area as safe
+                showToast('Area marked as safe. Thank you for keeping the community informed!');
+            }
+        } else {
+            showToast('Please allow location access to mark your area as safe.', 'error');
+            getUserLocation();
+        }
+    }
+    
+    function exportResults() {
+        const params = new URLSearchParams(window.location.search);
+        params.set('export', 'csv');
+        window.location.href = '{% url "alert_list" %}?' + params.toString();
+    }
+    
+    function toggleHeatmap() {
+        // Simple implementation - in a real app you'd use a heatmap library
+        showToast('Heatmap feature coming soon!', 'info');
+    }
+    
+    function filterByVisible() {
+        if (map) {
+            const bounds = map.getBounds();
+            const visibleAlerts = alertsData.filter(alert => 
+                bounds.contains([alert.lat, alert.lng])
+            );
+            showToast(`Found ${visibleAlerts.length} alerts in current view`);
+        }
+    }
+    
+    // Map fallback
     setTimeout(function() {
-        if (typeof google === 'undefined') {
+        if (typeof L === 'undefined') {
             document.getElementById('alertsMap').innerHTML = 
                 '<div class="alert alert-warning text-center d-flex flex-column justify-content-center" style="height: 400px;">' +
                 '<i class="fas fa-map-marked-alt fa-4x mb-3 text-muted"></i>' +
                 '<h5>Map Service Unavailable</h5>' +
-                '<p class="mb-3">Google Maps could not be loaded. Switch to list view to browse alerts.</p>' +
+                '<p class="mb-3">OpenStreetMap could not be loaded. Switch to list view to browse alerts.</p>' +
                 '<button class="btn btn-primary" onclick="document.getElementById(\'listView\').click()">Switch to List View</button>' +
                 '</div>';
         }
-    }, 5000);
+    }, 3000);
 </script>
 {% endblock %}

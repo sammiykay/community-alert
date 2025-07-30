@@ -526,3 +526,826 @@ WARNING 2025-07-29 21:26:28,022 basehttp 26390 130277452347072 "GET /.well-known
 INFO 2025-07-29 21:26:43,466 basehttp 26390 130277452347072 "GET /alerts/create/ HTTP/1.1" 200 40358
 WARNING 2025-07-29 21:26:43,845 log 26390 130277452347072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
 WARNING 2025-07-29 21:26:43,845 basehttp 26390 130277452347072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:30:04,277 autoreload 4525 139572255256704 Watching for file changes with StatReloader
+INFO 2025-07-30 11:30:07,502 basehttp 4525 139572195268288 "GET / HTTP/1.1" 200 14941
+WARNING 2025-07-30 11:30:10,295 log 4525 139572195268288 Not Found: /favicon.ico
+WARNING 2025-07-30 11:30:10,296 basehttp 4525 139572195268288 "GET /favicon.ico HTTP/1.1" 404 7318
+INFO 2025-07-30 11:30:12,535 basehttp 4525 139572195268288 "GET /profile/ HTTP/1.1" 200 31322
+INFO 2025-07-30 11:31:24,673 basehttp 4525 139572195268288 "GET /profile/ HTTP/1.1" 200 31430
+WARNING 2025-07-30 11:31:26,536 log 4525 139572195268288 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:31:26,537 basehttp 4525 139572195268288 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:31:34,918 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryPQgGqA3vyP26vras', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:34,924 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:31:37,933 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryOwB553raNJtYpEgd', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:37,935 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:31:38,435 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryx7zmUyr7Utyyq0K6', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:38,436 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:31:38,679 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryEa9rixHoZFRiOZO5', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:38,681 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:31:38,868 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryeBcoUiruNiGpu8yg', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:38,870 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:31:39,049 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryyXD3vd0SafqVjeRo', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:39,052 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:31:39,225 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryFJdPIPucXHr16pEX', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:39,230 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:31:39,382 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7fw37klUeVqJ3tPM', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:39,386 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:31:39,565 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7D4wUNkdLwi9Rcdx', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:39,570 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:31:39,738 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryWdrYH8dAsGTl72l2', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:39,743 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:31:39,875 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryBBBNzEfbc9VPgNi3', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:39,876 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:31:40,063 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryTaJVayRJO04RkJYE', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:40,069 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:31:49,382 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryFmhoo1iCCAL0SnIF', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'ILByH7hu59A16u9D1xQaXu0M2tyBEnE6EnyXYXGnkw7HFYaRmnyoMfASi1yYYtBK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:31:49,387 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:32:22,074 basehttp 4525 139572195268288 "GET /alerts/nearby/ HTTP/1.1" 302 0
+INFO 2025-07-30 11:32:22,180 basehttp 4525 139572195268288 "GET /profile/ HTTP/1.1" 200 31753
+WARNING 2025-07-30 11:32:22,357 log 4525 139572195268288 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:32:22,358 basehttp 4525 139572195268288 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:32:32,200 basehttp 4525 139572195268288 "GET /alerts/nearby/ HTTP/1.1" 302 0
+INFO 2025-07-30 11:32:32,325 basehttp 4525 139572195268288 "GET /profile/ HTTP/1.1" 200 31799
+WARNING 2025-07-30 11:32:32,508 log 4525 139572195268288 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:32:32,510 basehttp 4525 139572195268288 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:32:47,591 basehttp 4525 139572195268288 "GET /profile/ HTTP/1.1" 200 31476
+WARNING 2025-07-30 11:32:47,716 log 4525 139572195268288 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:32:47,718 basehttp 4525 139572195268288 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:33:02,477 views 4525 139572195268288 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryPJGVbnMPixZbDAbV', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'eXpdzvuknsMyh588coOmmrqZKxy9q6dlazmCQlTdCPjeQz9mxewAbc0505ywKcaZ', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:33:02,483 basehttp 4525 139572195268288 "POST /profile/ HTTP/1.1" 200 172
+INFO 2025-07-30 11:33:55,291 autoreload 4525 139572255256704 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-30 11:33:55,896 autoreload 6535 135450806771840 Watching for file changes with StatReloader
+INFO 2025-07-30 11:34:26,645 autoreload 6535 135450806771840 /home/sammiykay/Desktop/projects/alert/alert_system/community/forms.py changed, reloading.
+INFO 2025-07-30 11:34:27,215 autoreload 6771 129023935647872 Watching for file changes with StatReloader
+INFO 2025-07-30 11:34:32,647 autoreload 6771 129023935647872 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-30 11:34:33,285 autoreload 6838 125366492872832 Watching for file changes with StatReloader
+INFO 2025-07-30 11:34:39,531 basehttp 6838 125366432814784 "GET /profile/ HTTP/1.1" 200 31476
+WARNING 2025-07-30 11:34:39,581 log 6838 125366432814784 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:34:39,582 basehttp 6838 125366432814784 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:34:42,778 autoreload 6838 125366492872832 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-30 11:34:43,531 autoreload 6945 131959034138752 Watching for file changes with StatReloader
+INFO 2025-07-30 11:35:03,405 basehttp 6945 131958973986496 "GET /profile/ HTTP/1.1" 200 31477
+WARNING 2025-07-30 11:35:03,455 log 6945 131958973986496 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:35:03,456 basehttp 6945 131958973986496 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:35:09,998 views 6945 131958973986496 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary1lvQgUCop18UyNd4', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'kKVFKJRAj7hP8paCy2hcYDhhSueG123VgmS41zgtyuOvHTbQTSZqNoRn82e3l80z', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 11:35:10,004 basehttp 6945 131958973986496 "POST /profile/ HTTP/1.1" 200 61
+INFO 2025-07-30 11:35:11,566 basehttp 6945 131958973986496 "GET /profile/ HTTP/1.1" 200 33234
+WARNING 2025-07-30 11:35:11,662 log 6945 131958973986496 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:35:11,663 basehttp 6945 131958973986496 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+ERROR 2025-07-30 11:35:38,541 log 6945 131958973986496 Internal Server Error: /alerts/nearby/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 368, in nearby_alerts
+    latitude__range=(user.latitude - lat_delta, user.latitude + lat_delta),
+                     ~~~~~~~~~~~~~~^~~~~~~~~~~
+TypeError: unsupported operand type(s) for -: 'decimal.Decimal' and 'float'
+ERROR 2025-07-30 11:35:38,546 basehttp 6945 131958973986496 "GET /alerts/nearby/ HTTP/1.1" 500 72295
+WARNING 2025-07-30 11:35:38,713 log 6945 131958973986496 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:35:38,713 basehttp 6945 131958973986496 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 11:36:08,671 log 6945 131958973986496 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:36:08,672 basehttp 6945 131958973986496 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 11:36:08,735 log 6945 131958973986496 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:36:08,736 basehttp 6945 131958973986496 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:36:10,170 basehttp 6945 131958973986496 "GET /alerts/create/ HTTP/1.1" 200 40358
+WARNING 2025-07-30 11:36:10,403 log 6945 131958973986496 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:36:10,404 basehttp 6945 131958973986496 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:36:18,292 autoreload 6945 131959034138752 /home/sammiykay/Desktop/projects/alert/alert_system/community/views.py changed, reloading.
+INFO 2025-07-30 11:36:18,951 autoreload 7674 134302553018496 Watching for file changes with StatReloader
+INFO 2025-07-30 11:36:33,516 autoreload 7674 134302553018496 /home/sammiykay/Desktop/projects/alert/alert_system/api/views.py changed, reloading.
+INFO 2025-07-30 11:36:34,137 autoreload 7818 139868013920384 Watching for file changes with StatReloader
+ERROR 2025-07-30 11:37:34,043 log 7818 139867953886912 Internal Server Error: /alerts/nearby/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 388, in nearby_alerts
+    return render(request, 'community/nearby_alerts.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: community/nearby_alerts.html
+ERROR 2025-07-30 11:37:34,045 basehttp 7818 139867953886912 "GET /alerts/nearby/ HTTP/1.1" 500 89632
+WARNING 2025-07-30 11:37:34,322 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:37:34,323 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 11:50:00,925 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:50:00,926 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:50:04,923 basehttp 7818 139867953886912 "GET / HTTP/1.1" 200 15155
+WARNING 2025-07-30 11:50:05,120 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:50:05,121 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+ERROR 2025-07-30 11:50:07,866 log 7818 139867953886912 Internal Server Error: /alerts/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 85, in alert_list
+    return render(request, 'community/alert_list.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 489, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 710, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '.name' from 'categories|first.name'
+ERROR 2025-07-30 11:50:07,875 basehttp 7818 139867953886912 "GET /alerts/ HTTP/1.1" 500 341283
+WARNING 2025-07-30 11:50:08,018 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:50:08,019 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 11:50:15,498 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:50:15,498 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 11:50:15,612 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:50:15,612 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+ERROR 2025-07-30 11:50:25,527 log 7818 139867953886912 Internal Server Error: /alerts/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 85, in alert_list
+    return render(request, 'community/alert_list.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 489, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 710, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '.name' from 'categories|first.name'
+ERROR 2025-07-30 11:50:25,531 basehttp 7818 139867953886912 "GET /alerts/ HTTP/1.1" 500 341283
+WARNING 2025-07-30 11:50:25,764 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:50:25,765 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 11:50:30,782 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:50:30,783 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 11:50:30,913 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:50:30,913 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:50:34,582 basehttp 7818 139867933980352 "GET / HTTP/1.1" 200 14385
+WARNING 2025-07-30 11:50:37,219 log 7818 139867933980352 Not Found: /favicon.ico
+WARNING 2025-07-30 11:50:37,219 basehttp 7818 139867933980352 "GET /favicon.ico HTTP/1.1" 404 7318
+INFO 2025-07-30 11:50:38,979 basehttp 7818 139867933980352 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-07-30 11:50:39,045 basehttp 7818 139867933980352 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4170
+INFO 2025-07-30 11:50:39,112 basehttp 7818 139867933980352 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-07-30 11:50:39,120 basehttp 7818 139867925587648 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-07-30 11:50:39,128 basehttp 7818 139867925587648 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-07-30 11:50:39,128 basehttp 7818 139867917194944 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-07-30 11:50:39,128 basehttp 7818 139867900409536 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-07-30 11:50:39,129 basehttp 7818 139867908802240 "GET /static/admin/css/login.css HTTP/1.1" 304 0
+INFO 2025-07-30 11:50:39,697 basehttp 7818 139867925587648 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-07-30 11:50:50,585 basehttp 7818 139867925587648 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4351
+INFO 2025-07-30 11:50:57,612 basehttp 7818 139867925587648 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-07-30 11:50:57,644 basehttp 7818 139867925587648 "GET /admin/ HTTP/1.1" 200 11118
+INFO 2025-07-30 11:50:57,741 basehttp 7818 139867925587648 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-07-30 11:50:58,262 basehttp 7818 139867933980352 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-07-30 11:50:58,262 basehttp 7818 139867925587648 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-07-30 11:51:01,539 basehttp 7818 139867933980352 "GET /admin/community/customuser/ HTTP/1.1" 200 18822
+INFO 2025-07-30 11:51:01,616 basehttp 7818 139867933980352 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-07-30 11:51:01,672 basehttp 7818 139867908802240 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-07-30 11:51:01,674 basehttp 7818 139867945494208 "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-07-30 11:51:01,676 basehttp 7818 139867900409536 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-07-30 11:51:01,690 basehttp 7818 139867917194944 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-07-30 11:51:01,695 basehttp 7818 139867900409536 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-07-30 11:51:01,696 basehttp 7818 139867908802240 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-07-30 11:51:01,706 basehttp 7818 139867917194944 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-07-30 11:51:01,709 basehttp 7818 139867925587648 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 11:51:01,716 basehttp 7818 139867933980352 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-07-30 11:51:01,721 basehttp 7818 139867925587648 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-07-30 11:51:01,724 basehttp 7818 139867945494208 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-07-30 11:51:02,238 basehttp 7818 139867945494208 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-07-30 11:51:02,241 basehttp 7818 139867925587648 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-07-30 11:51:02,241 basehttp 7818 139867917194944 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-07-30 11:51:02,242 basehttp 7818 139867933980352 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-07-30 11:51:02,242 basehttp 7818 139867908802240 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-07-30 11:51:07,296 basehttp 7818 139867908802240 "GET /admin/community/customuser/1/change/ HTTP/1.1" 200 33016
+INFO 2025-07-30 11:51:07,319 basehttp 7818 139867908802240 "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-07-30 11:51:07,334 basehttp 7818 139867945494208 "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-07-30 11:51:07,335 basehttp 7818 139867900409536 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+INFO 2025-07-30 11:51:07,338 basehttp 7818 139867925587648 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-07-30 11:51:07,338 basehttp 7818 139867933980352 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-07-30 11:51:07,343 basehttp 7818 139867917194944 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 11:51:07,345 basehttp 7818 139867900409536 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-07-30 11:51:07,863 basehttp 7818 139867925587648 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11991
+INFO 2025-07-30 11:51:07,863 basehttp 7818 139867900409536 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-07-30 11:51:08,084 basehttp 7818 139867925587648 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-07-30 11:51:08,084 basehttp 7818 139867900409536 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-07-30 11:51:08,085 basehttp 7818 139867908802240 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-07-30 11:51:28,446 basehttp 7818 139867908802240 "GET /admin/community/customuser/ HTTP/1.1" 200 18822
+INFO 2025-07-30 11:51:35,478 basehttp 7818 139867908802240 "GET /admin/community/customuser/1/change/ HTTP/1.1" 200 33016
+INFO 2025-07-30 11:51:35,546 basehttp 7818 139867908802240 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 11:51:51,074 basehttp 7818 139867908802240 "GET /admin/community/customuser/ HTTP/1.1" 200 18822
+INFO 2025-07-30 11:51:54,383 basehttp 7818 139867908802240 "GET /admin/community/customuser/6/change/ HTTP/1.1" 200 33080
+INFO 2025-07-30 11:51:54,415 basehttp 7818 139867908802240 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 11:51:59,977 basehttp 7818 139867908802240 "POST /admin/community/customuser/6/change/ HTTP/1.1" 302 0
+INFO 2025-07-30 11:52:00,026 basehttp 7818 139867908802240 "GET /admin/community/customuser/ HTTP/1.1" 200 19037
+INFO 2025-07-30 11:52:00,116 basehttp 7818 139867908802240 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 11:52:02,433 basehttp 7818 139867908802240 "GET / HTTP/1.1" 200 15155
+INFO 2025-07-30 11:52:08,813 basehttp 7818 139867908802240 "GET /alerts/create/ HTTP/1.1" 200 40569
+INFO 2025-07-30 11:52:18,350 basehttp 7818 139867908802240 "GET /admin/community/customuser/ HTTP/1.1" 200 18819
+INFO 2025-07-30 11:52:56,780 basehttp 7818 139867953886912 "GET /alerts/create/ HTTP/1.1" 200 40569
+WARNING 2025-07-30 11:52:57,142 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:52:57,143 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:54:29,469 basehttp 7818 139867953886912 "GET / HTTP/1.1" 200 15155
+WARNING 2025-07-30 11:54:29,618 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:54:29,619 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:54:33,450 basehttp 7818 139867953886912 "GET /alerts/ae06f44b-0297-42b7-b294-3e34dfba9738/ HTTP/1.1" 200 36404
+WARNING 2025-07-30 11:54:33,553 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:54:33,554 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:54:35,780 basehttp 7818 139867953886912 "GET /api/alerts/nearby/?lat=2.000000&lng=2.000000&radius=2&exclude=ae06f44b-0297-42b7-b294-3e34dfba9738 HTTP/1.1" 200 116
+INFO 2025-07-30 11:55:07,123 basehttp 7818 139867953886912 "GET / HTTP/1.1" 200 15155
+WARNING 2025-07-30 11:55:07,252 log 7818 139867953886912 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:55:07,254 basehttp 7818 139867953886912 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:57:50,155 autoreload 17070 134736780038272 Watching for file changes with StatReloader
+INFO 2025-07-30 11:59:17,138 autoreload 17853 130209620508800 Watching for file changes with StatReloader
+INFO 2025-07-30 11:59:21,784 basehttp 17853 130209560483520 "GET /alerts/ae06f44b-0297-42b7-b294-3e34dfba9738/ HTTP/1.1" 200 44287
+WARNING 2025-07-30 11:59:21,891 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:59:21,893 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:59:24,521 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=2.000000&lng=2.000000&radius=2&exclude=ae06f44b-0297-42b7-b294-3e34dfba9738 HTTP/1.1" 200 116
+INFO 2025-07-30 11:59:36,130 basehttp 17853 130209560483520 "GET /alerts/ae06f44b-0297-42b7-b294-3e34dfba9738/ HTTP/1.1" 200 44287
+WARNING 2025-07-30 11:59:36,266 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:59:36,267 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:59:38,727 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=2.000000&lng=2.000000&radius=2&exclude=ae06f44b-0297-42b7-b294-3e34dfba9738 HTTP/1.1" 200 116
+INFO 2025-07-30 11:59:39,403 basehttp 17853 130209560483520 "GET /alerts/ae06f44b-0297-42b7-b294-3e34dfba9738/ HTTP/1.1" 200 44287
+WARNING 2025-07-30 11:59:39,447 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 11:59:39,447 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 11:59:41,680 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=2.000000&lng=2.000000&radius=2&exclude=ae06f44b-0297-42b7-b294-3e34dfba9738 HTTP/1.1" 200 116
+INFO 2025-07-30 12:00:27,670 basehttp 17853 130209560483520 "GET /alerts/ae06f44b-0297-42b7-b294-3e34dfba9738/ HTTP/1.1" 200 44287
+WARNING 2025-07-30 12:00:27,814 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:00:27,816 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:00:30,314 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=2.000000&lng=2.000000&radius=2&exclude=ae06f44b-0297-42b7-b294-3e34dfba9738 HTTP/1.1" 200 116
+ERROR 2025-07-30 12:00:37,247 log 17853 130209560483520 Internal Server Error: /alerts/ae06f44b-0297-42b7-b294-3e34dfba9738/edit/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 167, in edit_alert
+    return render(request, 'community/edit_alert.html', {'form': form, 'alert': alert})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: community/edit_alert.html
+ERROR 2025-07-30 12:00:37,254 basehttp 17853 130209560483520 "GET /alerts/ae06f44b-0297-42b7-b294-3e34dfba9738/edit/ HTTP/1.1" 500 93733
+WARNING 2025-07-30 12:00:37,472 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:00:37,473 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:01:02,452 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:01:02,453 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:01:02,528 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:01:02,529 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+ERROR 2025-07-30 12:01:03,494 log 17853 130209560483520 Internal Server Error: /alerts/nearby/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 388, in nearby_alerts
+    return render(request, 'community/nearby_alerts.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: community/nearby_alerts.html
+ERROR 2025-07-30 12:01:03,496 basehttp 17853 130209560483520 "GET /alerts/nearby/ HTTP/1.1" 500 89662
+WARNING 2025-07-30 12:01:03,620 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:01:03,620 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:01:13,960 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:01:13,961 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:01:14,042 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:01:14,043 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:01:15,041 basehttp 17853 130209560483520 "GET /alerts/ae06f44b-0297-42b7-b294-3e34dfba9738/ HTTP/1.1" 200 36404
+WARNING 2025-07-30 12:01:15,159 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:01:15,160 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:01:17,531 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=2.000000&lng=2.000000&radius=2&exclude=ae06f44b-0297-42b7-b294-3e34dfba9738 HTTP/1.1" 200 116
+INFO 2025-07-30 12:01:31,563 basehttp 17853 130209560483520 "GET /alerts/create/ HTTP/1.1" 200 41970
+WARNING 2025-07-30 12:01:31,802 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:01:31,804 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:03:04,924 log 17853 130209560483520 Method Not Allowed (GET): /logout/
+WARNING 2025-07-30 12:03:04,926 basehttp 17853 130209560483520 "GET /logout/ HTTP/1.1" 405 0
+WARNING 2025-07-30 12:03:07,034 log 17853 130209560483520 Method Not Allowed (GET): /logout/
+WARNING 2025-07-30 12:03:07,041 basehttp 17853 130209560483520 "GET /logout/ HTTP/1.1" 405 0
+WARNING 2025-07-30 12:03:07,461 log 17853 130209560483520 Method Not Allowed (GET): /logout/
+WARNING 2025-07-30 12:03:07,463 basehttp 17853 130209560483520 "GET /logout/ HTTP/1.1" 405 0
+WARNING 2025-07-30 12:03:07,835 log 17853 130209560483520 Method Not Allowed (GET): /logout/
+WARNING 2025-07-30 12:03:07,838 basehttp 17853 130209560483520 "GET /logout/ HTTP/1.1" 405 0
+INFO 2025-07-30 12:04:45,690 basehttp 17853 130209560483520 "GET / HTTP/1.1" 200 15155
+WARNING 2025-07-30 12:04:45,828 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:04:45,829 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:04:52,665 basehttp 17853 130209560483520 "GET /alerts/0be2af71-7f5a-4e6d-acd4-6696239f6542/ HTTP/1.1" 200 36697
+WARNING 2025-07-30 12:04:52,924 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:04:52,925 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:04:55,385 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=40.759500&lng=-73.984500&radius=2&exclude=0be2af71-7f5a-4e6d-acd4-6696239f6542 HTTP/1.1" 200 116
+INFO 2025-07-30 12:04:58,915 basehttp 17853 130209560483520 "GET /alerts/0be2af71-7f5a-4e6d-acd4-6696239f6542/edit/ HTTP/1.1" 200 38498
+WARNING 2025-07-30 12:04:59,203 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:04:59,203 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:05:08,785 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:05:08,785 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:05:08,852 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:05:08,853 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+ERROR 2025-07-30 12:06:27,802 log 17853 130209560483520 Internal Server Error: /alerts/
+Traceback (most recent call last):
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/alert_system/community/views.py", line 85, in alert_list
+    return render(request, 'community/alert_list.html', context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 489, in parse
+    raise self.error(token, e)
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sammiykay/Desktop/projects/alert/env/lib/python3.12/site-packages/django/template/base.py", line 710, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '.name' from 'categories|first.name'
+ERROR 2025-07-30 12:06:27,806 basehttp 17853 130209560483520 "GET /alerts/?community=3bbd74a3-5efc-4fa9-995a-20379abe4634 HTTP/1.1" 500 342297
+WARNING 2025-07-30 12:06:28,101 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:06:28,102 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:07:48,392 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:07:48,393 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:07:48,475 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:07:48,476 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:07:49,719 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:07:49,720 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:07:49,764 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:07:49,764 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:07:53,389 basehttp 17853 130209560483520 "GET /profile/ HTTP/1.1" 200 33442
+WARNING 2025-07-30 12:07:53,594 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:07:53,595 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:09:15,098 basehttp 17853 130209560483520 "GET /alerts/ HTTP/1.1" 200 78970
+WARNING 2025-07-30 12:09:15,446 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:09:15,447 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:09:27,287 basehttp 17853 130209560483520 "GET /alerts/ HTTP/1.1" 200 78970
+WARNING 2025-07-30 12:09:27,358 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:09:27,359 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:14:47,613 basehttp 17853 130209560483520 "GET /alerts/ HTTP/1.1" 200 78851
+WARNING 2025-07-30 12:14:47,676 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:14:47,677 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:15:09,899 basehttp 17853 130209560483520 "GET /alerts/ HTTP/1.1" 200 78851
+WARNING 2025-07-30 12:15:09,976 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:15:09,976 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:15:16,486 basehttp 17853 130209560483520 "GET /alerts/3c1caf14-67ed-4ebd-ad3c-824939941733/ HTTP/1.1" 200 36658
+WARNING 2025-07-30 12:15:16,813 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:15:16,814 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:15:19,030 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=40.758000&lng=-73.986000&radius=2&exclude=3c1caf14-67ed-4ebd-ad3c-824939941733 HTTP/1.1" 200 116
+WARNING 2025-07-30 12:15:22,734 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:15:22,735 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:15:22,801 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:15:22,801 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:15:25,543 basehttp 17853 130209560483520 "GET /alerts/f918aa61-ff38-4a59-b29c-05dddd792ec2/ HTTP/1.1" 200 36752
+WARNING 2025-07-30 12:15:25,805 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:15:25,806 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:15:28,080 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=40.761000&lng=-73.977000&radius=2&exclude=f918aa61-ff38-4a59-b29c-05dddd792ec2 HTTP/1.1" 200 116
+WARNING 2025-07-30 12:15:33,832 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:15:33,832 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:15:33,893 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:15:33,894 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:19:27,030 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:19:27,031 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:19:27,103 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:19:27,103 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:19:29,698 basehttp 17853 130209560483520 "GET /alerts/ HTTP/1.1" 200 80346
+WARNING 2025-07-30 12:19:29,742 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:19:29,742 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:21:59,866 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:21:59,866 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:21:59,944 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:21:59,944 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:22:00,480 basehttp 17853 130209560483520 "GET /alerts/ HTTP/1.1" 200 81082
+WARNING 2025-07-30 12:22:00,527 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:22:00,528 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:22:55,070 basehttp 17853 130209560483520 "GET /alerts/ HTTP/1.1" 200 81095
+WARNING 2025-07-30 12:22:55,258 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:22:55,259 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:23:25,648 basehttp 17853 130209560483520 "GET /alerts/ HTTP/1.1" 200 81101
+WARNING 2025-07-30 12:23:25,729 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:23:25,730 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:23:45,290 basehttp 17853 130209560483520 "GET /alerts/ae06f44b-0297-42b7-b294-3e34dfba9738/ HTTP/1.1" 200 36404
+WARNING 2025-07-30 12:23:45,533 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:23:45,534 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:23:47,992 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=2.000000&lng=2.000000&radius=2&exclude=ae06f44b-0297-42b7-b294-3e34dfba9738 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:51,135 basehttp 17853 130209560483520 "GET /alerts/nearby/ HTTP/1.1" 200 30526
+WARNING 2025-07-30 12:23:51,520 log 17853 130209560483520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:23:51,520 basehttp 17853 130209560483520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:23:53,924 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=5 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,319 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=6 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,360 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=7 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,389 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=8 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,416 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=9 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,452 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=10 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,492 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=11 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,572 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=12 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,664 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=13 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,720 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=14 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,759 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=15 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,783 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=16 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,804 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=17 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:57,829 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=18 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,157 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=19 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,195 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=20 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,234 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=21 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,270 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=22 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,275 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=23 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,319 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=24 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,338 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=25 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,360 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=26 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,378 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=27 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,439 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=28 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,482 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=29 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,556 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=30 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,591 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=31 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,636 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=32 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,704 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=33 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,762 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=35 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,812 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=36 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,839 basehttp 17853 130209449768640 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=37 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,843 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=34 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,904 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=38 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,907 basehttp 17853 130209441375936 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=39 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,944 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=41 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,963 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=40 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:58,984 basehttp 17853 130209449768640 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=43 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,015 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=42 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,048 basehttp 17853 130209441375936 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=44 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,050 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=45 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,070 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=46 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,102 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=47 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,153 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=48 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,218 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=49 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,389 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=50 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,603 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=49 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,693 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=48 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,720 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=47 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,768 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=45 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,771 basehttp 17853 130209441375936 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=46 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,787 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=41 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,826 basehttp 17853 130209449768640 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=43 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,863 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=38 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,892 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=40 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,894 basehttp 17853 130209441375936 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=36 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,897 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=35 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,899 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=33 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,913 basehttp 17853 130209449768640 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=34 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,924 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=31 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,997 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=30 HTTP/1.1" 200 116
+INFO 2025-07-30 12:23:59,998 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=28 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,000 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=27 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,001 basehttp 17853 130209449768640 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=26 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,004 basehttp 17853 130209441375936 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=29 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,021 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=25 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,086 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=24 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,093 basehttp 17853 130209449768640 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=21 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,107 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=19 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,108 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=23 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,108 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=22 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,110 basehttp 17853 130209441375936 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=20 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,140 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=18 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,145 basehttp 17853 130209449768640 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=17 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,177 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=13 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,196 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=15 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,198 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=14 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,200 basehttp 17853 130209441375936 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=12 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,213 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=11 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,215 basehttp 17853 130209449768640 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=10 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,246 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=9 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,315 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=7 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,342 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=5 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,344 basehttp 17853 130209449768640 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=4 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,356 basehttp 17853 130209441375936 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=6 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,372 basehttp 17853 130209552090816 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=8 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,396 basehttp 17853 130209532180160 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=3 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,422 basehttp 17853 130209560483520 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=2 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:00,438 basehttp 17853 130209540572864 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=1 HTTP/1.1" 200 116
+INFO 2025-07-30 12:24:09,952 basehttp 17853 130209540572864 "GET /alerts/create/ HTTP/1.1" 200 41808
+WARNING 2025-07-30 12:24:10,326 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:24:10,327 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:25:28,658 basehttp 17853 130209540572864 "GET /alerts/create/ HTTP/1.1" 200 41814
+WARNING 2025-07-30 12:25:28,913 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:25:28,914 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:25:40,885 basehttp 17853 130209540572864 "GET /alerts/create/ HTTP/1.1" 200 41814
+WARNING 2025-07-30 12:25:41,013 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:25:41,014 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:26:42,730 basehttp 17853 130209540572864 "GET /alerts/create/ HTTP/1.1" 200 41814
+WARNING 2025-07-30 12:26:42,928 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:26:42,929 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:27:00,207 basehttp 17853 130209540572864 "GET /profile/ HTTP/1.1" 200 33400
+WARNING 2025-07-30 12:27:00,558 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:27:00,559 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:28:05,149 views 17853 130209540572864 AJAX request detected - Action: update_notifications, Headers: {'Content-Length': '654', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryffb81RmmWuYAHTGY', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': '0GS1V7ChB3496U0FoMBsjJ5M3zoJSUwXWiPqcX1aQqBPFo1TJCjG8uFSj7o6c0tB', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 12:28:05,171 basehttp 17853 130209540572864 "POST /profile/ HTTP/1.1" 200 75
+INFO 2025-07-30 12:28:10,986 basehttp 17853 130209540572864 "GET /alerts/create/ HTTP/1.1" 200 41814
+WARNING 2025-07-30 12:28:11,448 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:28:11,448 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:29:47,261 basehttp 17853 130209540572864 "GET /profile/ HTTP/1.1" 200 37432
+WARNING 2025-07-30 12:29:47,708 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:29:47,709 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:31:42,031 basehttp 17853 130209540572864 "GET /profile/ HTTP/1.1" 200 40507
+WARNING 2025-07-30 12:31:42,174 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:31:42,176 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:34:28,786 basehttp 17853 130209540572864 "GET /profile/ HTTP/1.1" 200 44102
+WARNING 2025-07-30 12:34:28,904 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:34:28,906 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:34:38,816 views 17853 130209540572864 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryHqplKuXW7pmjzhQW', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'evFqNk3EnkyB9FqlbeBaHd1iB8frfcpja7CP4asxCH5hI9rzw4jowYBoRGfOzimX', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 12:34:38,827 basehttp 17853 130209540572864 "POST /profile/ HTTP/1.1" 200 61
+INFO 2025-07-30 12:34:40,435 basehttp 17853 130209540572864 "GET /profile/ HTTP/1.1" 200 44102
+WARNING 2025-07-30 12:34:40,552 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:34:40,554 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:34:45,231 basehttp 17853 130209540572864 "GET /alerts/create/ HTTP/1.1" 200 43016
+WARNING 2025-07-30 12:34:45,532 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:34:45,533 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:35:07,526 basehttp 17853 130209540572864 "GET /profile/ HTTP/1.1" 200 44103
+WARNING 2025-07-30 12:35:07,913 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:35:07,914 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:35:26,003 views 17853 130209540572864 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '840', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryaqUiKQj2LgPunb75', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'MkKCbYO2vaI7WBVubucuGyE5mB3SiTOEIWH1sOdVKxfNv5WIwkUIvjebC93fCZLi', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=6M7zr0z3pxHQJEbov0SoZVKgqIaxug7O; sessionid=9ybhkzq51ihswoxi8mbzf8k4pimawow3'}
+INFO 2025-07-30 12:35:26,021 basehttp 17853 130209540572864 "POST /profile/ HTTP/1.1" 200 61
+INFO 2025-07-30 12:35:27,635 basehttp 17853 130209540572864 "GET /profile/ HTTP/1.1" 200 44103
+WARNING 2025-07-30 12:35:27,764 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:35:27,765 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+WARNING 2025-07-30 12:36:09,409 log 17853 130209540572864 Method Not Allowed (GET): /logout/
+WARNING 2025-07-30 12:36:09,410 basehttp 17853 130209540572864 "GET /logout/ HTTP/1.1" 405 0
+INFO 2025-07-30 12:36:15,991 basehttp 17853 130209540572864 "GET /admin/ HTTP/1.1" 200 11518
+WARNING 2025-07-30 12:36:16,028 log 17853 130209540572864 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:36:16,029 basehttp 17853 130209540572864 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:36:16,033 basehttp 17853 130209560483520 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-07-30 12:36:16,033 basehttp 17853 130209532180160 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-07-30 12:36:16,034 basehttp 17853 130209441375936 "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-07-30 12:36:16,036 basehttp 17853 130209449768640 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-07-30 12:36:16,036 basehttp 17853 130209432983232 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-07-30 12:36:16,037 basehttp 17853 130209532180160 "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-07-30 12:36:17,240 basehttp 17853 130209540572864 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-07-30 12:36:17,240 basehttp 17853 130209449768640 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-07-30 12:36:17,241 basehttp 17853 130209532180160 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-07-30 12:36:18,029 basehttp 17853 130209449768640 "POST /admin/logout/ HTTP/1.1" 302 0
+INFO 2025-07-30 12:36:18,042 basehttp 17853 130209449768640 "GET / HTTP/1.1" 200 14386
+WARNING 2025-07-30 12:36:18,172 log 17853 130209449768640 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-30 12:36:18,173 basehttp 17853 130209449768640 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7429
+INFO 2025-07-30 12:36:21,357 basehttp 17853 130209449768640 "GET /register/ HTTP/1.1" 200 7052
+INFO 2025-07-30 12:36:38,112 basehttp 17853 130209449768640 "POST /register/ HTTP/1.1" 302 0
+INFO 2025-07-30 12:36:38,118 basehttp 17853 130209449768640 "GET /login/ HTTP/1.1" 200 7159
+INFO 2025-07-30 12:36:50,116 basehttp 17853 130209449768640 "POST /login/ HTTP/1.1" 200 7038
+INFO 2025-07-30 12:36:58,959 basehttp 17853 130209449768640 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-07-30 12:36:58,975 basehttp 17853 130209449768640 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4170
+INFO 2025-07-30 12:36:59,033 basehttp 17853 130209449768640 "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-07-30 12:37:08,297 basehttp 17853 130209449768640 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-07-30 12:37:08,312 basehttp 17853 130209449768640 "GET /admin/ HTTP/1.1" 200 11518
+INFO 2025-07-30 12:37:10,209 basehttp 17853 130209449768640 "GET /admin/community/customuser/ HTTP/1.1" 200 19354
+INFO 2025-07-30 12:37:10,226 basehttp 17853 130209449768640 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-07-30 12:37:10,234 basehttp 17853 130209432983232 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-07-30 12:37:10,237 basehttp 17853 130209560483520 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-07-30 12:37:10,237 basehttp 17853 130209441375936 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-07-30 12:37:10,244 basehttp 17853 130209432983232 "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-07-30 12:37:10,245 basehttp 17853 130209441375936 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-07-30 12:37:10,246 basehttp 17853 130209560483520 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-07-30 12:37:10,247 basehttp 17853 130209540572864 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 12:37:10,248 basehttp 17853 130209532180160 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-07-30 12:37:10,250 basehttp 17853 130209532180160 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-07-30 12:37:10,251 basehttp 17853 130209540572864 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-07-30 12:37:10,269 basehttp 17853 130209449768640 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-07-30 12:37:10,565 basehttp 17853 130209540572864 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-07-30 12:37:10,565 basehttp 17853 130209449768640 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-07-30 12:37:10,593 basehttp 17853 130209540572864 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-07-30 12:37:10,595 basehttp 17853 130209449768640 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-07-30 12:37:10,595 basehttp 17853 130209532180160 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-07-30 12:37:15,938 basehttp 17853 130209449768640 "POST /admin/logout/ HTTP/1.1" 302 0
+INFO 2025-07-30 12:37:15,950 basehttp 17853 130209449768640 "GET / HTTP/1.1" 200 14386
+INFO 2025-07-30 12:37:19,363 basehttp 17853 130209449768640 "GET /login/ HTTP/1.1" 200 6498
+INFO 2025-07-30 12:37:23,662 basehttp 17853 130209449768640 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-07-30 12:37:23,672 basehttp 17853 130209449768640 "GET / HTTP/1.1" 200 15151
+INFO 2025-07-30 12:37:27,270 basehttp 17853 130209449768640 "GET /profile/ HTTP/1.1" 200 41565
+INFO 2025-07-30 12:37:50,590 views 17853 130209449768640 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '831', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryNjRZ1Mum6nA4zbcd', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Csrftoken': 'X6IohAIYfXWx3mHTfuKVCxxei5LBPejwbiKBnUQA3leNywmc13AU34bHet2YDwRK', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Accept': 'application/json', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=omcnguiMYysqFkPtWJ09BHOD6yrxYsIo; sessionid=6rdcvdrfirzx0sd8k9lqic9jf6756erc'}
+INFO 2025-07-30 12:37:50,593 basehttp 17853 130209449768640 "POST /profile/ HTTP/1.1" 200 61
+INFO 2025-07-30 12:37:52,122 basehttp 17853 130209449768640 "GET /profile/ HTTP/1.1" 200 43151
+INFO 2025-07-30 12:37:57,021 basehttp 17853 130209449768640 "GET /alerts/nearby/ HTTP/1.1" 200 31518
+INFO 2025-07-30 12:37:57,526 basehttp 17853 130209449768640 "GET /api/alerts/nearby/?lat=6.5568768&lng=3.3652736&radius=5 HTTP/1.1" 200 115

@@ -29,29 +29,40 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserProfileForm(forms.ModelForm):
-    """Form for updating user profile"""
+    """Form for updating basic user profile information"""
     
     class Meta:
         model = CustomUser
         fields = [
-            'first_name', 'last_name', 'email', 'phone_number', 
-            'latitude', 'longitude', 'notification_radius_km',
-            'email_notifications', 'push_notifications'
+            'first_name', 'last_name', 'phone_number', 
+            'latitude', 'longitude'
         ]
         widgets = {
             'latitude': forms.NumberInput(attrs={'step': 'any', 'class': 'form-control'}),
             'longitude': forms.NumberInput(attrs={'step': 'any', 'class': 'form-control'}),
-            'notification_radius_km': forms.NumberInput(attrs={'min': '0.1', 'max': '50', 'step': '0.1', 'class': 'form-control'}),
-            'email_notifications': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-            'push_notifications': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Add CSS classes to form fields
         for field_name, field in self.fields.items():
-            if field_name not in ['email_notifications', 'push_notifications']:
-                field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['class'] = 'form-control'
+
+
+class UserNotificationForm(forms.ModelForm):
+    """Form for updating user notification preferences"""
+    
+    class Meta:
+        model = CustomUser
+        fields = [
+            'notification_radius_km',
+            'email_notifications', 'push_notifications'
+        ]
+        widgets = {
+            'notification_radius_km': forms.NumberInput(attrs={'min': '0.1', 'max': '50', 'step': '0.1', 'class': 'form-control'}),
+            'email_notifications': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'push_notifications': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
 
 
 class AlertForm(forms.ModelForm):

@@ -517,88 +517,62 @@
     let map;
     let alertMarker;
     let nearbyMarkers = [];
-    let trafficLayer;
-    let isTrafficVisible = false;
     let isSatelliteView = false;
+    let osmLayer, satelliteLayer;
     
-    // Initialize enhanced map
+    // Initialize enhanced map with Leaflet
     function initMap() {
-        const alertLocation = { 
-            lat: parseFloat('{{ alert.latitude }}'), 
-            lng: parseFloat('{{ alert.longitude }}') 
-        };
+        const alertLocation = [parseFloat('{{ alert.latitude }}'), parseFloat('{{ alert.longitude }}')];
         
-        map = new google.maps.Map(document.getElementById('alertMap'), {
-            zoom: 16,
-            center: alertLocation,
-            mapTypeId: 'roadmap',
-            styles: [
-                {
-                    featureType: 'poi',
-                    elementType: 'labels',
-                    stylers: [{ visibility: 'on' }]
-                }
-            ],
-            streetViewControl: true,
-            mapTypeControl: true,
-            fullscreenControl: true,
-            zoomControl: true
+        // Initialize map
+        map = L.map('alertMap').setView(alertLocation, 16);
+        
+        // Define tile layers
+        osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
         });
         
-        // Initialize traffic layer
-        trafficLayer = new google.maps.TrafficLayer();
-        
-        // Add enhanced marker for alert location
-        alertMarker = new google.maps.Marker({
-            position: alertLocation,
-            map: map,
-            title: '{{ alert.title|escapejs }}',
-            animation: google.maps.Animation.DROP,
-            icon: {
-                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
-                    '<svg width="35" height="45" viewBox="0 0 35 45" xmlns="http://www.w3.org/2000/svg">' +
-                    '<path d="M17.5 0C7.8 0 0 7.8 0 17.5c0 17.5 17.5 27.5 17.5 27.5s17.5-10 17.5-27.5C35 7.8 27.2 0 17.5 0z" fill="#dc3545"/>' +
-                    '<circle cx="17.5" cy="17.5" r="10" fill="white"/>' +
-                    '<text x="17.5" y="22" text-anchor="middle" fill="#dc3545" font-size="14" font-weight="bold">!</text>' +
-                    '</svg>'
-                ),
-                scaledSize: new google.maps.Size(35, 45),
-                anchor: new google.maps.Point(17.5, 45)
-            }
+        satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '© Esri, Maxar, Earthstar Geographics'
         });
         
-        // Enhanced info window
-        const infoWindow = new google.maps.InfoWindow({
-            content: `
-                <div style="max-width: 280px; padding: 10px;">
-                    <h6 style="color: #dc3545; margin-bottom: 10px;">
-                        <i class="fas fa-exclamation-triangle"></i> ${'{{ alert.title|escapejs }}'}
-                    </h6>
-                    <div style="margin-bottom: 8px;">
-                        <span style="background: #{{ alert.severity == 'critical' and 'dc3545' or alert.severity == 'high' and 'fd7e14' or alert.severity == 'medium' and 'ffc107' or '28a745' }}; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px;">
-                            {{ alert.get_severity_display }}
-                        </span>
-                    </div>
-                    <p style="margin-bottom: 8px;"><strong>Category:</strong> {{ alert.category.name }}</p>
-                    <p style="margin-bottom: 8px;"><strong>Status:</strong> {{ alert.get_status_display }}</p>
-                    <p style="margin-bottom: 8px;"><strong>Reported:</strong> {{ alert.created_at|timesince }} ago</p>
-                    <div style="text-align: center; margin-top: 10px;">
-                        <button onclick="getDirections()" style="background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
-                            <i class="fas fa-directions"></i> Directions
-                        </button>
-                    </div>
+        // Add default layer
+        osmLayer.addTo(map);
+        
+        // Create custom marker icon
+        const alertIcon = L.divIcon({
+            html: '<div style="background: #dc3545; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 3px solid white; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">!</div>',
+            iconSize: [30, 30],
+            iconAnchor: [15, 15],
+            className: 'alert-marker'
+        });
+        
+        // Add marker for alert location
+        alertMarker = L.marker(alertLocation, { icon: alertIcon }).addTo(map);
+        
+        // Create popup content
+        const popupContent = `
+            <div style="max-width: 280px; padding: 10px;">
+                <h6 style="color: #dc3545; margin-bottom: 10px;">
+                    <i class="fas fa-exclamation-triangle"></i> {{ alert.title|escapejs }}
+                </h6>
+                <div style="margin-bottom: 8px;">
+                    <span style="background: {% if alert.severity == 'critical' %}#dc3545{% elif alert.severity == 'high' %}#fd7e14{% elif alert.severity == 'medium' %}#ffc107{% else %}#28a745{% endif %}; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px;">
+                        {{ alert.get_severity_display }}
+                    </span>
                 </div>
-            `
-        });
+                <p style="margin-bottom: 8px;"><strong>Category:</strong> {{ alert.category.name }}</p>
+                <p style="margin-bottom: 8px;"><strong>Status:</strong> {{ alert.get_status_display }}</p>
+                <p style="margin-bottom: 8px;"><strong>Reported:</strong> {{ alert.created_at|timesince }} ago</p>
+                <div style="text-align: center; margin-top: 10px;">
+                    <button onclick="getDirections()" style="background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i class="fas fa-directions"></i> Directions
+                    </button>
+                </div>
+            </div>
+        `;
         
-        alertMarker.addListener('click', () => {
-            infoWindow.open(map, alertMarker);
-        });
-        
-        // Auto-open info window
-        setTimeout(() => {
-            infoWindow.open(map, alertMarker);
-        }, 1000);
+        alertMarker.bindPopup(popupContent).openPopup();
         
         // Show map controls
         document.getElementById('mapControls').style.display = 'block';
@@ -609,18 +583,21 @@
     
     // Center map on alert
     function centerOnAlert() {
-        const alertLocation = { 
-            lat: parseFloat('{{ alert.latitude }}'), 
-            lng: parseFloat('{{ alert.longitude }}') 
-        };
-        map.setCenter(alertLocation);
-        map.setZoom(16);
+        const alertLocation = [parseFloat('{{ alert.latitude }}'), parseFloat('{{ alert.longitude }}')];
+        map.setView(alertLocation, 16);
     }
     
     // Toggle satellite view
     function toggleSatellite() {
         isSatelliteView = !isSatelliteView;
-        map.setMapTypeId(isSatelliteView ? 'satellite' : 'roadmap');
+        
+        if (isSatelliteView) {
+            map.removeLayer(osmLayer);
+            satelliteLayer.addTo(map);
+        } else {
+            map.removeLayer(satelliteLayer);
+            osmLayer.addTo(map);
+        }
         
         const btn = event.target.closest('button');
         if (isSatelliteView) {
@@ -632,14 +609,11 @@
         }
     }
     
-    // Toggle traffic layer
+    // Toggle traffic layer (placeholder for OpenStreetMap)
     function toggleTraffic() {
-        isTrafficVisible = !isTrafficVisible;
-        if (isTrafficVisible) {
-            trafficLayer.setMap(map);
-        } else {
-            trafficLayer.setMap(null);
-        }
+        // Note: Traffic data not available with free OpenStreetMap
+        // This could be extended with third-party traffic services
+        console.log('Traffic data not available with OpenStreetMap');
     }
     
     // Load and show nearby alerts
@@ -659,7 +633,7 @@
     // Show nearby alerts on map and in preview
     function showNearbyAlerts(alerts) {
         // Clear existing nearby markers
-        nearbyMarkers.forEach(marker => marker.setMap(null));
+        nearbyMarkers.forEach(marker => map.removeLayer(marker));
         nearbyMarkers = [];
         
         // Show preview box
@@ -669,37 +643,24 @@
         if (alerts && alerts.length > 0) {
             // Add markers to map
             alerts.forEach(alert => {
-                const marker = new google.maps.Marker({
-                    position: { lat: alert.latitude, lng: alert.longitude },
-                    map: map,
-                    title: alert.title,
-                    icon: {
-                        url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
-                            '<svg width="25" height="30" viewBox="0 0 25 30" xmlns="http://www.w3.org/2000/svg">' +
-                            '<path d="M12.5 0C5.6 0 0 5.6 0 12.5c0 12.5 12.5 17.5 12.5 17.5s12.5-5 12.5-17.5C25 5.6 19.4 0 12.5 0z" fill="#ffc107"/>' +
-                            '<circle cx="12.5" cy="12.5" r="6" fill="white"/>' +
-                            '<text x="12.5" y="16" text-anchor="middle" fill="#ffc107" font-size="10">!</text>' +
-                            '</svg>'
-                        ),
-                        scaledSize: new google.maps.Size(25, 30),
-                        anchor: new google.maps.Point(12.5, 30)
-                    }
+                const nearbyIcon = L.divIcon({
+                    html: '<div style="background: #ffc107; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3); font-size: 12px;">!</div>',
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10],
+                    className: 'nearby-alert-marker'
                 });
                 
-                const infoWindow = new google.maps.InfoWindow({
-                    content: `
-                        <div style="max-width: 200px;">
-                            <h6>${alert.title}</h6>
-                            <p><strong>Severity:</strong> ${alert.severity}</p>
-                            <p><small>${alert.created_at}</small></p>
-                        </div>
-                    `
-                });
+                const marker = L.marker([alert.latitude, alert.longitude], { icon: nearbyIcon }).addTo(map);
                 
-                marker.addListener('click', () => {
-                    infoWindow.open(map, marker);
-                });
+                const popupContent = `
+                    <div style="max-width: 200px;">
+                        <h6>${alert.title}</h6>
+                        <p><strong>Severity:</strong> ${alert.severity}</p>
+                        <p><small>${alert.created_at}</small></p>
+                    </div>
+                `;
                 
+                marker.bindPopup(popupContent);
                 nearbyMarkers.push(marker);
             });
             
@@ -720,9 +681,21 @@
     
     // Get directions to alert location
     function getDirections() {
-        const destination = `{{ alert.latitude }},{{ alert.longitude }}`;
-        const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
-        window.open(url, '_blank');
+        const lat = '{{ alert.latitude }}';
+        const lng = '{{ alert.longitude }}';
+        const destination = `${lat},${lng}`;
+        
+        // Try to open in various map applications
+        if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+            // iOS - try Apple Maps first, fallback to Google Maps
+            window.open(`maps://maps.apple.com/?daddr=${destination}`, '_blank');
+        } else if (navigator.userAgent.match(/Android/i)) {
+            // Android - try Google Maps
+            window.open(`geo:${destination}?q=${destination}`, '_blank');
+        } else {
+            // Desktop - open OpenStreetMap directions
+            window.open(`https://www.openstreetmap.org/directions?to=${destination}`, '_blank');
+        }
     }
     
     // Share location
@@ -807,7 +780,8 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                        'Accept': 'application/json'
                     },
                     body: `vote_type=${voteType}`
                 })
@@ -834,20 +808,22 @@
     });
 </script>
 
-<!-- Load Google Maps API with enhanced libraries -->
-<script async defer 
-    src="https://maps.googleapis.com/maps/api/js?key={{ settings.GOOGLE_MAPS_API_KEY|default:'AIzaSyBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' }}&libraries=places,geometry&callback=initMap">
-</script>
-
-<!-- Enhanced fallback if Google Maps is not available -->
+<!-- Initialize Leaflet Map -->
 <script>
+    // Initialize map when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // Small delay to ensure DOM is fully ready
+        setTimeout(initMap, 100);
+    });
+    
+    // Fallback if Leaflet is not available
     setTimeout(function() {
-        if (typeof google === 'undefined') {
+        if (typeof L === 'undefined') {
             document.getElementById('alertMap').innerHTML = 
                 '<div class="alert alert-warning text-center d-flex flex-column justify-content-center" style="height: 380px;">' +
                 '<i class="fas fa-map-marked-alt fa-4x mb-3 text-muted"></i>' +
                 '<h5>Map Service Unavailable</h5>' +
-                '<p class="mb-3">Google Maps could not be loaded, but you can still view the coordinates.</p>' +
+                '<p class="mb-3">OpenStreetMap could not be loaded, but you can still view the coordinates.</p>' +
                 '<div class="location-info-box" style="max-width: 400px; margin: 0 auto;">' +
                 '<p><strong>Location:</strong> {{ alert.latitude }}, {{ alert.longitude }}</p>' +
                 '{% if alert.address %}<p><strong>Address:</strong> {{ alert.address }}</p>{% endif %}' +
@@ -855,10 +831,12 @@
                 '</div>' +
                 '</div>';
         }
-    }, 5000);
+    }, 3000);
     
     function openInMaps() {
-        const url = `https://www.google.com/maps?q={{ alert.latitude }},{{ alert.longitude }}`;
+        const lat = '{{ alert.latitude }}';
+        const lng = '{{ alert.longitude }}';
+        const url = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}&zoom=16`;
         window.open(url, '_blank');
     }
 </script>

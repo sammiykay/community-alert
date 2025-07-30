@@ -267,15 +267,24 @@ def api_nearby_alerts(request):
             }, status=400)
         
         # Simple radius calculation
-        radius_km = user.notification_radius_km
+        radius_km = float(user.notification_radius_km)
+        user_lat = float(user.latitude)
+        user_lng = float(user.longitude)
+        
         lat_delta = radius_km / 111.0
-        lng_delta = radius_km / (111.0 * abs(float(user.latitude)))
+        lng_delta = radius_km / (111.0 * abs(user_lat))
+        
+        # Convert back to Decimal for database comparison
+        lat_min = Decimal(str(user_lat - lat_delta))
+        lat_max = Decimal(str(user_lat + lat_delta))
+        lng_min = Decimal(str(user_lng - lng_delta))
+        lng_max = Decimal(str(user_lng + lng_delta))
         
         alerts = Alert.objects.filter(
             is_public=True,
             status='active',
-            latitude__range=(user.latitude - lat_delta, user.latitude + lat_delta),
-            longitude__range=(user.longitude - lng_delta, user.longitude + lng_delta)
+            latitude__range=(lat_min, lat_max),
+            longitude__range=(lng_min, lng_max)
         ).select_related('category', 'community', 'created_by').order_by('-created_at')
         
         alerts_data = [alert_to_dict(alert) for alert in alerts]

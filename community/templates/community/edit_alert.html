@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Create Alert - Community Alert System{% endblock %}
+{% block title %}Edit Alert - Community Alert System{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -83,9 +83,9 @@
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <div class="card shadow-lg">
-                <div class="card-header bg-danger text-white">
-                    <h3 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Report Security Alert</h3>
-                    <p class="mb-0 small">Provide details about the security incident to alert your community.</p>
+                <div class="card-header bg-warning text-dark">
+                    <h3 class="mb-0"><i class="fas fa-edit"></i> Edit Alert</h3>
+                    <p class="mb-0 small">Update the details of this security alert.</p>
                 </div>
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data" id="alertForm">
@@ -165,7 +165,7 @@
                             
                             <div class="location-info">
                                 <i class="fas fa-info-circle"></i>
-                                <strong>Set Location:</strong> Click on the map below to set the exact location of the incident.
+                                <strong>Update Location:</strong> Click on the map below to update the location of the incident.
                                 You can also drag the marker to fine-tune the position.
                                 <div class="mt-2">
                                     <button type="button" class="btn btn-location btn-sm" onclick="getCurrentLocation()">
@@ -254,27 +254,6 @@
                             </div>
                         </div>
                         
-                        <!-- Media Upload -->
-                        <div class="form-section">
-                            <h5><i class="fas fa-camera text-primary"></i> Media Evidence (Optional)</h5>
-                            
-                            <div class="mb-3">
-                                <label for="media_files" class="form-label">Photos or Videos</label>
-                                <input type="file" class="form-control" name="media_files" id="media_files" 
-                                       multiple accept="image/*,video/*" onchange="previewMedia(this)">
-                                <div class="form-text">
-                                    <i class="fas fa-info-circle"></i>
-                                    Upload multiple images or videos (Max 50MB per file). 
-                                    Supported formats: JPEG, PNG, GIF, MP4, WebM
-                                </div>
-                            </div>
-                            
-                            <div id="mediaPreview" class="media-preview">
-                                <h6>Selected files:</h6>
-                                <div id="previewContainer"></div>
-                            </div>
-                        </div>
-                        
                         <!-- Privacy Settings -->
                         <div class="form-section">
                             <h5><i class="fas fa-shield-alt text-primary"></i> Privacy & Visibility</h5>
@@ -289,24 +268,17 @@
                             </div>
                         </div>
                         
-                        <!-- Emergency Notice -->
-                        <div class="alert alert-warning border-warning">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <strong>Emergency Situations:</strong> If this is an immediate emergency requiring police, fire, or medical response, 
-                            <strong>please call 911 first</strong>, then report here to inform the community.
-                        </div>
-                        
                         <!-- Submit Buttons -->
                         <div class="d-flex justify-content-between align-items-center">
-                            <a href="{% url 'home' %}" class="btn btn-secondary btn-lg">
+                            <a href="{% url 'alert_detail' alert.id %}" class="btn btn-secondary btn-lg">
                                 <i class="fas fa-times"></i> Cancel
                             </a>
                             <div>
                                 <button type="button" class="btn btn-outline-primary btn-lg me-2" onclick="previewAlert()">
                                     <i class="fas fa-eye"></i> Preview
                                 </button>
-                                <button type="submit" class="btn btn-danger btn-lg">
-                                    <i class="fas fa-exclamation-triangle"></i> Submit Alert
+                                <button type="submit" class="btn btn-warning btn-lg">
+                                    <i class="fas fa-save"></i> Update Alert
                                 </button>
                             </div>
                         </div>
@@ -329,7 +301,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Edit</button>
-                <button type="button" class="btn btn-danger" onclick="submitForm()">Submit Alert</button>
+                <button type="button" class="btn btn-warning" onclick="submitForm()">Update Alert</button>
             </div>
         </div>
     </div>
@@ -340,8 +312,6 @@
 <script>
     let map;
     let marker;
-    let geocoder;
-    let searchBox;
     let communityBoundaries = [];
     
     // Community data from Django
@@ -405,7 +375,6 @@
         }
     }
     
-    // Draw community boundaries on map
     function drawCommunityBoundaries() {
         communities.forEach(community => {
             const circle = L.circle([community.lat, community.lng], {
@@ -443,35 +412,15 @@
                     if (!document.getElementById('id_latitude').value) {
                         map.setView(userLocation, 16);
                         placeMarker(userLocation);
-                        
-                        // Show accuracy info in console for debugging
-                        console.log(`Location detected with accuracy: ±${position.coords.accuracy}m`);
                     }
                 },
                 (error) => {
                     console.log('Location access denied or failed:', error);
-                    
-                    // Show user-friendly error
-                    let errorMessage = 'Location access failed. ';
-                    switch(error.code) {
-                        case error.PERMISSION_DENIED:
-                            errorMessage += 'Please allow location access to auto-detect your position.';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            errorMessage += 'Your location is currently unavailable.';
-                            break;
-                        case error.TIMEOUT:
-                            errorMessage += 'Location request timed out.';
-                            break;
-                    }
-                    
-                    // You could show this as a toast notification if you have that function
-                    console.log(errorMessage);
                 },
                 {
-                    enableHighAccuracy: true,    // Request high accuracy
-                    timeout: 15000,              // Increase timeout to 15 seconds
-                    maximumAge: 0                // Always get fresh location
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 300000
                 }
             );
         }
@@ -532,33 +481,6 @@
         });
     }
     
-    // Auto-select appropriate community based on location
-    function autoSelectCommunity(location) {
-        let closestCommunity = null;
-        let minDistance = Infinity;
-        
-        const lat1 = Array.isArray(location) ? location[0] : location.lat;
-        const lng1 = Array.isArray(location) ? location[1] : location.lng;
-        
-        communities.forEach(community => {
-            // Calculate distance using Haversine formula
-            const distance = calculateDistance(lat1, lng1, community.lat, community.lng);
-            
-            if (distance <= community.radius && distance < minDistance) {
-                minDistance = distance;
-                closestCommunity = community;
-            }
-        });
-        
-        const communitySelect = document.getElementById('id_community');
-        if (closestCommunity) {
-            communitySelect.value = closestCommunity.id;
-            communitySelect.classList.remove('is-invalid');
-        } else {
-            communitySelect.value = '';
-        }
-    }
-    
     // Helper function to calculate distance between two points (Haversine formula)
     function calculateDistance(lat1, lon1, lat2, lon2) {
         const R = 6371; // Radius of the Earth in km
@@ -606,6 +528,33 @@
         }
     }
     
+    // Auto-select appropriate community based on location
+    function autoSelectCommunity(location) {
+        let closestCommunity = null;
+        let minDistance = Infinity;
+        
+        const lat1 = Array.isArray(location) ? location[0] : location.lat;
+        const lng1 = Array.isArray(location) ? location[1] : location.lng;
+        
+        communities.forEach(community => {
+            // Calculate distance using Haversine formula
+            const distance = calculateDistance(lat1, lng1, community.lat, community.lng);
+            
+            if (distance <= community.radius && distance < minDistance) {
+                minDistance = distance;
+                closestCommunity = community;
+            }
+        });
+        
+        const communitySelect = document.getElementById('id_community');
+        if (closestCommunity) {
+            communitySelect.value = closestCommunity.id;
+            communitySelect.classList.remove('is-invalid');
+        } else {
+            communitySelect.value = '';
+        }
+    }
+    
     // Search location function
     function searchLocation() {
         const searchInput = document.getElementById('searchBox');
@@ -614,37 +563,6 @@
             searchInput.focus();
         } else {
             searchInput.style.display = 'none';
-        }
-    }
-    
-    // Media preview function
-    function previewMedia(input) {
-        const previewDiv = document.getElementById('mediaPreview');
-        const previewContainer = document.getElementById('previewContainer');
-        
-        previewContainer.innerHTML = '';
-        
-        if (input.files && input.files.length > 0) {
-            previewDiv.style.display = 'block';
-            
-            Array.from(input.files).forEach(file => {
-                if (file.type.startsWith('image/')) {
-                    const img = document.createElement('img');
-                    img.src = URL.createObjectURL(file);
-                    img.onload = () => URL.revokeObjectURL(img.src);
-                    previewContainer.appendChild(img);
-                } else if (file.type.startsWith('video/')) {
-                    const video = document.createElement('video');
-                    video.src = URL.createObjectURL(file);
-                    video.controls = true;
-                    video.style.maxWidth = '200px';
-                    video.style.maxHeight = '150px';
-                    video.style.margin = '5px';
-                    previewContainer.appendChild(video);
-                }
-            });
-        } else {
-            previewDiv.style.display = 'none';
         }
     }
     
@@ -681,14 +599,10 @@
         document.getElementById('alertForm').submit();
     }
     
-    // Set current date/time as default for incident
+    // Form validation and initialization
     document.addEventListener('DOMContentLoaded', function() {
-        const incidentInput = document.getElementById('id_incident_datetime');
-        if (!incidentInput.value) {
-            const now = new Date();
-            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-            incidentInput.value = now.toISOString().slice(0, 16);
-        }
+        // Initialize map when page loads
+        setTimeout(initMap, 100);
         
         // Form validation
         document.getElementById('alertForm').addEventListener('submit', function(e) {
@@ -721,9 +635,6 @@
                 return false;
             }
         });
-        
-        // Initialize map when page loads
-        setTimeout(initMap, 100);
     });
     
     // Fallback if Leaflet is not available
@@ -733,7 +644,7 @@
                 '<div class="alert alert-warning text-center d-flex flex-column justify-content-center" style="height: 400px;">' +
                 '<i class="fas fa-map-marked-alt fa-4x mb-3 text-muted"></i>' +
                 '<h5>Map Service Unavailable</h5>' +
-                '<p class="mb-3">OpenStreetMap could not be loaded. You can still create an alert by entering coordinates manually.</p>' +
+                '<p class="mb-3">OpenStreetMap could not be loaded. You can still edit the alert by entering coordinates manually.</p>' +
                 '<button class="btn btn-primary" onclick="enableManualLocation()">Enter Location Manually</button>' +
                 '</div>';
         }

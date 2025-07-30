@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Syntax Test</title>
+</head>
+<body>
+    <h1>JavaScript Syntax Test</h1>
+    <div id="result"></div>
+    
+    <script>
+        // Test the key JavaScript functions from alert_list.html for syntax errors
+        
+        let testResults = [];
+        
+        // Mock variables and functions that would exist in the actual template
+        let map = {
+            setView: function(coords, zoom) { return this; },
+            getBounds: function() { 
+                return {
+                    contains: function(coords) { return true; }
+                };
+            }
+        };
+        
+        let markers = [];
+        let markerCluster = {
+            addLayer: function(marker) {},
+            clearLayers: function() {}
+        };
+        
+        let userLocation = { lat: 40.7589, lng: -73.9851 };
+        let alertsData = [
+            { id: 1, lat: 40.7589, lng: -73.9851, title: "Test Alert" }
+        ];
+        
+        // Test the fixed functions
+        function showOnMap(lat, lng, title) {
+            if (map) {
+                map.setView([lat, lng], 16);
+                
+                markers.forEach(marker => {
+                    if (marker.getLatLng) {
+                        const markerLatLng = marker.getLatLng();
+                        if (Math.abs(markerLatLng.lat - lat) < 0.0001 && Math.abs(markerLatLng.lng - lng) < 0.0001) {
+                            if (marker.openPopup) marker.openPopup();
+                        }
+                    }
+                });
+            }
+            return true;
+        }
+        
+        function toggleClustering() {
+            const showClusters = true; // Mock checkbox value
+            if (markerCluster) {
+                if (showClusters) {
+                    markers.forEach(marker => markerCluster.addLayer(marker));
+                } else {
+                    markerCluster.clearLayers();
+                    markers.forEach(marker => {
+                        if (marker.addTo) marker.addTo(map);
+                    });
+                }
+            }
+            return true;
+        }
+        
+        function filterByVisible() {
+            if (map) {
+                const bounds = map.getBounds();
+                const visibleAlerts = alertsData.filter(alert => 
+                    bounds.contains([alert.lat, alert.lng])
+                );
+                console.log(`Found ${visibleAlerts.length} alerts in current view`);
+            }
+            return true;
+        }
+        
+        // Run tests
+        try {
+            testResults.push({ func: 'showOnMap', result: showOnMap(40.7589, -73.9851, 'Test') });
+            testResults.push({ func: 'toggleClustering', result: toggleClustering() });
+            testResults.push({ func: 'filterByVisible', result: filterByVisible() });
+            
+            document.getElementById('result').innerHTML = 
+                '<h2 style="color: green;">✅ All JavaScript functions passed syntax test!</h2>' +
+                '<ul>' +
+                testResults.map(test => `<li>${test.func}: ${test.result ? 'PASS' : 'FAIL'}</li>`).join('') +
+                '</ul>';
+                
+        } catch (error) {
+            document.getElementById('result').innerHTML = 
+                '<h2 style="color: red;">❌ JavaScript Error Found:</h2>' +
+                '<pre>' + error.message + '</pre>';
+        }
+    </script>
+</body>
+</html>

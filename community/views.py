@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.utils import timezone
 from .models import Alert, AlertCategory, Community, CustomUser, AlertVote
-from .forms import UserRegistrationForm, AlertForm, UserProfileForm
+from .forms import UserRegistrationForm, AlertForm, UserProfileForm, UserNotificationForm
 import math
 
 
@@ -255,39 +255,32 @@ def user_profile(request):
                             'message': 'Profile updated successfully!'
                         })
                     else:
+                        # Debug logging
+                        logger.info(f'Form validation failed. Errors: {form.errors}')
+                        logger.info(f'Form data received: {dict(request.POST)}')
                         return JsonResponse({
                             'success': False,
-                            'error': 'Please correct the form errors.',
+                            'error': 'Please correct the form errors: ' + ', '.join([f'{field}: {", ".join(errors)}' for field, errors in form.errors.items()]),
                             'form_errors': form.errors
                         })
                 
                 elif action == 'update_notifications':
-                    # Update notification preferences
-                    user = request.user
-                    user.email_notifications = request.POST.get('email_notifications') == 'on'
-                    user.push_notifications = request.POST.get('push_notifications') == 'on'
-                    
-                    # Update notification radius
-                    try:
-                        radius = float(request.POST.get('notification_radius_km', user.notification_radius_km))
-                        if 0.1 <= radius <= 50.0:
-                            user.notification_radius_km = radius
-                        else:
-                            return JsonResponse({
-                                'success': False,
-                                'error': 'Notification radius must be between 0.1 and 50 km.'
-                            })
-                    except (ValueError, TypeError):
+                    # Update notification preferences using the new form
+                    form = UserNotificationForm(request.POST, instance=request.user)
+                    if form.is_valid():
+                        form.save()
+                        return JsonResponse({
+                            'success': True,
+                            'message': 'Notification settings updated successfully!'
+                        })
+                    else:
+                        logger.info(f'Notification form validation failed. Errors: {form.errors}')
+                        logger.info(f'Form data received: {dict(request.POST)}')
                         return JsonResponse({
                             'success': False,
-                            'error': 'Invalid notification radius value.'
+                            'error': 'Please correct the form errors: ' + ', '.join([f'{field}: {", ".join(errors)}' for field, errors in form.errors.items()]),
+                            'form_errors': form.errors
                         })
-                    
-                    user.save()
-                    return JsonResponse({
-                        'success': True,
-                        'message': 'Notification settings updated successfully!'
-                    })
                 
                 else:
                     return JsonResponse({
@@ -365,15 +358,26 @@ def nearby_alerts(request):
         return redirect('user_profile')
     
     # Simple radius calculation (this would be better with PostGIS)
-    radius_km = user.notification_radius_km
+    from decimal import Decimal
+    
+    radius_km = float(user.notification_radius_km)
+    user_lat = float(user.latitude)
+    user_lng = float(user.longitude)
+    
     lat_delta = radius_km / 111.0  # Approximate km per degree latitude
-    lng_delta = radius_km / (111.0 * math.cos(math.radians(float(user.latitude))))
+    lng_delta = radius_km / (111.0 * math.cos(math.radians(user_lat)))
+    
+    # Convert back to Decimal for database comparison
+    lat_min = Decimal(str(user_lat - lat_delta))
+    lat_max = Decimal(str(user_lat + lat_delta))
+    lng_min = Decimal(str(user_lng - lng_delta))
+    lng_max = Decimal(str(user_lng + lng_delta))
     
     alerts = Alert.objects.filter(
         is_public=True,
         status='active',
-        latitude__range=(user.latitude - lat_delta, user.latitude + lat_delta),
-        longitude__range=(user.longitude - lng_delta, user.longitude + lng_delta)
+        latitude__range=(lat_min, lat_max),
+        longitude__range=(lng_min, lng_max)
     ).select_related('category', 'community', 'created_by').order_by('-created_at')
     
     context = {

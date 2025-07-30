@@ -440,6 +440,14 @@
                             <button type="button" class="btn btn-outline-primary btn-sm" onclick="getCurrentLocationForProfile()">
                                 <i class="fas fa-crosshairs"></i> Use Current Location
                             </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm ms-2" onclick="showGoogleMapsHelper()">
+                                <i class="fas fa-map"></i> From Google Maps
+                            </button>
+                            <div class="form-text">
+                                <small><i class="fas fa-info-circle"></i> 
+                                For best accuracy, ensure you're outdoors or near a window. Location detection may take a few seconds.
+                                </small>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -470,47 +478,41 @@
 <script>
     let profileMap;
     
-    // Initialize profile location map
+    // Initialize profile location map with Leaflet
     function initProfileMap() {
-        const userLocation = {
-            lat: {{ user.latitude|default:40.7589 }},
-            lng: {{ user.longitude|default:-73.9851 }}
-        };
+        const userLocation = [{{ user.latitude|default:40.7589 }}, {{ user.longitude|default:-73.9851 }}];
         
-        profileMap = new google.maps.Map(document.getElementById('profileMap'), {
-            zoom: 15,
-            center: userLocation,
-            mapTypeId: 'roadmap'
-        });
+        // Initialize map
+        profileMap = L.map('profileMap').setView(userLocation, 15);
+        
+        // Add tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(profileMap);
         
         {% if user.latitude and user.longitude %}
-        new google.maps.Marker({
-            position: userLocation,
-            map: profileMap,
-            title: 'Your Location',
-            icon: {
-                url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
-                    '<svg width="25" height="35" viewBox="0 0 25 35" xmlns="http://www.w3.org/2000/svg">' +
-                    '<path d="M12.5 0C5.6 0 0 5.6 0 12.5c0 12.5 12.5 22.5 12.5 22.5s12.5-10 12.5-22.5C25 5.6 19.4 0 12.5 0z" fill="#007bff"/>' +
-                    '<circle cx="12.5" cy="12.5" r="6" fill="white"/>' +
-                    '</svg>'
-                ),
-                scaledSize: new google.maps.Size(25, 35),
-                anchor: new google.maps.Point(12.5, 35)
-            }
+        // Create custom user location marker
+        const userIcon = L.divIcon({
+            html: '<div style="background: #007bff; color: white; border-radius: 50% 50% 50% 0; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 3px solid white; box-shadow: 0 3px 6px rgba(0,0,0,0.3); transform: rotate(-45deg);"><span style="transform: rotate(45deg);"><i class="fas fa-user" style="font-size: 10px;"></i></span></div>',
+            iconSize: [25, 25],
+            iconAnchor: [12.5, 25],
+            className: 'user-location-marker'
         });
         
+        const userMarker = L.marker(userLocation, { icon: userIcon })
+            .addTo(profileMap)
+            .bindPopup('Your Location')
+            .openPopup();
+        
         // Add notification radius circle
-        new google.maps.Circle({
-            strokeColor: '#007bff',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
+        L.circle(userLocation, {
+            radius: {{ user.notification_radius_km }} * 1000, // Convert km to meters
+            color: '#007bff',
+            weight: 2,
+            opacity: 0.8,
             fillColor: '#007bff',
-            fillOpacity: 0.15,
-            map: profileMap,
-            center: userLocation,
-            radius: {{ user.notification_radius_km }} * 1000 // Convert km to meters
-        });
+            fillOpacity: 0.15
+        }).addTo(profileMap);
         {% endif %}
     }
     
@@ -531,42 +533,224 @@
         document.getElementById('radiusDisplay').textContent = value + ' km';
     }
     
-    // Get current location for profile
+    // Get current location for profile with improved accuracy handling
     function getCurrentLocationForProfile() {
         if (navigator.geolocation) {
+            // Show loading message
+            const loadingAlert = document.createElement('div');
+            loadingAlert.className = 'alert alert-info alert-dismissible fade show mt-2';
+            loadingAlert.id = 'locationLoadingAlert';
+            loadingAlert.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                    <span>Getting your precise location... Please wait up to 30 seconds for GPS lock.</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            document.getElementById('profile_latitude').parentNode.appendChild(loadingAlert);
+            
+            // Try to get high accuracy location first
             navigator.geolocation.getCurrentPosition(
                 (position) => {
+                    // Remove loading alert
+                    const loading = document.getElementById('locationLoadingAlert');
+                    if (loading) loading.remove();
+                    
+                    const accuracy = position.coords.accuracy;
+                    const alertClass = accuracy > 1000 ? 'alert-warning' : 'alert-success';
+                    const statusIcon = accuracy > 1000 ? 'fas fa-exclamation-triangle' : 'fas fa-check-circle';
+                    
+                    // Update coordinates
                     document.getElementById('profile_latitude').value = position.coords.latitude.toFixed(6);
                     document.getElementById('profile_longitude').value = position.coords.longitude.toFixed(6);
                     
-                    // Show success message
-                    const alert = document.createElement('div');
-                    alert.className = 'alert alert-success alert-dismissible fade show mt-2';
-                    alert.innerHTML = `
-                        <i class="fas fa-check-circle"></i> Location detected successfully!
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                    `;
-                    document.getElementById('profile_latitude').parentNode.appendChild(alert);
+                    // Show result message with accuracy warning if needed
+                    const resultAlert = document.createElement('div');
+                    resultAlert.className = `alert ${alertClass} alert-dismissible fade show mt-2`;
                     
-                    // Auto-remove after 3 seconds
+                    let message = `<i class="${statusIcon}"></i> <strong>Location detected!</strong><br>`;
+                    message += `<small class="text-muted">Coordinates: ${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}<br>`;
+                    message += `Accuracy: ±${accuracy.toFixed(0)}m`;
+                    
+                    if (accuracy > 1000) {
+                        message += `<br><span class="text-warning"><strong>⚠️ Low accuracy detected!</strong></span><br>`;
+                        message += `This location may be inaccurate. For better results:<br>`;
+                        message += `• Go outside or near a window<br>`;
+                        message += `• Enable high-accuracy location in your device settings<br>`;
+                        message += `• Try again in a few minutes<br>`;
+                        message += `• Or enter your coordinates manually below</span>`;
+                    }
+                    
+                    message += `</small><button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+                    resultAlert.innerHTML = message;
+                    
+                    document.getElementById('profile_latitude').parentNode.appendChild(resultAlert);
+                    
+                    // Auto-remove after longer time if low accuracy
+                    const removeTime = accuracy > 1000 ? 10000 : 5000;
                     setTimeout(() => {
-                        if (alert.parentNode) {
-                            alert.remove();
+                        if (resultAlert.parentNode) {
+                            resultAlert.remove();
                         }
-                    }, 3000);
+                    }, removeTime);
                 },
                 (error) => {
-                    alert('Unable to get your location. Please enter coordinates manually.');
+                    // Remove loading alert
+                    const loading = document.getElementById('locationLoadingAlert');
+                    if (loading) loading.remove();
+                    
+                    let errorMessage = 'Unable to get your location. ';
+                    let suggestions = '';
+                    
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage += 'Location access was denied.';
+                            suggestions = 'Please allow location access in your browser settings and try again.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage += 'Location information is unavailable.';
+                            suggestions = 'Try going outdoors or near a window, then try again.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage += 'Location request timed out.';
+                            suggestions = 'This might happen indoors. Try going outside or enter coordinates manually.';
+                            break;
+                        default:
+                            errorMessage += 'An unknown error occurred.';
+                            suggestions = 'Please try again or enter coordinates manually.';
+                    }
+                    
+                    const errorAlert = document.createElement('div');
+                    errorAlert.className = 'alert alert-warning alert-dismissible fade show mt-2';
+                    errorAlert.innerHTML = `
+                        <i class="fas fa-exclamation-triangle"></i> ${errorMessage}<br>
+                        <small class="text-muted">${suggestions}</small><br>
+                        <div class="mt-2">
+                            <button type="button" class="btn btn-sm btn-outline-primary me-2" onclick="getCurrentLocationForProfile()">
+                                <i class="fas fa-redo"></i> Try Again
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="showLocationHelp()">
+                                <i class="fas fa-question-circle"></i> Need Help?
+                            </button>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    `;
+                    document.getElementById('profile_latitude').parentNode.appendChild(errorAlert);
+                    
                     console.error('Geolocation error:', error);
                 },
                 {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 300000
+                    enableHighAccuracy: true,    // Request GPS
+                    timeout: 30000,              // Wait up to 30 seconds for GPS
+                    maximumAge: 0                // Always get fresh location
                 }
             );
         } else {
-            alert('Geolocation is not supported by this browser.');
+            const errorAlert = document.createElement('div');
+            errorAlert.className = 'alert alert-danger alert-dismissible fade show mt-2';
+            errorAlert.innerHTML = `
+                <i class="fas fa-times-circle"></i> Geolocation is not supported by this browser.<br>
+                <small class="text-muted">Please enter your coordinates manually or use a modern browser.</small>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            document.getElementById('profile_latitude').parentNode.appendChild(errorAlert);
+        }
+    }
+    
+    // Show location help dialog
+    function showLocationHelp() {
+        const helpAlert = document.createElement('div');
+        helpAlert.className = 'alert alert-info alert-dismissible fade show mt-2';
+        helpAlert.innerHTML = `
+            <h6><i class="fas fa-info-circle"></i> Getting Accurate Location</h6>
+            <p><strong>For best results:</strong></p>
+            <ul class="mb-2">
+                <li>Go outside or near a window</li>
+                <li>Allow location access when prompted</li>
+                <li>Wait for GPS to lock (up to 30 seconds)</li>
+                <li>Enable "High accuracy" in device location settings</li>
+            </ul>
+            <p><strong>Alternative:</strong> You can find your coordinates at <a href="https://www.google.com/maps" target="_blank">Google Maps</a> - 
+            right-click your location and copy the coordinates.</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.getElementById('profile_latitude').parentNode.appendChild(helpAlert);
+    }
+    
+    // Show Google Maps coordinate helper
+    function showGoogleMapsHelper() {
+        const helpAlert = document.createElement('div');
+        helpAlert.className = 'alert alert-primary alert-dismissible fade show mt-2';
+        helpAlert.innerHTML = `
+            <h6><i class="fas fa-map"></i> Get Coordinates from Google Maps</h6>
+            <p><strong>Method 1 - From URL:</strong></p>
+            <div class="input-group mb-2">
+                <input type="text" class="form-control form-control-sm" id="googleMapsUrl" 
+                       placeholder="Paste Google Maps URL here...">
+                <button class="btn btn-outline-primary btn-sm" onclick="extractFromGoogleMapsUrl()">
+                    <i class="fas fa-extract"></i> Extract
+                </button>
+            </div>
+            <p><strong>Method 2 - Manual:</strong></p>
+            <ol class="small mb-2">
+                <li>Go to <a href="https://www.google.com/maps" target="_blank">Google Maps</a></li>
+                <li>Find your exact location</li>
+                <li>Right-click on the location</li>
+                <li>Copy the coordinates (format: 6.6581663, 3.3282526)</li>
+                <li>Paste them in the fields below</li>
+            </ol>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.getElementById('profile_latitude').parentNode.appendChild(helpAlert);
+    }
+    
+    // Extract coordinates from Google Maps URL
+    function extractFromGoogleMapsUrl() {
+        const url = document.getElementById('googleMapsUrl').value;
+        if (!url) {
+            showToast('Please paste a Google Maps URL first', 'error');
+            return;
+        }
+        
+        // Try to extract coordinates from various Google Maps URL formats
+        let lat = null, lng = null;
+        
+        // Method 1: @latitude,longitude format
+        const atMatch = url.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+        if (atMatch) {
+            lat = parseFloat(atMatch[1]);
+            lng = parseFloat(atMatch[2]);
+        }
+        
+        // Method 2: !3d and !4d format (from your URL)
+        if (!lat || !lng) {
+            const latMatch = url.match(/!3d(-?\d+\.\d+)/);
+            const lngMatch = url.match(/!4d(-?\d+\.\d+)/);
+            if (latMatch && lngMatch) {
+                lat = parseFloat(latMatch[1]);
+                lng = parseFloat(lngMatch[1]);
+            }
+        }
+        
+        // Method 3: Simple coordinate pair in URL
+        if (!lat || !lng) {
+            const coordMatch = url.match(/(-?\d+\.\d+),(-?\d+\.\d+)/);
+            if (coordMatch) {
+                lat = parseFloat(coordMatch[1]);
+                lng = parseFloat(coordMatch[2]);
+            }
+        }
+        
+        if (lat && lng) {
+            document.getElementById('profile_latitude').value = lat.toFixed(6);
+            document.getElementById('profile_longitude').value = lng.toFixed(6);
+            
+            showToast(`Coordinates extracted successfully! Lat: ${lat.toFixed(6)}, Lng: ${lng.toFixed(6)}`, 'success');
+            
+            // Clear the URL input
+            document.getElementById('googleMapsUrl').value = '';
+        } else {
+            showToast('Could not extract coordinates from this URL. Please try the manual method.', 'error');
         }
     }
     
@@ -582,7 +766,8 @@
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken
+                'X-CSRFToken': csrfToken,
+                'Accept': 'application/json'
             }
         })
         .then(response => {
@@ -625,7 +810,8 @@
                     body: formData,
                     headers: {
                         'X-CSRFToken': csrfToken,
-                        'X-Requested-With': 'XMLHttpRequest'
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
                     }
                 })
                 .then(response => {
@@ -668,7 +854,8 @@
                     body: formData,
                     headers: {
                         'X-CSRFToken': csrfToken,
-                        'X-Requested-With': 'XMLHttpRequest'
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
                     }
                 })
                 .then(response => {
@@ -717,10 +904,5 @@
     }
 </script>
 
-<!-- Load Google Maps API if location is set -->
-{% if user.latitude and user.longitude %}
-<script async defer 
-    src="https://maps.googleapis.com/maps/api/js?key={{ settings.GOOGLE_MAPS_API_KEY|default:'AIzaSyBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' }}">
-</script>
-{% endif %}
+<!-- Leaflet is already loaded in base.html, no need for additional scripts -->
 {% endblock %}

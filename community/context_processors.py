@@ -11,5 +11,7 @@ def settings_context(request):
             'DEFAULT_MAP_CENTER_LAT': settings.DEFAULT_MAP_CENTER_LAT,
             'DEFAULT_MAP_CENTER_LNG': settings.DEFAULT_MAP_CENTER_LNG,
             'DEFAULT_MAP_ZOOM': settings.DEFAULT_MAP_ZOOM,
-        }
+        },
+        'FIREBASE_CONFIG': settings.FIREBASE_CONFIG,
+        'VAPID_KEY': settings.VAPID_KEY,
     }

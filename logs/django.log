@@ -2332,3 +2332,57 @@ INFO 2025-07-30 21:18:40,114 basehttp 459698 125264081290944 "GET /static/admin/
 INFO 2025-07-30 21:18:40,547 basehttp 459698 125264125351616 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
 INFO 2025-07-30 21:18:40,555 basehttp 459698 125264125351616 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
 INFO 2025-07-30 21:18:40,555 basehttp 459698 125264081290944 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:32,480 basehttp 459698 125264125351616 "GET /alerts/create/ HTTP/1.1" 200 27682
+INFO 2025-07-30 21:19:34,002 basehttp 459698 125264125351616 "GET /alerts/my-communities/ HTTP/1.1" 200 30624
+INFO 2025-07-30 21:19:39,978 basehttp 459698 125264125351616 "GET /profile/ HTTP/1.1" 200 26819
+INFO 2025-07-30 21:19:49,467 basehttp 459698 125264125351616 "GET /admin/ HTTP/1.1" 200 11546
+INFO 2025-07-30 21:19:55,643 basehttp 459698 125264125351616 "GET /admin/community/community/add/ HTTP/1.1" 200 14875
+INFO 2025-07-30 21:19:55,666 basehttp 459698 125264125351616 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:55,671 basehttp 459698 125264116958912 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:55,671 basehttp 459698 125264098076352 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:55,671 basehttp 459698 125264106469056 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:55,672 basehttp 459698 125264089683648 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:55,674 basehttp 459698 125264106469056 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:55,678 basehttp 459698 125264089683648 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:55,679 basehttp 459698 125264081290944 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 21:19:55,680 basehttp 459698 125264116958912 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:55,680 basehttp 459698 125264098076352 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:55,682 basehttp 459698 125264081290944 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:56,008 basehttp 459698 125264081290944 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:56,011 basehttp 459698 125264081290944 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-07-30 21:19:56,013 basehttp 459698 125264098076352 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:20:03,545 basehttp 459698 125264081290944 "POST /admin/community/community/add/ HTTP/1.1" 302 0
+INFO 2025-07-30 21:20:03,583 basehttp 459698 125264081290944 "GET /admin/community/community/ HTTP/1.1" 200 15957
+INFO 2025-07-30 21:20:03,648 basehttp 459698 125264081290944 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-07-30 21:20:03,650 basehttp 459698 125264089683648 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-07-30 21:20:03,650 basehttp 459698 125264116958912 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-07-30 21:20:03,654 basehttp 459698 125264098076352 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-07-30 21:20:04,001 basehttp 459698 125264081290944 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-07-30 21:20:04,024 basehttp 459698 125264081290944 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-07-30 21:20:04,025 basehttp 459698 125264098076352 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-07-30 21:20:08,269 basehttp 459698 125264081290944 "GET /profile/ HTTP/1.1" 200 27468
+INFO 2025-07-30 21:20:10,960 views 459698 125264081290944 AJAX request detected - Action: update_profile, Headers: {'Content-Length': '904', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary44OAIzOkD45vXjt1', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=iKMRDQw650Pb7tcGoH6F3JL1wkrSKOQ0; sessionid=0zgad3u13zovzfkcz8u0dryil50gq9pg'}
+INFO 2025-07-30 21:20:10,976 basehttp 459698 125264081290944 "POST /profile/ HTTP/1.1" 200 61
+INFO 2025-07-30 21:20:12,020 basehttp 459698 125264081290944 "GET /profile/ HTTP/1.1" 200 27565
+INFO 2025-07-30 21:20:14,935 views 459698 125264081290944 AJAX request detected - Action: update_notifications, Headers: {'Content-Length': '542', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary2XoAjLRZhhXVyFPV', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=iKMRDQw650Pb7tcGoH6F3JL1wkrSKOQ0; sessionid=0zgad3u13zovzfkcz8u0dryil50gq9pg'}
+INFO 2025-07-30 21:20:14,948 basehttp 459698 125264081290944 "POST /profile/ HTTP/1.1" 200 75
+INFO 2025-07-30 21:20:15,756 views 459698 125264081290944 AJAX request detected - Action: update_notifications, Headers: {'Content-Length': '542', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary1vvzeO9QY1dDfkcM', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=iKMRDQw650Pb7tcGoH6F3JL1wkrSKOQ0; sessionid=0zgad3u13zovzfkcz8u0dryil50gq9pg'}
+INFO 2025-07-30 21:20:15,760 basehttp 459698 125264081290944 "POST /profile/ HTTP/1.1" 200 75
+INFO 2025-07-30 21:20:16,066 views 459698 125264081290944 AJAX request detected - Action: update_notifications, Headers: {'Content-Length': '542', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundarypZ3OGLPSFMlkr3tD', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=iKMRDQw650Pb7tcGoH6F3JL1wkrSKOQ0; sessionid=0zgad3u13zovzfkcz8u0dryil50gq9pg'}
+INFO 2025-07-30 21:20:16,080 basehttp 459698 125264081290944 "POST /profile/ HTTP/1.1" 200 75
+INFO 2025-07-30 21:20:16,341 views 459698 125264081290944 AJAX request detected - Action: update_notifications, Headers: {'Content-Length': '542', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryEZbVhpvZVsk1AefJ', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=iKMRDQw650Pb7tcGoH6F3JL1wkrSKOQ0; sessionid=0zgad3u13zovzfkcz8u0dryil50gq9pg'}
+INFO 2025-07-30 21:20:16,345 basehttp 459698 125264081290944 "POST /profile/ HTTP/1.1" 200 75
+INFO 2025-07-30 21:20:16,708 views 459698 125264081290944 AJAX request detected - Action: update_notifications, Headers: {'Content-Length': '542', 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundaryp6cVHkHnOqgb8Pne', 'Host': '127.0.0.1:8000', 'Connection': 'keep-alive', 'Sec-Ch-Ua-Platform': '"Linux"', 'X-Requested-With': 'XMLHttpRequest', 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'Sec-Ch-Ua': '"Not)A;Brand";v="8", "Chromium";v="138", "Google Chrome";v="138"', 'Sec-Ch-Ua-Mobile': '?0', 'Accept': '*/*', 'Origin': 'http://127.0.0.1:8000', 'Sec-Fetch-Site': 'same-origin', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'http://127.0.0.1:8000/profile/', 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'en-US,en;q=0.9', 'Cookie': 'csrftoken=iKMRDQw650Pb7tcGoH6F3JL1wkrSKOQ0; sessionid=0zgad3u13zovzfkcz8u0dryil50gq9pg'}
+INFO 2025-07-30 21:20:16,721 basehttp 459698 125264081290944 "POST /profile/ HTTP/1.1" 200 75
+INFO 2025-07-30 21:20:17,144 basehttp 459698 125264081290944 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 21:20:17,626 basehttp 459698 125264081290944 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 21:20:17,805 basehttp 459698 125264081290944 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 21:20:17,955 basehttp 459698 125264081290944 "POST /test-notification/ HTTP/1.1" 200 142
+INFO 2025-07-30 21:21:25,137 autoreload 459698 125264185331840 /home/sammiykay/Desktop/projects/alert/alert_system/community/models.py changed, reloading.
+INFO 2025-07-30 21:21:25,557 autoreload 478669 133951907377280 Watching for file changes with StatReloader
+INFO 2025-07-30 21:23:14,705 autoreload 478669 133951907377280 /home/sammiykay/Desktop/projects/alert/alert_system/community/urls.py changed, reloading.
+INFO 2025-07-30 21:23:15,205 autoreload 481168 136497372987520 Watching for file changes with StatReloader
+WARNING 2025-07-30 21:34:36,977 push_service 494980 133625330765952 FCM_SERVER_KEY not configured - push notifications disabled
+WARNING 2025-07-30 21:34:41,043 push_service 495061 132222741917824 FCM_SERVER_KEY not configured - push notifications disabled
+INFO 2025-07-31 16:34:18,554 autoreload 12279 129227176407168 Watching for file changes with StatReloader
+WARNING 2025-07-31 16:34:18,853 push_service 12279 129227176407168 FCM_SERVER_KEY not configured - push notifications disabled

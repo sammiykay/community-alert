@@ -225,3 +225,29 @@ class AlertComment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.user.username} on {self.alert.title}"
+
+
+class PushNotificationDevice(models.Model):
+    """Store FCM device tokens for push notifications"""
+    DEVICE_TYPES = [
+        ('android', 'Android'),
+        ('ios', 'iOS'),
+        ('web', 'Web Browser'),
+    ]
+    
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='devices')
+    device_token = models.TextField(unique=True)
+    device_type = models.CharField(max_length=10, choices=DEVICE_TYPES, default='web')
+    device_name = models.CharField(max_length=200, blank=True)  # e.g., "Chrome on Windows"
+    is_active = models.BooleanField(default=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    last_used = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        unique_together = ['user', 'device_token']
+        ordering = ['-last_used']
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.device_type} - {self.device_name or 'Unknown Device'}"

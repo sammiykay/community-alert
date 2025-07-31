@@ -1,6 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from notifications import views as notification_views
 
 urlpatterns = [
     # Home and alert listing
@@ -44,6 +45,11 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('profile/', views.user_profile, name='user_profile'),
     path('test-notification/', views.test_notification, name='test_notification'),
+    
+    # Push notification device management
+    path('push/register/', notification_views.register_device, name='register_device'),
+    path('push/unregister/', notification_views.unregister_device, name='unregister_device'),
+    path('push/devices/', notification_views.list_user_devices, name='list_user_devices'),
     path('debug-headers/', views.debug_headers, name='debug_headers'),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),

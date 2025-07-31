@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     # Local apps
     'community',
     'api',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -147,6 +148,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+# PWA Static files configuration
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # Media files
 MEDIA_URL = 'media/'
@@ -263,6 +267,18 @@ MAX_LOCATION_RADIUS_KM = 50
 
 # Push notification settings
 FCM_SERVER_KEY = os.environ.get('FCM_SERVER_KEY', '')
+FCM_SENDER_ID = os.environ.get('FCM_SENDER_ID', '')
+VAPID_KEY = os.environ.get('VAPID_KEY', '')
+
+# Firebase configuration for frontend
+FIREBASE_CONFIG = {
+    'apiKey': os.environ.get('FIREBASE_API_KEY', ''),
+    'authDomain': os.environ.get('FIREBASE_AUTH_DOMAIN', ''),
+    'projectId': os.environ.get('FIREBASE_PROJECT_ID', ''),
+    'storageBucket': os.environ.get('FIREBASE_STORAGE_BUCKET', ''),
+    'messagingSenderId': os.environ.get('FCM_SENDER_ID', ''),
+    'appId': os.environ.get('FIREBASE_APP_ID', ''),
+}
 
 # Rate limiting
 RATE_LIMIT_ENABLE = True

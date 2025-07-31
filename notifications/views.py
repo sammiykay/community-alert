@@ -5,7 +5,8 @@ from django.views.decorators.http import require_http_methods
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
-from community.models import CustomUser, Alert, Notification
+from community.models import CustomUser, Alert, Notification, PushNotificationDevice
+from .push_service import push_service
 import math
 
 
@@ -13,21 +14,31 @@ class NotificationService:
     """Service for handling notifications"""
     
     @staticmethod
-    def send_alert_notification(alert, notification_type='email'):
+    def send_alert_notification(alert, notification_types=['email', 'push']):
         """Send notification about new alert to community members"""
         try:
             # Find users who should be notified (community members)
             users_to_notify = NotificationService.get_community_members(alert.community)
             
-            notifications_sent = 0
+            email_sent = 0
+            push_sent = 0
             
             for user in users_to_notify:
-                if notification_type == 'email' and user.email_notifications:
+                # Send email notification
+                if 'email' in notification_types and user.email_notifications:
                     success = NotificationService.send_email_notification(user, alert)
                     if success:
-                        notifications_sent += 1
-                        
-            return notifications_sent
+                        email_sent += 1
+                
+                # Send push notification
+                if 'push' in notification_types and user.push_notifications:
+                    success = NotificationService.send_push_notification(user, alert)
+                    if success:
+                        push_sent += 1
+            
+            total_sent = email_sent + push_sent
+            print(f"Sent {email_sent} email and {push_sent} push notifications for alert: {alert.title}")
+            return total_sent
             
         except Exception as e:
             print(f"Error sending notifications: {e}")
@@ -109,6 +120,33 @@ To adjust your notification preferences, visit your profile settings.
         except Exception as e:
             print(f"Failed to send email to {user.email}: {e}")
             return False
+    
+    @staticmethod
+    def send_push_notification(user, alert):
+        """Send push notification to user about alert"""
+        try:
+            if not push_service.is_available():
+                print("Push notification service not available")
+                return False
+            
+            # Prepare notification content
+            severity_emoji = {
+                'low': '🟢',
+                'medium': '🟡', 
+                'high': '🟠',
+                'critical': '🔴'
+            }
+            
+            emoji = severity_emoji.get(alert.severity, '⚠️')
+            title = f"{emoji} {alert.get_severity_display()} Alert"
+            body = f"{alert.community.name}: {alert.title}"
+            
+            success = push_service.send_push_notification(user, title, body, alert=alert)
+            return success
+            
+        except Exception as e:
+            print(f"Failed to send push notification to {user.username}: {e}")
+            return False
 
 
 @login_required
@@ -155,40 +193,74 @@ def test_notification(request):
     try:
         user = request.user
         
-        # Create a test notification
-        notification = Notification.objects.create(
-            user=user,
-            notification_type='email',
-            title='Test Notification - Community Alert System',
-            message=f'This is a test notification for {user.get_full_name() or user.username}. Your notification settings are working correctly!',
-            status='pending'
-        )
+        results = []
+        success_count = 0
         
-        # Try to send test email if email is configured
-        if settings.EMAIL_HOST_USER and settings.EMAIL_HOST_PASSWORD and user.email_notifications:
-            success = send_mail(
-                subject=notification.title,
-                message=notification.message,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[user.email],
-                fail_silently=False
-            )
-            
-            if success:
-                notification.status = 'sent'
-                notification.sent_at = timezone.now()
+        # Test email notifications
+        if user.email_notifications:
+            if settings.EMAIL_HOST_USER and settings.EMAIL_HOST_PASSWORD:
+                try:
+                    email_success = send_mail(
+                        subject='Test Email - Community Alert System',
+                        message=f'This is a test email for {user.get_full_name() or user.username}. Your email notifications are working correctly!',
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=[user.email],
+                        fail_silently=False
+                    )
+                    
+                    if email_success:
+                        results.append('✅ Email notification sent successfully')
+                        success_count += 1
+                        
+                        # Create notification record
+                        Notification.objects.create(
+                            user=user,
+                            notification_type='email',
+                            title='Test Email - Community Alert System',
+                            message='Test email sent successfully',
+                            status='sent',
+                            sent_at=timezone.now()
+                        )
+                    else:
+                        results.append('❌ Email notification failed to send')
+                        
+                except Exception as e:
+                    results.append(f'❌ Email notification error: {str(e)}')
             else:
-                notification.status = 'failed'
+                results.append('⚠️ Email not configured (missing credentials)')
         else:
-            notification.status = 'failed'
-            notification.message += ' (Email not configured or user email notifications disabled)'
-            
-        notification.save()
+            results.append('⚠️ Email notifications disabled by user')
+        
+        # Test push notifications
+        if user.push_notifications:
+            if push_service.is_available():
+                try:
+                    push_success, push_message = push_service.send_test_notification(user)
+                    
+                    if push_success:
+                        results.append(f'✅ {push_message}')
+                        success_count += 1
+                    else:
+                        results.append(f'❌ Push notification failed: {push_message}')
+                        
+                except Exception as e:
+                    results.append(f'❌ Push notification error: {str(e)}')
+            else:
+                results.append('⚠️ Push notifications not configured (missing FCM key)')
+        else:
+            results.append('⚠️ Push notifications disabled by user')
         
         return JsonResponse({
-            'success': True,
-            'message': 'Test notification created',
-            'notification_status': notification.status
+            'success': success_count > 0,
+            'message': f'Test completed: {success_count} notification(s) sent successfully',
+            'results': results,
+            'details': {
+                'email_enabled': user.email_notifications,
+                'push_enabled': user.push_notifications,
+                'email_configured': bool(settings.EMAIL_HOST_USER and settings.EMAIL_HOST_PASSWORD),
+                'push_configured': push_service.is_available(),
+                'device_count': PushNotificationDevice.objects.filter(user=user, is_active=True).count()
+            }
         })
         
     except Exception as e:
@@ -209,3 +281,120 @@ def trigger_alert_notifications(alert):
         print(f"Sent {notifications_sent} notifications for alert: {alert.title}")
         return notifications_sent
     return 0
+
+
+# ============================================================================
+# PUSH NOTIFICATION DEVICE MANAGEMENT
+# ============================================================================
+
+@login_required
+@require_http_methods(["POST"])
+def register_device(request):
+    """Register a device token for push notifications"""
+    try:
+        import json
+        
+        if request.content_type == 'application/json':
+            data = json.loads(request.body)
+        else:
+            data = request.POST
+        
+        device_token = data.get('device_token')
+        device_type = data.get('device_type', 'web')
+        device_name = data.get('device_name', '')
+        
+        if not device_token:
+            return JsonResponse({
+                'success': False,
+                'error': 'Device token is required'
+            }, status=400)
+        
+        device = push_service.register_device(
+            user=request.user,
+            device_token=device_token,
+            device_type=device_type,
+            device_name=device_name
+        )
+        
+        if device:
+            return JsonResponse({
+                'success': True,
+                'message': 'Device registered successfully',
+                'device_id': device.id
+            })
+        else:
+            return JsonResponse({
+                'success': False,
+                'error': 'Failed to register device'
+            })
+            
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)
+
+
+@login_required
+@require_http_methods(["POST"])
+def unregister_device(request):
+    """Unregister a device token"""
+    try:
+        import json
+        
+        if request.content_type == 'application/json':
+            data = json.loads(request.body)
+        else:
+            data = request.POST
+        
+        device_token = data.get('device_token')
+        
+        if not device_token:
+            return JsonResponse({
+                'success': False,
+                'error': 'Device token is required'
+            }, status=400)
+        
+        success = push_service.unregister_device(request.user, device_token)
+        
+        return JsonResponse({
+            'success': success,
+            'message': 'Device unregistered successfully' if success else 'Failed to unregister device'
+        })
+        
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)
+
+
+@login_required
+@require_http_methods(["GET"])
+def list_user_devices(request):
+    """List user's registered devices"""
+    try:
+        devices = PushNotificationDevice.objects.filter(
+            user=request.user,
+            is_active=True
+        ).order_by('-last_used')
+        
+        devices_data = [{
+            'id': device.id,
+            'device_type': device.device_type,
+            'device_name': device.device_name,
+            'created_at': device.created_at.isoformat(),
+            'last_used': device.last_used.isoformat()
+        } for device in devices]
+        
+        return JsonResponse({
+            'success': True,
+            'devices': devices_data,
+            'total': devices.count()
+        })
+        
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)

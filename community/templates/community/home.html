@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Community Alert System{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="page-kicker"><i class="fas fa-shield-alt"></i> Community Watch</div>
+    <h1 class="page-title">Stay informed before a local incident becomes a local rumor.</h1>
+    <p class="page-subtitle">Track current reports, move quickly when something real happens, and keep your neighborhood briefings clean, timely, and useful.</p>
+    <div class="d-flex flex-wrap gap-2 mt-4">
+        {% if user.is_authenticated %}
+        <a class="btn btn-danger btn-lg" href="{% url 'create_alert' %}"><i class="fas fa-plus me-2"></i>Report an alert</a>
+        <a class="btn btn-outline-light btn-lg" href="{% url 'my_community_alerts' %}"><i class="fas fa-users me-2"></i>My communities</a>
+        {% else %}
+        <a class="btn btn-light btn-lg" href="{% url 'register' %}"><i class="fas fa-user-plus me-2"></i>Join the network</a>
+        <a class="btn btn-outline-light btn-lg" href="{% url 'login' %}"><i class="fas fa-sign-in-alt me-2"></i>Login</a>
+        {% endif %}
+    </div>
+</section>
+
+<div class="layout-main">
+    <div class="stack-md">
+        <section class="surface-panel">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+                <div>
+                    <div class="eyebrow"><i class="fas fa-broadcast-tower"></i> Live Feed</div>
+                    <h2 class="section-title mb-0">Recent alerts</h2>
+                </div>
+                <a href="{% url 'alert_list' %}" class="btn btn-outline-primary"><i class="fas fa-arrow-right me-2"></i>Browse all alerts</a>
+            </div>
+
+            {% if alerts %}
+            <div class="row g-3">
+                {% for alert in alerts %}
+                <div class="col-md-6">
+                    <div class="surface-card list-card alert-card severity-{{ alert.severity }}">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-secondary">{{ alert.category.name }}</span>
+                                    <span class="badge {% if alert.severity == 'low' %}bg-success{% elif alert.severity == 'medium' %}bg-warning text-dark{% elif alert.severity == 'high' %}bg-warning text-dark{% else %}bg-danger{% endif %}">
+                                        {{ alert.get_severity_display }}
+                                    </span>
+                                </div>
+                                <small class="text-muted">{{ alert.created_at|timesince }} ago</small>
+                            </div>
+                            <h3 class="h5 mb-2"><a href="{% url 'alert_detail' alert.id %}">{{ alert.title }}</a></h3>
+                            <p class="text-muted mb-3">{{ alert.description|truncatewords:20 }}</p>
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <small class="text-muted"><i class="fas fa-users me-1"></i>{{ alert.community.name }}</small>
+                                <small class="text-muted"><i class="fas fa-eye me-1"></i>{{ alert.view_count }} views</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="text-center py-5">
+                <i class="fas fa-shield-alt fa-3x text-muted mb-3"></i>
+                <h3 class="h4">No recent alerts</h3>
+                <p class="text-muted mb-0">The feed is quiet right now. New incidents will appear here as they are reported.</p>
+            </div>
+            {% endif %}
+        </section>
+    </div>
+
+    <div class="stack-md">
+        <section class="surface-panel">
+            <div class="eyebrow"><i class="fas fa-chart-column"></i> Snapshot</div>
+            <h2 class="section-title">Community pulse</h2>
+            <div class="metric-grid">
+                <div class="surface-stat">
+                    <div class="metric-value">{{ total_alerts }}</div>
+                    <div class="metric-label">Total alerts</div>
+                </div>
+                <div class="surface-stat">
+                    <div class="metric-value">{{ active_alerts }}</div>
+                    <div class="metric-label">Active now</div>
+                </div>
+                <div class="surface-stat">
+                    <div class="metric-value">{{ resolved_alerts }}</div>
+                    <div class="metric-label">Resolved</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="surface-panel">
+            <div class="eyebrow"><i class="fas fa-bolt"></i> Quick Actions</div>
+            <h2 class="section-title">Move fast</h2>
+            <div class="d-grid gap-2">
+                {% if user.is_authenticated %}
+                <a href="{% url 'create_alert' %}" class="btn btn-danger"><i class="fas fa-exclamation-triangle me-2"></i>Report emergency</a>
+                <a href="{% url 'my_community_alerts' %}" class="btn btn-info"><i class="fas fa-users me-2"></i>Community feed</a>
+                <a href="{% url 'user_profile' %}" class="btn btn-outline-primary"><i class="fas fa-cog me-2"></i>Profile settings</a>
+                {% else %}
+                <a href="{% url 'register' %}" class="btn btn-primary"><i class="fas fa-user-plus me-2"></i>Create account</a>
+                <a href="{% url 'login' %}" class="btn btn-outline-primary"><i class="fas fa-sign-in-alt me-2"></i>Login</a>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="surface-panel">
+            <div class="eyebrow"><i class="fas fa-lightbulb"></i> Practice</div>
+            <h2 class="section-title">Better reports</h2>
+            <div class="stack-md">
+                <div class="soft-note"><i class="fas fa-check-circle me-2"></i>Use exact locations, landmarks, and time windows.</div>
+                <div class="soft-note"><i class="fas fa-check-circle me-2"></i>Call emergency services first for active threats.</div>
+                <div class="soft-note"><i class="fas fa-check-circle me-2"></i>Write what you observed, not what you guessed.</div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

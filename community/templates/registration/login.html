@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - Community Alert System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-5 col-xl-4">
+        <section class="page-head mb-4">
+            <div class="page-kicker"><i class="fas fa-sign-in-alt"></i> Access</div>
+            <h1 class="page-title">Log back into your alert network.</h1>
+            <p class="page-subtitle">Use the email address tied to your account to access reports, preferences, and community feeds.</p>
+        </section>
+        <section class="surface-panel">
+            <h2 class="section-title">Login</h2>
+            <form method="post" class="stack-md">
+                {% csrf_token %}
+                {% if form.errors %}
+                <div class="danger-note">
+                    <strong>Login failed.</strong>
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
+                    {% else %}
+                        <div>Please check your email address and password.</div>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <div>
+                    <label for="id_username" class="form-label">Email address</label>
+                    <input type="email" class="form-control" name="username" id="id_username" placeholder="Enter your email address" required>
+                </div>
+                <div>
+                    <label for="id_password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="id_password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100"><i class="fas fa-sign-in-alt me-2"></i>Login</button>
+            </form>
+            <div class="text-center text-muted mt-4">Don't have an account? <a href="{% url 'register' %}">Create one</a></div>
+        </section>
+    </div>
+</div>
+{% endblock %}

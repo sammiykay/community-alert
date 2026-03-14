@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Register - Community Alert System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-xl-5">
+        <section class="page-head mb-4">
+            <div class="page-kicker"><i class="fas fa-user-plus"></i> Registration</div>
+            <h1 class="page-title">Create a local safety account.</h1>
+            <p class="page-subtitle">Join the platform to receive targeted alerts, report incidents cleanly, and manage the communities you care about.</p>
+        </section>
+        <section class="surface-panel">
+            <h2 class="section-title">Create account</h2>
+            <form method="post" class="stack-md">
+                {% csrf_token %}
+                {% if form.errors %}
+                <div class="danger-note">
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}<div>{{ error }}</div>{% endfor %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div>
+                    <label for="id_username" class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" id="id_username" required>
+                </div>
+                <div>
+                    <label for="id_email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" id="id_email" required>
+                </div>
+                <div>
+                    <label for="id_phone_number" class="form-label">Phone number</label>
+                    <input type="text" class="form-control" name="phone_number" id="id_phone_number">
+                </div>
+                <div>
+                    <label for="id_password1" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password1" id="id_password1" required>
+                </div>
+                <div>
+                    <label for="id_password2" class="form-label">Confirm password</label>
+                    <input type="password" class="form-control" name="password2" id="id_password2" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100"><i class="fas fa-user-plus me-2"></i>Create account</button>
+            </form>
+            <div class="text-center text-muted mt-4">Already have an account? <a href="{% url 'login' %}">Login</a></div>
+        </section>
+    </div>
+</div>
+{% endblock %}

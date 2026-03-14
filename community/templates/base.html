@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Community Alert System{% endblock %}</title>
+
+    <meta name="theme-color" content="#16324c">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="CommunityAlert">
+    <meta name="msapplication-TileColor" content="#16324c">
+    <meta name="description" content="Keep your community safe and informed with real-time alerts">
+
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'icons/icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="192x192" href="{% static 'icons/icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/icon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'icons/icon-16x16.png' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --app-ink: #10233c;
+            --app-muted: #607089;
+            --app-line: rgba(16, 35, 60, 0.12);
+            --app-surface: rgba(255, 255, 255, 0.86);
+            --app-surface-strong: #ffffff;
+            --app-wash: #eef3f9;
+            --app-accent: #e25b44;
+            --app-accent-2: #ffcf70;
+            --app-accent-dark: #16324c;
+            --app-success: #2c8f6c;
+            --app-radius: 28px;
+            --app-shadow: 0 24px 60px rgba(16, 35, 60, 0.12);
+            --app-soft-shadow: 0 16px 32px rgba(16, 35, 60, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            color: var(--app-ink);
+            font-family: "Source Sans 3", sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(255, 207, 112, 0.22), transparent 24%),
+                radial-gradient(circle at top right, rgba(226, 91, 68, 0.14), transparent 26%),
+                linear-gradient(180deg, #f8f1e6 0%, #eef3f9 44%, #f7fafc 100%);
+        }
+
+        h1, h2, h3, h4, h5, h6, .navbar-brand, .page-title, .hero-title {
+            font-family: "Space Grotesk", sans-serif;
+            letter-spacing: -0.03em;
+        }
+
+        a {
+            color: #1e5b89;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #16324c;
+        }
+
+        .app-shell {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .app-nav-wrap {
+            padding: 1rem 1rem 0;
+        }
+
+        .app-nav {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0.8rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
+            background: rgba(17, 37, 61, 0.86);
+            backdrop-filter: blur(16px);
+            box-shadow: var(--app-soft-shadow);
+        }
+
+        .navbar-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .brand-badge {
+            display: inline-grid;
+            place-items: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--app-accent), var(--app-accent-2));
+            color: white;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.65rem 0.9rem;
+            border-radius: 999px;
+            color: rgba(255, 255, 255, 0.78);
+            font-weight: 600;
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover,
+        .navbar-dark .navbar-nav .nav-link:focus,
+        .navbar-dark .navbar-nav .show > .nav-link {
+            color: #fff9f1;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .dropdown-menu {
+            border: 1px solid rgba(16, 35, 60, 0.08);
+            border-radius: 18px;
+            padding: 0.6rem;
+            box-shadow: var(--app-soft-shadow);
+        }
+
+        .dropdown-item {
+            border-radius: 12px;
+            padding: 0.65rem 0.85rem;
+            font-weight: 600;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(22, 50, 76, 0.06);
+        }
+
+        .app-main {
+            flex: 1;
+            width: min(1320px, calc(100% - 2rem));
+            margin: 1.5rem auto 0;
+        }
+
+        .message-stack {
+            display: grid;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .message-stack .alert {
+            margin: 0;
+            border: 0;
+            border-radius: 20px;
+            box-shadow: var(--app-soft-shadow);
+        }
+
+        .page-head {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            padding: 1.8rem;
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.58);
+            background:
+                linear-gradient(135deg, rgba(16, 35, 60, 0.95), rgba(39, 79, 112, 0.92) 56%, rgba(226, 91, 68, 0.88)),
+                #16324c;
+            color: #fff8f0;
+            box-shadow: var(--app-shadow);
+        }
+
+        .page-head::after {
+            content: "";
+            position: absolute;
+            right: -2rem;
+            top: -3rem;
+            width: 14rem;
+            height: 14rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .page-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            margin-bottom: 0.9rem;
+            color: rgba(255, 248, 240, 0.74);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .page-title {
+            margin: 0;
+            font-size: clamp(2rem, 3.8vw, 3.2rem);
+            font-weight: 800;
+        }
+
+        .page-subtitle {
+            max-width: 60ch;
+            margin: 0.85rem 0 0;
+            color: rgba(255, 248, 240, 0.82);
+            font-size: 1.03rem;
+            line-height: 1.75;
+        }
+
+        .surface-card,
+        .surface-panel,
+        .surface-stat {
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            border-radius: var(--app-radius);
+            background: var(--app-surface);
+            backdrop-filter: blur(18px);
+            box-shadow: var(--app-soft-shadow);
+        }
+
+        .surface-panel {
+            padding: 1.4rem;
+        }
+
+        .surface-card {
+            overflow: hidden;
+        }
+
+        .surface-stat {
+            padding: 1.25rem;
+            height: 100%;
+        }
+
+        .section-title {
+            margin: 0 0 1rem;
+            font-size: 1.15rem;
+            font-weight: 800;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-bottom: 0.7rem;
+            color: var(--app-accent);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .metric-value {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+        }
+
+        .metric-label {
+            color: var(--app-muted);
+            font-size: 0.86rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .stack-md {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .layout-main {
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.8fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .list-card {
+            height: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .list-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 22px 34px rgba(16, 35, 60, 0.1);
+        }
+
+        .alert-card {
+            position: relative;
+            border: 0;
+        }
+
+        .alert-card::before {
+            content: "";
+            position: absolute;
+            inset: 1rem auto 1rem 0;
+            width: 6px;
+            border-radius: 999px;
+        }
+
+        .severity-low::before { background: #2c8f6c; }
+        .severity-medium::before { background: #df9f20; }
+        .severity-high::before { background: #e07b39; }
+        .severity-critical::before { background: #cd3f36; }
+
+        .badge {
+            border-radius: 999px;
+            padding: 0.5rem 0.8rem;
+            font-weight: 700;
+        }
+
+        .btn {
+            border-radius: 999px;
+            padding: 0.72rem 1.1rem;
+            font-weight: 700;
+        }
+
+        .btn-lg {
+            padding: 0.9rem 1.35rem;
+        }
+
+        .btn-primary {
+            border-color: transparent;
+            background: linear-gradient(135deg, #16324c, #295476);
+        }
+
+        .btn-danger {
+            border-color: transparent;
+            background: linear-gradient(135deg, #d44f3f, #ea7343);
+        }
+
+        .btn-success {
+            border-color: transparent;
+            background: linear-gradient(135deg, #2c8f6c, #3ea07f);
+        }
+
+        .btn-warning {
+            border-color: transparent;
+            color: #4d3410;
+            background: linear-gradient(135deg, #f1ba48, #ffd879);
+        }
+
+        .btn-info {
+            border-color: transparent;
+            background: linear-gradient(135deg, #2b7aa2, #4ca2c6);
+            color: white;
+        }
+
+        .btn-outline-primary,
+        .btn-outline-secondary,
+        .btn-outline-success,
+        .btn-outline-danger,
+        .btn-outline-info,
+        .btn-outline-warning {
+            background: rgba(255, 255, 255, 0.82);
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 3.15rem;
+            border-radius: 18px;
+            border: 1px solid rgba(16, 35, 60, 0.12);
+            background: rgba(255, 255, 255, 0.94);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25);
+        }
+
+        textarea.form-control {
+            min-height: 9rem;
+            border-radius: 20px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: rgba(41, 84, 118, 0.45);
+            box-shadow: 0 0 0 0.2rem rgba(41, 84, 118, 0.12);
+        }
+
+        .table-like-list > * + * {
+            border-top: 1px solid var(--app-line);
+        }
+
+        .row-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.95rem 0;
+        }
+
+        .soft-note {
+            padding: 1rem 1.1rem;
+            border-radius: 20px;
+            background: rgba(255, 207, 112, 0.18);
+            border: 1px solid rgba(184, 123, 20, 0.14);
+            color: #6e4f13;
+        }
+
+        .danger-note {
+            padding: 1rem 1.1rem;
+            border-radius: 20px;
+            background: rgba(212, 79, 63, 0.12);
+            border: 1px solid rgba(212, 79, 63, 0.16);
+            color: #8b332d;
+        }
+
+        .app-footer {
+            width: min(1320px, calc(100% - 2rem));
+            margin: 2rem auto 1.25rem;
+            padding: 1.4rem 1.6rem;
+            border-radius: 26px;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.74);
+            box-shadow: var(--app-soft-shadow);
+        }
+
+        @media (max-width: 991.98px) {
+            .layout-main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .app-main,
+            .app-footer {
+                width: min(100% - 1rem, 1320px);
+            }
+
+            .app-nav-wrap {
+                padding: 0.5rem 0.5rem 0;
+            }
+
+            .page-head {
+                padding: 1.4rem;
+            }
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="app-shell">
+        <div class="app-nav-wrap">
+            <nav class="navbar navbar-expand-lg navbar-dark app-nav">
+                <div class="container-fluid px-0">
+                    <a class="navbar-brand" href="{% url 'home' %}">
+                        <span class="brand-badge"><i class="fas fa-shield-alt"></i></span>
+                        <span>Community Alert System</span>
+                    </a>
+
+                    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fas fa-house"></i> Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'alert_list' %}"><i class="fas fa-list"></i> Alerts</a></li>
+                            {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'my_community_alerts' %}"><i class="fas fa-users"></i> Communities</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'create_alert' %}"><i class="fas fa-plus"></i> Create</a></li>
+                            {% if user.role == 'admin' %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user-shield"></i> Admin
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'admin_dashboard' %}"><i class="fas fa-chart-line me-2"></i>Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'manage_communities' %}"><i class="fas fa-users me-2"></i>Communities</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'manage_categories' %}"><i class="fas fa-tags me-2"></i>Categories</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'manage_users' %}"><i class="fas fa-user-cog me-2"></i>Users</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
+                            {% if user.is_superuser %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="superuserDropdown" role="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-crown"></i> Superuser
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'superuser_dashboard' %}"><i class="fas fa-crown me-2"></i>Superuser Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'create_admin_user' %}"><i class="fas fa-user-plus me-2"></i>Create Admin</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'manage_admin_users' %}"><i class="fas fa-users-cog me-2"></i>Manage Admins</a></li>
+                                    <li><a class="dropdown-item" href="/admin/" target="_blank"><i class="fas fa-database me-2"></i>Django Admin</a></li>
+                                </ul>
+                            </li>
+                            {% endif %}
+                            {% endif %}
+                        </ul>
+
+                        <ul class="navbar-nav">
+                            {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user"></i> {{ user.username }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="{% url 'user_profile' %}"><i class="fas fa-user-cog me-2"></i>Profile</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                                </ul>
+                            </li>
+                            {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Register</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <main class="app-main">
+            {% if messages %}
+            <div class="message-stack">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="app-footer">
+            <div class="row align-items-center g-3">
+                <div class="col-md-6">
+                    <h5 class="mb-1">Community Alert System</h5>
+                    <p class="mb-0 text-muted">Neighborhood intelligence, faster response, cleaner reporting.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 text-muted">&copy; {% now "Y" %} Community Alert System</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/static/sw.js')
+                .then(function() {
+                    console.log('ServiceWorker registration successful');
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+
+    <script src="{% static 'js/pwa-install.js' %}"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+        import { getMessaging } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCS1TxyiLjYsqbdt-wNwOgxgcsitOQfSvA",
+            authDomain: "decent-habitat-448414-k8.firebaseapp.com",
+            projectId: "decent-habitat-448414-k8",
+            storageBucket: "decent-habitat-448414-k8.firebasestorage.app",
+            messagingSenderId: "898330966634",
+            appId: "1:898330966634:web:d77dfd16ccd99792b02813",
+            measurementId: "G-9FVNY297ZK"
+        };
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            getAnalytics(app);
+            window.firebaseMessaging = getMessaging(app);
+        } catch (error) {
+            console.error('Firebase initialization failed:', error);
+        }
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

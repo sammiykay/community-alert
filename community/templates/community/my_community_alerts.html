@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}My Community Alerts - Community Alert System{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="page-kicker"><i class="fas fa-users"></i> Community Feed</div>
+    <h1 class="page-title">Alerts scoped to the places you actually belong to.</h1>
+    <p class="page-subtitle">This stream keeps your subscribed communities separate from the global feed, so what you see stays local and relevant.</p>
+</section>
+
+<div class="stack-md">
+    <section class="surface-panel">
+        <div class="eyebrow"><i class="fas fa-map"></i> Membership</div>
+        <h2 class="section-title">Your communities</h2>
+        {% if user_communities %}
+        <div class="d-flex flex-wrap gap-2 mb-3">
+            {% for community in user_communities %}
+            <span class="badge bg-info text-dark">{{ community.name }}</span>
+            {% endfor %}
+        </div>
+        <p class="text-muted mb-0">You are currently receiving reports from {{ user_communities.count }} communit{{ user_communities.count|pluralize:"y,ies" }}.</p>
+        {% else %}
+        <div class="soft-note">You are not assigned to any communities yet. Update your profile to start receiving targeted alerts.</div>
+        {% endif %}
+    </section>
+
+    {% if user_communities %}
+    <section class="surface-panel">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+            <div>
+                <div class="eyebrow"><i class="fas fa-bell"></i> Local Feed</div>
+                <h2 class="section-title mb-0">Recent alerts</h2>
+            </div>
+            <span class="badge bg-dark">{{ alerts.count }} alert{{ alerts.count|pluralize }}</span>
+        </div>
+
+        {% if alerts %}
+        <div class="row g-3">
+            {% for alert in alerts %}
+            <div class="col-lg-6 col-xl-4">
+                <div class="surface-card list-card alert-card severity-{{ alert.severity }}">
+                    <div class="card-body p-4">
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge bg-secondary">{{ alert.category.name }}</span>
+                            <span class="badge {% if alert.severity == 'low' %}bg-success{% elif alert.severity == 'medium' %}bg-warning text-dark{% elif alert.severity == 'high' %}bg-warning text-dark{% else %}bg-danger{% endif %}">{{ alert.get_severity_display }}</span>
+                            <span class="badge {% if alert.status == 'active' %}bg-danger{% elif alert.status == 'resolved' %}bg-success{% elif alert.status == 'under_review' %}bg-info{% else %}bg-dark{% endif %}">{{ alert.get_status_display }}</span>
+                        </div>
+                        <h3 class="h5 mb-2"><a href="{% url 'alert_detail' alert.id %}">{{ alert.title }}</a></h3>
+                        <p class="text-muted small mb-3">{{ alert.description|truncatewords:18 }}</p>
+                        <div class="d-flex justify-content-between align-items-center text-muted small">
+                            <span><i class="fas fa-users me-1"></i>{{ alert.community.name }}</span>
+                            <span>{{ alert.created_at|timesince }} ago</span>
+                        </div>
+                        {% if alert.address %}
+                        <div class="small text-muted mt-2"><i class="fas fa-map-marker-alt me-1"></i>{{ alert.address|truncatechars:36 }}</div>
+                        {% endif %}
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small class="text-muted"><i class="fas fa-eye me-1"></i>{{ alert.view_count }}</small>
+                            <a href="{% url 'alert_detail' alert.id %}" class="btn btn-outline-primary btn-sm">View details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-shield-alt fa-3x text-muted mb-3"></i>
+            <h3 class="h4">No recent local alerts</h3>
+            <p class="text-muted mb-0">Nothing active has been posted for your communities recently.</p>
+        </div>
+        {% endif %}
+    </section>
+    {% endif %}
+
+    <section class="surface-panel">
+        <div class="eyebrow"><i class="fas fa-bolt"></i> Shortcuts</div>
+        <h2 class="section-title">Next actions</h2>
+        <div class="metric-grid">
+            <a href="{% url 'create_alert' %}" class="btn btn-danger btn-lg w-100"><i class="fas fa-plus me-2"></i>Report alert</a>
+            <a href="{% url 'alert_list' %}" class="btn btn-primary btn-lg w-100"><i class="fas fa-list me-2"></i>All alerts</a>
+            <a href="{% url 'user_profile' %}" class="btn btn-outline-primary btn-lg w-100"><i class="fas fa-cog me-2"></i>Settings</a>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    setTimeout(function() {
+        window.location.reload();
+    }, 300000);
+</script>
+{% endblock %}

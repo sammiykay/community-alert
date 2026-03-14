@@ -1,0 +1,21 @@
+# Environment files
+.env
+.env.local
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Django runtime files
+logs/*.log
+media/
+staticfiles/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

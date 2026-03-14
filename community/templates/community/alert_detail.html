@@ -1,0 +1,898 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ alert.title }} - Community Alert System{% endblock %}
+
+{% block extra_css %}
+<style>
+    :root {
+        --detail-ink: #10233c;
+        --detail-muted: #607089;
+        --detail-line: rgba(16, 35, 60, 0.12);
+        --detail-panel: rgba(255, 255, 255, 0.84);
+        --detail-shadow: 0 24px 60px rgba(16, 35, 60, 0.14);
+        --detail-soft-shadow: 0 16px 36px rgba(16, 35, 60, 0.1);
+        --detail-radius: 28px;
+        --detail-accent: #e25b44;
+        --detail-accent-soft: rgba(226, 91, 68, 0.14);
+    }
+
+    body {
+        background:
+            radial-gradient(circle at top left, rgba(255, 209, 102, 0.22), transparent 28%),
+            radial-gradient(circle at top right, rgba(226, 91, 68, 0.18), transparent 26%),
+            linear-gradient(180deg, #f7efe6 0%, #eef3f9 46%, #f8fafc 100%);
+        color: var(--detail-ink);
+    }
+
+    .footer {
+        background: transparent;
+    }
+
+    .detail-shell {
+        padding-bottom: 2rem;
+    }
+
+    .detail-hero {
+        position: relative;
+        overflow: hidden;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        border-radius: 34px;
+        background:
+            linear-gradient(135deg, rgba(14, 37, 61, 0.96), rgba(38, 72, 101, 0.92) 58%, rgba(226, 91, 68, 0.9)),
+            #16324c;
+        color: #fff7ef;
+        box-shadow: var(--detail-shadow);
+    }
+
+    .detail-hero::before,
+    .detail-hero::after {
+        content: "";
+        position: absolute;
+        border-radius: 999px;
+        pointer-events: none;
+    }
+
+    .detail-hero::before {
+        top: -3rem;
+        right: -2rem;
+        width: 14rem;
+        height: 14rem;
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .detail-hero::after {
+        left: 45%;
+        bottom: -4rem;
+        width: 16rem;
+        height: 16rem;
+        background: rgba(255, 209, 102, 0.13);
+    }
+
+    .detail-chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .detail-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.6rem 0.95rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        backdrop-filter: blur(10px);
+        font-size: 0.92rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+    }
+
+    .detail-chip.is-accent {
+        background: rgba(255, 209, 102, 0.18);
+        color: #fff8e4;
+    }
+
+    .detail-title {
+        max-width: 12ch;
+        margin: 0 0 1rem;
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        line-height: 0.95;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+    }
+
+    .detail-summary {
+        max-width: 60ch;
+        margin: 0;
+        color: rgba(255, 247, 239, 0.82);
+        font-size: 1.05rem;
+        line-height: 1.75;
+    }
+
+    .detail-stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .detail-stat {
+        padding: 1rem 1.1rem;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(12px);
+    }
+
+    .detail-stat-label {
+        display: block;
+        margin-bottom: 0.35rem;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(255, 247, 239, 0.66);
+    }
+
+    .detail-stat-value {
+        font-size: 1.35rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.7fr) minmax(300px, 0.9fr);
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+        align-items: start;
+    }
+
+    .detail-panel,
+    .detail-sidebar-card {
+        border: 1px solid rgba(255, 255, 255, 0.62);
+        border-radius: var(--detail-radius);
+        background: var(--detail-panel);
+        backdrop-filter: blur(18px);
+        box-shadow: var(--detail-soft-shadow);
+    }
+
+    .detail-panel {
+        padding: 1.5rem;
+    }
+
+    .detail-section + .detail-section {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--detail-line);
+    }
+
+    .section-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.85rem;
+        color: var(--detail-accent);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .section-title {
+        margin: 0 0 0.9rem;
+        font-size: 1.45rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+    }
+
+    .section-copy {
+        margin: 0;
+        color: var(--detail-muted);
+        font-size: 1.02rem;
+        line-height: 1.85;
+    }
+
+    .incident-rail {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .incident-card {
+        padding: 1rem 1.1rem;
+        border-radius: 22px;
+        background: #f8fbff;
+        border: 1px solid rgba(16, 35, 60, 0.08);
+    }
+
+    .incident-card i {
+        color: var(--detail-accent);
+    }
+
+    .incident-label {
+        display: block;
+        margin-top: 0.75rem;
+        margin-bottom: 0.4rem;
+        color: var(--detail-muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .incident-value {
+        margin: 0;
+        font-weight: 700;
+        line-height: 1.5;
+    }
+
+    .vote-slab {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: center;
+        padding: 1.15rem 1.25rem;
+        border-radius: 24px;
+        background: linear-gradient(135deg, rgba(226, 91, 68, 0.08), rgba(255, 209, 102, 0.15));
+        border: 1px solid rgba(226, 91, 68, 0.12);
+    }
+
+    .vote-copy {
+        margin: 0;
+        max-width: 32rem;
+        color: var(--detail-muted);
+    }
+
+    .vote-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .vote-btn {
+        min-width: 10.5rem;
+        padding: 0.8rem 1rem;
+        border-radius: 999px;
+        font-weight: 700;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .vote-btn:hover,
+    .vote-btn.active {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(16, 35, 60, 0.14);
+    }
+
+    .media-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+    }
+
+    .media-tile {
+        padding: 0.75rem;
+        border-radius: 24px;
+        background: #ffffff;
+        border: 1px solid rgba(16, 35, 60, 0.08);
+        box-shadow: 0 14px 28px rgba(16, 35, 60, 0.08);
+    }
+
+    .media-preview {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 18px;
+        cursor: pointer;
+    }
+
+    .comment-shell {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .comment-cta,
+    .comment-card {
+        padding: 1.2rem 1.25rem;
+        border-radius: 24px;
+        background: #ffffff;
+        border: 1px solid rgba(16, 35, 60, 0.08);
+    }
+
+    .comment-cta textarea {
+        border-radius: 18px;
+        min-height: 140px;
+    }
+
+    .comment-card {
+        box-shadow: 0 16px 28px rgba(16, 35, 60, 0.08);
+    }
+
+    .comment-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        align-items: start;
+        margin-bottom: 0.85rem;
+    }
+
+    .comment-person {
+        display: flex;
+        gap: 0.9rem;
+        align-items: center;
+    }
+
+    .comment-avatar {
+        display: grid;
+        place-items: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #16324c, #e25b44);
+        color: white;
+        font-size: 1rem;
+    }
+
+    .comment-empty {
+        padding: 2rem 1rem;
+        text-align: center;
+        color: var(--detail-muted);
+        border: 1px dashed rgba(16, 35, 60, 0.16);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    .detail-sidebar {
+        display: grid;
+        gap: 1rem;
+        position: sticky;
+        top: 1.5rem;
+    }
+
+    .detail-sidebar-card {
+        padding: 1.25rem;
+    }
+
+    .sidebar-title {
+        margin: 0 0 1rem;
+        font-size: 1.05rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+    }
+
+    .sidebar-stack {
+        display: grid;
+        gap: 0.85rem;
+    }
+
+    .sidebar-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-bottom: 0.85rem;
+        border-bottom: 1px solid var(--detail-line);
+    }
+
+    .sidebar-row:last-child {
+        padding-bottom: 0;
+        border-bottom: 0;
+    }
+
+    .sidebar-label {
+        color: var(--detail-muted);
+        font-size: 0.84rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+    .sidebar-value {
+        text-align: right;
+        font-weight: 700;
+    }
+
+    .sidebar-action {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.85rem 1rem;
+        border-radius: 18px;
+        border: 1px solid rgba(16, 35, 60, 0.1);
+        background: #ffffff;
+        color: var(--detail-ink);
+        font-weight: 700;
+        text-decoration: none;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .sidebar-action:hover {
+        transform: translateY(-2px);
+        color: var(--detail-ink);
+        box-shadow: 0 14px 28px rgba(16, 35, 60, 0.1);
+    }
+
+    .sidebar-action.is-primary {
+        border-color: transparent;
+        background: linear-gradient(135deg, #16324c, #274f70);
+        color: #fffaf3;
+    }
+
+    .sidebar-warning {
+        padding: 1rem;
+        border-radius: 20px;
+        background: rgba(255, 224, 138, 0.22);
+        color: #6e4f13;
+        border: 1px solid rgba(167, 122, 14, 0.15);
+    }
+
+    .critical-ribbon {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+        padding: 0.7rem 1rem;
+        border-radius: 999px;
+        background: rgba(126, 18, 18, 0.22);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #fff5f4;
+        font-weight: 700;
+    }
+
+    @media (max-width: 991.98px) {
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .detail-sidebar {
+            position: static;
+        }
+
+        .detail-stats,
+        .incident-rail {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .detail-hero,
+        .detail-panel,
+        .detail-sidebar-card {
+            padding: 1.2rem;
+            border-radius: 24px;
+        }
+
+        .detail-title {
+            font-size: 2rem;
+        }
+
+        .detail-stats,
+        .incident-rail {
+            grid-template-columns: 1fr;
+        }
+
+        .vote-btn {
+            min-width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="detail-shell">
+    <section class="detail-hero">
+        {% if alert.severity == 'critical' %}
+        <div class="critical-ribbon">
+            <i class="fas fa-siren-on"></i>
+            Critical incident. Treat this as urgent and follow local safety procedures.
+        </div>
+        {% endif %}
+
+        <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+            <div>
+                <div class="detail-chip-row">
+                    <span class="detail-chip">
+                        <i class="fas fa-layer-group"></i>
+                        {{ alert.category.name }}
+                    </span>
+                    <span class="detail-chip">
+                        <i class="fas fa-signal"></i>
+                        {{ alert.get_severity_display }}
+                    </span>
+                    <span class="detail-chip is-accent">
+                        <i class="fas fa-broadcast-tower"></i>
+                        {{ alert.get_status_display }}
+                    </span>
+                    {% if alert.is_verified %}
+                    <span class="detail-chip">
+                        <i class="fas fa-badge-check"></i>
+                        Verified
+                    </span>
+                    {% endif %}
+                </div>
+
+                <h1 class="detail-title">{{ alert.title }}</h1>
+                <p class="detail-summary">{{ alert.description|striptags|truncatechars:220 }}</p>
+            </div>
+
+            {% if user.is_authenticated and user == alert.created_by or user.is_authenticated and user.role == 'moderator' or user.is_authenticated and user.role == 'admin' %}
+            <div class="dropdown">
+                <button class="btn btn-light btn-sm dropdown-toggle rounded-pill px-3 py-2" type="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-sliders-h me-1"></i>
+                    Manage
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                    <li><a class="dropdown-item" href="{% url 'edit_alert' alert.id %}"><i class="fas fa-pen me-2"></i>Edit alert</a></li>
+                    {% if user.role == 'moderator' or user.role == 'admin' %}
+                    <li><button class="dropdown-item" type="button" onclick="flagAlert()"><i class="fas fa-flag me-2"></i>Flag for review</button></li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="detail-stats">
+            <div class="detail-stat">
+                <span class="detail-stat-label">Reported</span>
+                <span class="detail-stat-value">{{ alert.created_at|timesince }} ago</span>
+            </div>
+            <div class="detail-stat">
+                <span class="detail-stat-label">Views</span>
+                <span class="detail-stat-value">{{ alert.view_count }}</span>
+            </div>
+            <div class="detail-stat">
+                <span class="detail-stat-label">Helpful votes</span>
+                <span class="detail-stat-value">{{ alert.upvotes }}</span>
+            </div>
+            <div class="detail-stat">
+                <span class="detail-stat-label">Comments</span>
+                <span class="detail-stat-value">{{ comments.count }}</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="detail-grid">
+        <section class="detail-panel">
+            <div class="detail-section">
+                <span class="section-kicker"><i class="fas fa-file-lines"></i> Incident Brief</span>
+                <h2 class="section-title">What happened</h2>
+                <div class="section-copy">{{ alert.description|linebreaks }}</div>
+            </div>
+
+            <div class="detail-section">
+                <span class="section-kicker"><i class="fas fa-location-dot"></i> Situation Map</span>
+                <h2 class="section-title">Context around this report</h2>
+                <div class="incident-rail">
+                    <div class="incident-card">
+                        <i class="fas fa-users"></i>
+                        <span class="incident-label">Community</span>
+                        <p class="incident-value">{{ alert.community.name }}</p>
+                    </div>
+                    <div class="incident-card">
+                        <i class="fas fa-map-pin"></i>
+                        <span class="incident-label">Location</span>
+                        <p class="incident-value">{{ alert.address|default:"Location shared within community report" }}</p>
+                    </div>
+                    <div class="incident-card">
+                        <i class="fas fa-clock"></i>
+                        <span class="incident-label">Incident time</span>
+                        <p class="incident-value">{{ alert.incident_datetime|date:"M j, Y g:i A" }}</p>
+                    </div>
+                </div>
+            </div>
+
+            {% if user.is_authenticated %}
+            <div class="detail-section">
+                <span class="section-kicker"><i class="fas fa-thumbs-up"></i> Community Signal</span>
+                <h2 class="section-title">Was this alert useful?</h2>
+                <div class="vote-slab">
+                    <p class="vote-copy">Votes help moderators and neighbors gauge which reports are credible, timely, and worth amplifying.</p>
+                    <div class="vote-buttons">
+                        <button class="btn btn-outline-success vote-btn {% if user_vote == 'up' %}active{% endif %}" data-vote="up" data-alert="{{ alert.id }}">
+                            <i class="fas fa-thumbs-up me-2"></i>
+                            Helpful <span id="upvote-count" class="ms-1">{{ alert.upvotes }}</span>
+                        </button>
+                        <button class="btn btn-outline-danger vote-btn {% if user_vote == 'down' %}active{% endif %}" data-vote="down" data-alert="{{ alert.id }}">
+                            <i class="fas fa-thumbs-down me-2"></i>
+                            Not helpful <span id="downvote-count" class="ms-1">{{ alert.downvotes }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if alert.media.exists %}
+            <div class="detail-section">
+                <span class="section-kicker"><i class="fas fa-photo-film"></i> Evidence</span>
+                <h2 class="section-title">Attached media</h2>
+                <div class="media-grid">
+                    {% for media in alert.media.all %}
+                    <div class="media-tile">
+                        {% if media.media_type == 'image' %}
+                        <img src="{{ media.file.url }}" class="media-preview" alt="{{ media.caption|default:'Alert image' }}" data-bs-toggle="modal" data-bs-target="#mediaModal{{ media.id }}">
+                        {% else %}
+                        <video controls class="media-preview">
+                            <source src="{{ media.file.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        {% endif %}
+                        {% if media.caption %}
+                        <p class="small text-muted mt-3 mb-0">{{ media.caption }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="detail-section">
+                <span class="section-kicker"><i class="fas fa-comments"></i> Community Discussion</span>
+                <h2 class="section-title">Updates and reactions</h2>
+                <div class="comment-shell">
+                    {% if user.is_authenticated %}
+                    <div class="comment-cta">
+                        <h3 class="h6 fw-bold mb-3">Share an update</h3>
+                        <form method="post" action="#" id="commentForm">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <textarea class="form-control" name="content" rows="4" placeholder="Add useful context, corrections, or current conditions for neighbors." required></textarea>
+                                <div class="form-text mt-2">Be specific. Avoid posting personal or identifying information.</div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+                                <span class="small text-muted">Comment posting UI is ready; backend submission can be wired next.</span>
+                                <button type="submit" class="btn btn-primary rounded-pill px-4">
+                                    <i class="fas fa-paper-plane me-2"></i>
+                                    Post comment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div class="comment-cta text-center">
+                        <i class="fas fa-user-lock fa-2x text-muted mb-3"></i>
+                        <p class="text-muted mb-3">Login to contribute updates or ask for clarification.</p>
+                        <a href="{% url 'login' %}" class="btn btn-primary rounded-pill px-4">Login to comment</a>
+                    </div>
+                    {% endif %}
+
+                    {% for comment in comments %}
+                    <article class="comment-card">
+                        <div class="comment-meta">
+                            <div class="comment-person">
+                                <div class="comment-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold">{{ comment.user.get_full_name|default:comment.user.username }}</div>
+                                    <div class="small text-muted">{{ comment.created_at|timesince }} ago</div>
+                                </div>
+                            </div>
+                            {% if user.role == 'moderator' or user.role == 'admin' %}
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary rounded-pill" data-bs-toggle="dropdown">
+                                    <i class="fas fa-ellipsis"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                    <li><button class="dropdown-item text-danger" type="button" onclick="showToast('Comment moderation can be wired here.')"><i class="fas fa-trash me-2"></i>Remove comment</button></li>
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="section-copy">{{ comment.content|linebreaks }}</div>
+                    </article>
+                    {% empty %}
+                    <div class="comment-empty">
+                        <i class="fas fa-comments fa-2x mb-3"></i>
+                        <p class="mb-0">No discussion yet. The first useful update here can save someone time or keep them safer.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <aside class="detail-sidebar">
+            <div class="detail-sidebar-card">
+                <h3 class="sidebar-title">Report Snapshot</h3>
+                <div class="sidebar-stack">
+                    <div class="sidebar-row">
+                        <span class="sidebar-label">Reporter</span>
+                        <span class="sidebar-value">{{ alert.created_by.get_full_name|default:alert.created_by.username }}</span>
+                    </div>
+                    <div class="sidebar-row">
+                        <span class="sidebar-label">Category</span>
+                        <span class="sidebar-value">{{ alert.category.name }}</span>
+                    </div>
+                    <div class="sidebar-row">
+                        <span class="sidebar-label">Severity</span>
+                        <span class="sidebar-value">{{ alert.get_severity_display }}</span>
+                    </div>
+                    <div class="sidebar-row">
+                        <span class="sidebar-label">Status</span>
+                        <span class="sidebar-value">{{ alert.get_status_display }}</span>
+                    </div>
+                    {% if alert.updated_at != alert.created_at %}
+                    <div class="sidebar-row">
+                        <span class="sidebar-label">Last updated</span>
+                        <span class="sidebar-value">{{ alert.updated_at|timesince }} ago</span>
+                    </div>
+                    {% endif %}
+                    {% if alert.resolved_at %}
+                    <div class="sidebar-row">
+                        <span class="sidebar-label">Resolved</span>
+                        <span class="sidebar-value">{{ alert.resolved_at|date:"M j, Y g:i A" }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="detail-sidebar-card">
+                <h3 class="sidebar-title">Community Paths</h3>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'community_detail' alert.community.id %}" class="sidebar-action is-primary">
+                        <i class="fas fa-users"></i>
+                        View community
+                    </a>
+                    <a href="{% url 'alert_list' %}?community={{ alert.community.id }}" class="sidebar-action">
+                        <i class="fas fa-list"></i>
+                        More alerts from this area
+                    </a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'create_alert' %}" class="sidebar-action">
+                        <i class="fas fa-plus"></i>
+                        Report a nearby incident
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="detail-sidebar-card">
+                <h3 class="sidebar-title">Safety Guidance</h3>
+                <div class="sidebar-warning mb-3">
+                    <i class="fas fa-triangle-exclamation me-2"></i>
+                    If this is an active emergency or violent incident, contact emergency services immediately before posting updates.
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="button" class="sidebar-action" onclick="requestMoreInfo()">
+                        <i class="fas fa-circle-question"></i>
+                        Request more info
+                    </button>
+                    <button type="button" class="sidebar-action" onclick="subscribeToUpdates()">
+                        <i class="fas fa-bell"></i>
+                        Follow this alert
+                    </button>
+                    <button type="button" class="sidebar-action" onclick="shareViaEmail()">
+                        <i class="fas fa-envelope"></i>
+                        Share by email
+                    </button>
+                    <button type="button" class="sidebar-action" onclick="copyAlertLink()">
+                        <i class="fas fa-link"></i>
+                        Copy alert link
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+{% for media in alert.media.all %}
+{% if media.media_type == 'image' %}
+<div class="modal fade" id="mediaModal{{ media.id }}" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">{{ media.caption|default:'Alert image' }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body pt-0 text-center">
+                <img src="{{ media.file.url }}" class="img-fluid rounded-4" alt="{{ media.caption|default:'Alert image' }}">
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function requestMoreInfo() {
+        showToast('Information request sent to the reporter.');
+    }
+
+    function subscribeToUpdates() {
+        showToast('You will receive updates for this alert.');
+    }
+
+    function shareViaEmail() {
+        const subject = encodeURIComponent('Security Alert: {{ alert.title|escapejs }}');
+        const body = encodeURIComponent(`There is an alert in {{ alert.community.name }}: {{ alert.title|escapejs }}\n\nView details: ${window.location.href}`);
+        window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+
+    function copyAlertLink() {
+        copyToClipboard(window.location.href);
+        showToast('Alert link copied to clipboard.');
+    }
+
+    function flagAlert() {
+        showToast('Alert flagged for review.');
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).catch(function(err) {
+            console.error('Error copying text: ', err);
+        });
+    }
+
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'alert alert-dark position-fixed shadow';
+        toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 260px; border-radius: 16px;';
+        toast.innerHTML = `
+            <div class="d-flex align-items-center justify-content-between gap-3">
+                <span><i class="fas fa-circle-check me-2"></i>${message}</span>
+                <button type="button" class="btn-close btn-close-white" onclick="this.closest('.alert').remove()"></button>
+            </div>
+        `;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.remove();
+            }
+        }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const voteButtons = document.querySelectorAll('.vote-btn');
+        const csrfInput = document.querySelector('[name=csrfmiddlewaretoken]');
+
+        voteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const voteType = this.dataset.vote;
+                const alertId = this.dataset.alert;
+
+                fetch(`/alerts/${alertId}/vote/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': csrfInput ? csrfInput.value : '',
+                        'Accept': 'application/json'
+                    },
+                    body: `vote_type=${voteType}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('upvote-count').textContent = data.upvotes;
+                        document.getElementById('downvote-count').textContent = data.downvotes;
+
+                        voteButtons.forEach(btn => btn.classList.remove('active'));
+                        if (data.user_vote) {
+                            document.querySelector(`[data-vote="${data.user_vote}"]`).classList.add('active');
+                        }
+
+                        showToast('Vote submitted.');
+                    } else {
+                        showToast(data.error || 'Could not submit vote.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Error submitting vote.');
+                });
+            });
+        });
+
+        const commentForm = document.getElementById('commentForm');
+        if (commentForm) {
+            commentForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                showToast('Comment submission backend is not connected yet.');
+            });
+        }
+    });
+</script>
+{% endblock %}

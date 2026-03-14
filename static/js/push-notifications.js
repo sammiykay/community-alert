@@ -89,7 +89,7 @@ class PushNotificationService {
                 
                 // Get FCM token with VAPID key
                 const token = await getToken(this.messaging, {
-                    vapidKey: 'BK8rAOXJYqJfN5Qw5pJ8yHn8zK1VNw8eU0oAiFSP2WuGDMPQvC8xRf2kBN7sP5oT3jE6wHgZ8qQz2kP9vL4xM1oN'
+                    vapidKey: 'YOUR_FIREBASE_VAPID_KEY'
                 });
                 
                 if (token) {

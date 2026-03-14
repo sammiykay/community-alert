@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Alert - Community Alert System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-shell { display: grid; gap: 1.25rem; }
+    .form-block { padding: 1.4rem; border-radius: 24px; background: rgba(255,255,255,0.7); border: 1px solid rgba(16,35,60,0.08); }
+    .media-preview img, .media-preview video { max-width: 180px; max-height: 140px; object-fit: cover; border-radius: 16px; margin: 0.35rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="page-kicker"><i class="fas fa-triangle-exclamation"></i> New Report</div>
+    <h1 class="page-title">Write one alert that is clear enough to move people.</h1>
+    <p class="page-subtitle">Keep the facts tight, the location specific, and the urgency honest. Good reports reduce confusion and improve response quality.</p>
+</section>
+
+<div class="layout-main">
+    <section class="surface-panel">
+        <form method="post" enctype="multipart/form-data" id="alertForm" class="form-shell">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="danger-note">
+                <strong>Please correct the following errors:</strong>
+                <ul class="mb-0 mt-2">
+                    {% for field, errors in form.errors.items %}{% for error in errors %}<li>{{ field|title }}: {{ error }}</li>{% endfor %}{% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="form-block">
+                <div class="eyebrow"><i class="fas fa-file-lines"></i> Alert Information</div>
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label for="id_title" class="form-label">Alert title</label>
+                        <input type="text" class="form-control form-control-lg" name="title" id="id_title" required maxlength="200" value="{{ form.title.value|default:'' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_category" class="form-label">Category</label>
+                        <select class="form-select" name="category" id="id_category" required>
+                            <option value="">Select a category</option>
+                            {% for category in form.category.field.queryset %}
+                            <option value="{{ category.id }}" {% if form.category.value == category.id|stringformat:"s" %}selected{% endif %}>{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_severity" class="form-label">Severity</label>
+                        <select class="form-select" name="severity" id="id_severity" required>
+                            <option value="">Select severity</option>
+                            <option value="low" {% if form.severity.value == 'low' %}selected{% endif %}>Low</option>
+                            <option value="medium" {% if form.severity.value == 'medium' %}selected{% endif %}>Medium</option>
+                            <option value="high" {% if form.severity.value == 'high' %}selected{% endif %}>High</option>
+                            <option value="critical" {% if form.severity.value == 'critical' %}selected{% endif %}>Critical</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="id_description" class="form-label">Description</label>
+                        <textarea class="form-control" name="description" id="id_description" rows="6" required>{{ form.description.value|default:'' }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-block">
+                <div class="eyebrow"><i class="fas fa-location-dot"></i> Place and Timing</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="id_community" class="form-label">Community</label>
+                        <select class="form-select" name="community" id="id_community" required>
+                            <option value="">Select community</option>
+                            {% for community in form.community.field.queryset %}
+                            <option value="{{ community.id }}" {% if form.community.value == community.id|stringformat:"s" %}selected{% endif %}>{{ community.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_address" class="form-label">Specific location</label>
+                        <input type="text" class="form-control" name="address" id="id_address" value="{{ form.address.value|default:'' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_incident_datetime" class="form-label">Incident time</label>
+                        <input type="datetime-local" class="form-control" name="incident_datetime" id="id_incident_datetime" required value="{{ form.incident_datetime.value|date:'Y-m-d\TH:i'|default:'' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_status" class="form-label">Current status</label>
+                        <select class="form-select" name="status" id="id_status">
+                            <option value="active" {% if form.status.value == 'active' %}selected{% endif %}>Active</option>
+                            <option value="resolved" {% if form.status.value == 'resolved' %}selected{% endif %}>Resolved</option>
+                            <option value="under_review" {% if form.status.value == 'under_review' %}selected{% endif %}>Under review</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-block">
+                <div class="eyebrow"><i class="fas fa-camera"></i> Evidence</div>
+                <label for="media_files" class="form-label">Photos or videos</label>
+                <input type="file" class="form-control" name="media_files" id="media_files" multiple accept="image/*,video/*" onchange="previewMedia(this)">
+                <div id="mediaPreview" class="media-preview mt-3" style="display:none;">
+                    <div id="previewContainer"></div>
+                </div>
+            </div>
+
+            <div class="form-block">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="is_public" id="id_is_public" {% if form.is_public.value != False %}checked{% endif %}>
+                    <label class="form-check-label" for="id_is_public">Make this alert public to community members</label>
+                </div>
+            </div>
+
+            <div class="danger-note">
+                If this is an active emergency, contact emergency services first. This platform is for fast community coordination, not primary dispatch.
+            </div>
+
+            <div class="d-flex justify-content-between flex-wrap gap-2">
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                <div class="d-flex gap-2 flex-wrap">
+                    <button type="button" class="btn btn-outline-primary btn-lg" onclick="previewAlert()">Preview</button>
+                    <button type="submit" class="btn btn-danger btn-lg">Submit alert</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <aside class="stack-md">
+        <section class="surface-panel">
+            <div class="eyebrow"><i class="fas fa-compass"></i> Writing Guide</div>
+            <h2 class="section-title">What makes a strong report</h2>
+            <div class="stack-md">
+                <div class="soft-note">Use exact landmarks, blocks, or gates instead of vague area names.</div>
+                <div class="soft-note">Separate what you saw from what you suspect.</div>
+                <div class="soft-note">Mark an alert critical only when immediate action is needed.</div>
+            </div>
+        </section>
+    </aside>
+</div>
+
+<div class="modal fade" id="previewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">Alert preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="previewContent"></div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Edit</button>
+                <button type="button" class="btn btn-danger" onclick="submitForm()">Submit alert</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function previewMedia(input) {
+    const previewDiv = document.getElementById('mediaPreview');
+    const previewContainer = document.getElementById('previewContainer');
+    previewContainer.innerHTML = '';
+    if (input.files && input.files.length > 0) {
+        previewDiv.style.display = 'block';
+        Array.from(input.files).forEach(file => {
+            if (file.type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = URL.createObjectURL(file);
+                img.onload = () => URL.revokeObjectURL(img.src);
+                previewContainer.appendChild(img);
+            } else if (file.type.startsWith('video/')) {
+                const video = document.createElement('video');
+                video.src = URL.createObjectURL(file);
+                video.controls = true;
+                previewContainer.appendChild(video);
+            }
+        });
+    } else {
+        previewDiv.style.display = 'none';
+    }
+}
+
+function previewAlert() {
+    const title = document.getElementById('id_title').value;
+    const description = document.getElementById('id_description').value;
+    const category = document.getElementById('id_category');
+    const severity = document.getElementById('id_severity');
+    const community = document.getElementById('id_community');
+    const address = document.getElementById('id_address').value;
+    if (!title || !description || !community.value) {
+        alert('Please fill in the required fields first.');
+        return;
+    }
+    document.getElementById('previewContent').innerHTML = `
+        <div class="surface-panel">
+            <h3 class="h4">${title}</h3>
+            <p><strong>Category:</strong> ${category.options[category.selectedIndex]?.text || 'Not selected'}</p>
+            <p><strong>Severity:</strong> ${severity.options[severity.selectedIndex]?.text || 'Not selected'}</p>
+            <p><strong>Community:</strong> ${community.options[community.selectedIndex]?.text || 'Not selected'}</p>
+            <p><strong>Location:</strong> ${address || 'No specific location provided'}</p>
+            <p>${description}</p>
+        </div>`;
+    new bootstrap.Modal(document.getElementById('previewModal')).show();
+}
+
+function submitForm() {
+    document.getElementById('alertForm').submit();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const incidentInput = document.getElementById('id_incident_datetime');
+    if (!incidentInput.value) {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        incidentInput.value = now.toISOString().slice(0, 16);
+    }
+    document.getElementById('alertForm').addEventListener('submit', function(e) {
+        const community = document.getElementById('id_community').value;
+        if (!community) {
+            e.preventDefault();
+            document.getElementById('id_community').classList.add('is-invalid');
+            this.insertAdjacentHTML('afterbegin', '<div class="danger-note mb-3">Please select the community where this incident occurred.</div>');
+            this.scrollIntoView({ behavior: 'smooth' });
+            return false;
+        }
+    });
+});
+</script>
+{% endblock %}

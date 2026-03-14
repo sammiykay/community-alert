@@ -28,9 +28,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c_xvlkkf+^a#5_v2i)8tsgzt5(#-lukinnjy)-2to%h(vn_m1^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*', 'communityalert.pythonanywhere.com']
+raw_allowed_hosts = os.environ.get(
+    'ALLOWED_HOSTS',
+    'communityalert.pythonanywhere.com,localhost,127.0.0.1'
+)
+ALLOWED_HOSTS = [host.strip() for host in raw_allowed_hosts.split(',') if host.strip()]
 
 
 # Application definition
@@ -290,11 +294,12 @@ RATE_LIMIT_PER_MINUTE = 60
 # Environment-based settings
 if DEBUG:
     # Development-specific settings
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
+    for host in ['localhost', '127.0.0.1', 'testserver']:
+        if host not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(host)
     CORS_ALLOW_ALL_ORIGINS = True
 else:
     # Production-specific settings
-    ALLOWED_HOSTS = ['.yourdomain.com']
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True

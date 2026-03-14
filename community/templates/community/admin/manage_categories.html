@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Categories - Admin Panel{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="page-kicker"><i class="fas fa-tags"></i> Categories</div>
+    <h1 class="page-title">Shape the taxonomy behind every alert.</h1>
+    <p class="page-subtitle">Categories control how incidents are framed, filtered, and understood across the product, so they need to stay clean and intentional.</p>
+    <div class="mt-4"><a href="{% url 'create_category' %}" class="btn btn-light btn-lg">Add new category</a></div>
+</section>
+
+<div class="stack-md">
+    <section class="surface-panel">
+        <div class="metric-grid">
+            <div class="surface-stat"><div class="metric-value">{{ total_categories }}</div><div class="metric-label">Total</div></div>
+            <div class="surface-stat"><div class="metric-value">{{ active_categories }}</div><div class="metric-label">Active</div></div>
+            <div class="surface-stat"><div class="metric-value">{{ total_categories|add:'-'|add:active_categories }}</div><div class="metric-label">Inactive</div></div>
+        </div>
+    </section>
+    <section class="surface-panel">
+        <div class="row g-3">
+            {% for category in categories %}
+            <div class="col-lg-6 col-xl-4">
+                <div class="surface-card list-card h-100">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h3 class="h5 mb-1">{% if category.icon %}<i class="{{ category.icon }} me-2" style="color: {{ category.color }};"></i>{% endif %}{{ category.name }}</h3>
+                                {% if category.description %}<p class="text-muted small mb-0">{{ category.description|truncatechars:100 }}</p>{% endif %}
+                            </div>
+                            <span class="badge {% if category.is_active %}bg-success{% else %}bg-secondary{% endif %}">{% if category.is_active %}Active{% else %}Inactive{% endif %}</span>
+                        </div>
+                        <div class="row-item ps-0 pe-0"><span class="text-muted">Alerts in category</span><strong>{{ category.alerts.count }}</strong></div>
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="{% url 'edit_category' category.id %}" class="btn btn-outline-primary w-100">Edit</a>
+                            <form method="post" action="{% url 'toggle_category_status' category.id %}" class="w-100">
+                                {% csrf_token %}
+                                <button type="submit" class="btn {% if category.is_active %}btn-outline-warning{% else %}btn-outline-success{% endif %} w-100" onclick="return confirm('Are you sure you want to {% if category.is_active %}deactivate{% else %}activate{% endif %} this category?')">
+                                    {% if category.is_active %}Deactivate{% else %}Activate{% endif %}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12"><div class="surface-panel text-center py-5"><h3 class="h4">No categories yet</h3><p class="text-muted">Create the first category to structure incoming alerts.</p></div></div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Category - Admin Panel{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="page-kicker"><i class="fas fa-plus-circle"></i> Category Builder</div>
+    <h1 class="page-title">Create a category that reads clearly across the whole product.</h1>
+    <p class="page-subtitle">A good category name, icon, and color should make sense in dashboards, feeds, filters, and detail pages without extra explanation.</p>
+</section>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <section class="surface-panel">
+            <form method="post" class="stack-md">
+                {% csrf_token %}
+                <div>
+                    <label for="{{ form.name.id_for_label }}" class="form-label">Category name</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}<div class="text-danger small mt-1">{{ form.name.errors.0 }}</div>{% endif %}
+                </div>
+                <div>
+                    <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+                    {{ form.description }}
+                    {% if form.description.errors %}<div class="text-danger small mt-1">{{ form.description.errors.0 }}</div>{% endif %}
+                </div>
+                <div>
+                    <label for="{{ form.icon.id_for_label }}" class="form-label">Icon</label>
+                    {{ form.icon }}
+                    {% if form.icon.errors %}<div class="text-danger small mt-1">{{ form.icon.errors.0 }}</div>{% endif %}
+                </div>
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-6">
+                        <label for="{{ form.color.id_for_label }}" class="form-label">Color</label>
+                        {{ form.color }}
+                    </div>
+                    <div class="col-md-6">
+                        <div id="iconPreview" class="surface-panel text-center"><i class="fas fa-tag fa-2x"></i></div>
+                    </div>
+                </div>
+                <div class="form-check">
+                    {{ form.is_active }}
+                    <label class="form-check-label" for="{{ form.is_active.id_for_label }}">Active category</label>
+                </div>
+                <div class="d-flex justify-content-between flex-wrap gap-2">
+                    <a href="{% url 'manage_categories' %}" class="btn btn-outline-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-success">Create category</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('{{ form.icon.id_for_label }}').addEventListener('input', function() {
+    const iconClass = this.value.trim() || 'fas fa-tag';
+    const currentColor = document.getElementById('{{ form.color.id_for_label }}').value;
+    document.getElementById('iconPreview').innerHTML = `<i class="${iconClass}" style="color:${currentColor};" class="fa-2x"></i>`;
+});
+document.getElementById('{{ form.color.id_for_label }}').addEventListener('input', function() {
+    const color = this.value;
+    const iconClass = document.getElementById('{{ form.icon.id_for_label }}').value.trim() || 'fas fa-tag';
+    document.getElementById('iconPreview').innerHTML = `<i class="${iconClass}" style="color:${color};" class="fa-2x"></i>`;
+});
+</script>
+{% endblock %}

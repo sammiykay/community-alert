@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Superuser Dashboard - Community Alert System{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="page-kicker"><i class="fas fa-crown"></i> Superuser</div>
+    <h1 class="page-title">Full-system access with no room for visual clutter.</h1>
+    <p class="page-subtitle">This panel keeps the highest-privilege actions readable and deliberate, with the same design language as the rest of the application.</p>
+</section>
+
+<div class="stack-md">
+    <div class="danger-note">You have full system access. Use superuser controls carefully.</div>
+    <section class="surface-panel">
+        <div class="metric-grid">
+            <div class="surface-stat"><div class="metric-value">{{ total_users }}</div><div class="metric-label">Users</div></div>
+            <div class="surface-stat"><div class="metric-value">{{ total_admins }}</div><div class="metric-label">Admins</div></div>
+            <div class="surface-stat"><div class="metric-value">{{ total_moderators }}</div><div class="metric-label">Moderators</div></div>
+            <div class="surface-stat"><div class="metric-value">{{ total_members }}</div><div class="metric-label">Members</div></div>
+        </div>
+    </section>
+    <section class="surface-panel">
+        <div class="metric-grid">
+            <a href="{% url 'create_admin_user' %}" class="btn btn-danger btn-lg w-100">Create admin</a>
+            <a href="{% url 'manage_admin_users' %}" class="btn btn-warning btn-lg w-100">Manage admins</a>
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-success btn-lg w-100">Admin panel</a>
+            <a href="/admin/" class="btn btn-info btn-lg w-100" target="_blank">Django admin</a>
+        </div>
+    </section>
+    <div class="layout-main">
+        <section class="surface-panel">
+            <div class="eyebrow"><i class="fas fa-users"></i> Recent Users</div>
+            <h2 class="section-title">Latest accounts</h2>
+            {% if recent_users %}
+            <div class="table-like-list">
+                {% for user in recent_users %}
+                <div class="row-item">
+                    <div><strong>{{ user.get_full_name|default:user.username }}</strong><br><small class="text-muted">{{ user.email }} • {{ user.date_joined|timesince }} ago</small></div>
+                    <span class="badge {% if user.role == 'admin' %}bg-danger{% elif user.role == 'moderator' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">{{ user.get_role_display }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}<p class="text-muted mb-0">No recent users.</p>{% endif %}
+        </section>
+        <section class="surface-panel">
+            <div class="eyebrow"><i class="fas fa-user-shield"></i> Admin Accounts</div>
+            <h2 class="section-title">Recent administrators</h2>
+            {% if recent_admins %}
+            <div class="table-like-list">
+                {% for admin in recent_admins %}
+                <div class="row-item">
+                    <div><strong>{{ admin.get_full_name|default:admin.username }}</strong><br><small class="text-muted">{{ admin.email }}</small></div>
+                    <span class="badge {% if admin.is_superuser %}bg-danger{% else %}bg-warning text-dark{% endif %}">{% if admin.is_superuser %}Superuser{% else %}Admin{% endif %}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}<p class="text-muted mb-0">No administrators found.</p>{% endif %}
+        </section>
+    </div>
+</div>
+{% endblock %}

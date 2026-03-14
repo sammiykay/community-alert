@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Alert - Community Alert System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-shell { display: grid; gap: 1.25rem; }
+    .form-block { padding: 1.4rem; border-radius: 24px; background: rgba(255,255,255,0.7); border: 1px solid rgba(16,35,60,0.08); }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="page-kicker"><i class="fas fa-pen"></i> Update Report</div>
+    <h1 class="page-title">Edit the alert without weakening the signal.</h1>
+    <p class="page-subtitle">Adjust the facts, status, or severity while preserving the context people already saw when the report first went out.</p>
+</section>
+
+<div class="layout-main">
+    <section class="surface-panel">
+        <div class="soft-note mb-3">
+            <strong>Editing:</strong> {{ alert.title }}<br>
+            <span class="text-muted">Created {{ alert.created_at|date:"F d, Y \a\t g:i A" }} in {{ alert.community.name }}</span>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" id="alertForm" class="form-shell">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="danger-note">
+                <strong>Please correct the following errors:</strong>
+                <ul class="mb-0 mt-2">
+                    {% for field, errors in form.errors.items %}{% for error in errors %}<li>{{ field|title }}: {{ error }}</li>{% endfor %}{% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="form-block">
+                <div class="eyebrow"><i class="fas fa-file-lines"></i> Alert Information</div>
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label for="id_title" class="form-label">Alert title</label>
+                        <input type="text" class="form-control form-control-lg" name="title" id="id_title" required maxlength="200" value="{{ form.title.value|default:'' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_category" class="form-label">Category</label>
+                        <select class="form-select" name="category" id="id_category" required>
+                            <option value="">Select a category</option>
+                            {% for category in form.category.field.queryset %}
+                            <option value="{{ category.id }}" {% if form.category.value == category.id|stringformat:"s" %}selected{% endif %}>{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_severity" class="form-label">Severity</label>
+                        <select class="form-select" name="severity" id="id_severity" required>
+                            <option value="">Select severity</option>
+                            <option value="low" {% if form.severity.value == 'low' %}selected{% endif %}>Low</option>
+                            <option value="medium" {% if form.severity.value == 'medium' %}selected{% endif %}>Medium</option>
+                            <option value="high" {% if form.severity.value == 'high' %}selected{% endif %}>High</option>
+                            <option value="critical" {% if form.severity.value == 'critical' %}selected{% endif %}>Critical</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="id_description" class="form-label">Description</label>
+                        <textarea class="form-control" name="description" id="id_description" rows="6" required>{{ form.description.value|default:'' }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-block">
+                <div class="eyebrow"><i class="fas fa-location-dot"></i> Place and Timing</div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="id_community" class="form-label">Community</label>
+                        <select class="form-select" name="community" id="id_community" required>
+                            <option value="">Select community</option>
+                            {% for community in form.community.field.queryset %}
+                            <option value="{{ community.id }}" {% if form.community.value == community.id|stringformat:"s" %}selected{% endif %}>{{ community.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_address" class="form-label">Specific location</label>
+                        <input type="text" class="form-control" name="address" id="id_address" value="{{ form.address.value|default:'' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_incident_datetime" class="form-label">Incident time</label>
+                        <input type="datetime-local" class="form-control" name="incident_datetime" id="id_incident_datetime" required value="{{ form.incident_datetime.value|date:'Y-m-d\TH:i'|default:'' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_status" class="form-label">Current status</label>
+                        <select class="form-select" name="status" id="id_status">
+                            <option value="active" {% if form.status.value == 'active' %}selected{% endif %}>Active</option>
+                            <option value="resolved" {% if form.status.value == 'resolved' %}selected{% endif %}>Resolved</option>
+                            <option value="under_review" {% if form.status.value == 'under_review' %}selected{% endif %}>Under review</option>
+                            <option value="false_alarm" {% if form.status.value == 'false_alarm' %}selected{% endif %}>False alarm</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-block">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="is_public" id="id_is_public" {% if form.is_public.value != False %}checked{% endif %}>
+                    <label class="form-check-label" for="id_is_public">Make this alert public to community members</label>
+                </div>
+            </div>
+
+            <div class="soft-note">Changes to this alert will be visible to the community immediately after save.</div>
+
+            <div class="d-flex justify-content-between flex-wrap gap-2">
+                <a href="{% url 'alert_detail' alert.id %}" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                <div class="d-flex gap-2 flex-wrap">
+                    <button type="button" class="btn btn-outline-primary btn-lg" onclick="previewAlert()">Preview changes</button>
+                    <button type="submit" class="btn btn-primary btn-lg">Update alert</button>
+                </div>
+            </div>
+        </form>
+    </section>
+    <aside class="stack-md">
+        <section class="surface-panel">
+            <div class="eyebrow"><i class="fas fa-compass"></i> Update Guide</div>
+            <h2 class="section-title">When to change status</h2>
+            <div class="stack-md">
+                <div class="soft-note">Use resolved when the issue has clearly ended.</div>
+                <div class="soft-note">Use under review when facts are still being verified.</div>
+                <div class="soft-note">Use false alarm only when the original report is confirmed wrong.</div>
+            </div>
+        </section>
+    </aside>
+</div>
+
+<div class="modal fade" id="previewModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header border-0">
+                <h5 class="modal-title">Alert preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="previewContent"></div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Continue editing</button>
+                <button type="button" class="btn btn-primary" onclick="submitForm()">Update alert</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function previewAlert() {
+    const title = document.getElementById('id_title').value;
+    const description = document.getElementById('id_description').value;
+    const category = document.getElementById('id_category');
+    const severity = document.getElementById('id_severity');
+    const community = document.getElementById('id_community');
+    const address = document.getElementById('id_address').value;
+    const status = document.getElementById('id_status');
+    if (!title || !description || !community.value) {
+        alert('Please fill in the required fields first.');
+        return;
+    }
+    document.getElementById('previewContent').innerHTML = `
+        <div class="surface-panel">
+            <h3 class="h4">${title}</h3>
+            <p><strong>Category:</strong> ${category.options[category.selectedIndex]?.text || 'Not selected'}</p>
+            <p><strong>Severity:</strong> ${severity.options[severity.selectedIndex]?.text || 'Not selected'}</p>
+            <p><strong>Status:</strong> ${status.options[status.selectedIndex]?.text || 'Not selected'}</p>
+            <p><strong>Community:</strong> ${community.options[community.selectedIndex]?.text || 'Not selected'}</p>
+            <p><strong>Location:</strong> ${address || 'No specific location provided'}</p>
+            <p>${description}</p>
+        </div>`;
+    new bootstrap.Modal(document.getElementById('previewModal')).show();
+}
+function submitForm() { document.getElementById('alertForm').submit(); }
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('alertForm').addEventListener('submit', function(e) {
+        const community = document.getElementById('id_community').value;
+        if (!community) {
+            e.preventDefault();
+            document.getElementById('id_community').classList.add('is-invalid');
+            return false;
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Administrators - Superuser Panel{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="page-kicker"><i class="fas fa-users-cog"></i> Administrator Control</div>
+    <h1 class="page-title">Manage elevated accounts without losing track of risk.</h1>
+    <p class="page-subtitle">Review who currently has administrative access, distinguish admins from superusers, and promote or demote accounts from one controlled surface.</p>
+    <div class="mt-4">
+        <a href="{% url 'create_admin_user' %}" class="btn btn-light btn-lg"><i class="fas fa-user-plus me-2"></i>Create administrator</a>
+    </div>
+</section>
+
+<div class="stack-md">
+    <section class="surface-panel">
+        <div class="metric-grid">
+            <div class="surface-stat">
+                <div class="metric-value">{{ total_admins }}</div>
+                <div class="metric-label">Administrators</div>
+            </div>
+            <div class="surface-stat">
+                <div class="metric-value">{{ total_superusers }}</div>
+                <div class="metric-label">Superusers</div>
+            </div>
+            <div class="surface-stat">
+                <div class="metric-value">{{ admins.count }}</div>
+                <div class="metric-label">Total elevated users</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="surface-panel">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+            <div>
+                <div class="eyebrow"><i class="fas fa-shield-alt"></i> Elevated Accounts</div>
+                <h2 class="section-title mb-0">Current administrator list</h2>
+            </div>
+            <a href="{% url 'superuser_dashboard' %}" class="btn btn-outline-secondary">Back to superuser dashboard</a>
+        </div>
+
+        {% if admins %}
+        <div class="stack-md">
+            {% for admin in admins %}
+            <div class="surface-card">
+                <div class="card-body p-4">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-lg-7">
+                            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                                <h3 class="h5 mb-0">{{ admin.get_full_name|default:admin.username }}</h3>
+                                {% if admin.is_superuser %}
+                                <span class="badge bg-danger">Superuser</span>
+                                {% endif %}
+                                {% if admin.role == 'admin' %}
+                                <span class="badge bg-warning text-dark">Administrator</span>
+                                {% endif %}
+                                {% if admin.is_active %}
+                                <span class="badge bg-success">Active</span>
+                                {% else %}
+                                <span class="badge bg-secondary">Inactive</span>
+                                {% endif %}
+                            </div>
+                            <div class="text-muted mb-2">
+                                <i class="fas fa-envelope me-2"></i>{{ admin.email }}
+                                {% if admin.phone_number %}
+                                <span class="ms-3"><i class="fas fa-phone me-2"></i>{{ admin.phone_number }}</span>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex flex-wrap gap-3 text-muted small">
+                                <span><i class="fas fa-calendar me-1"></i>Joined {{ admin.date_joined|timesince }} ago</span>
+                                <span><i class="fas fa-user me-1"></i>{{ admin.username }}</span>
+                                <span><i class="fas fa-users me-1"></i>{{ admin.communities.count }} communit{{ admin.communities.count|pluralize:"y,ies" }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div class="surface-panel h-100">
+                                <div class="table-like-list">
+                                    <div class="row-item pt-0">
+                                        <span class="text-muted">Email verified</span>
+                                        <strong>{% if admin.email_verified %}Yes{% else %}No{% endif %}</strong>
+                                    </div>
+                                    <div class="row-item">
+                                        <span class="text-muted">Staff access</span>
+                                        <strong>{% if admin.is_staff %}Enabled{% else %}Disabled{% endif %}</strong>
+                                    </div>
+                                    <div class="row-item">
+                                        <span class="text-muted">Alerts created</span>
+                                        <strong>{{ admin.created_alerts.count }}</strong>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex gap-2 mt-3">
+                                    {% if not admin.is_superuser %}
+                                    <form method="post" action="{% url 'toggle_admin_status' admin.id %}" class="w-100">
+                                        {% csrf_token %}
+                                        <button
+                                            type="submit"
+                                            class="btn {% if admin.role == 'admin' %}btn-outline-warning{% else %}btn-outline-success{% endif %} w-100"
+                                            onclick="return confirm('Are you sure you want to {% if admin.role == 'admin' %}remove{% else %}grant{% endif %} admin privileges {% if admin.role == 'admin' %}for{% else %}to{% endif %} {{ admin.username }}?')">
+                                            {% if admin.role == 'admin' %}
+                                            Remove admin access
+                                            {% else %}
+                                            Grant admin access
+                                            {% endif %}
+                                        </button>
+                                    </form>
+                                    {% else %}
+                                    <div class="danger-note w-100 mb-0">Superuser access cannot be changed from this control.</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-user-shield fa-3x text-muted mb-3"></i>
+            <h3 class="h4">No administrator accounts found</h3>
+            <p class="text-muted">Create the first administrator to delegate day-to-day platform operations.</p>
+            <a href="{% url 'create_admin_user' %}" class="btn btn-danger">Create administrator</a>
+        </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

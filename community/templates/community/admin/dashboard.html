@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - Community Alert System{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="page-kicker"><i class="fas fa-user-shield"></i> Admin</div>
+    <h1 class="page-title">Operational control for the alert network.</h1>
+    <p class="page-subtitle">Manage users, communities, categories, and active incidents from a single dashboard with the same visual grammar as the rest of the product.</p>
+</section>
+
+<div class="stack-md">
+    <section class="surface-panel">
+        <div class="metric-grid">
+            <div class="surface-stat"><div class="metric-value">{{ total_users }}</div><div class="metric-label">Users</div></div>
+            <div class="surface-stat"><div class="metric-value">{{ total_communities }}</div><div class="metric-label">Communities</div></div>
+            <div class="surface-stat"><div class="metric-value">{{ total_categories }}</div><div class="metric-label">Categories</div></div>
+            <div class="surface-stat"><div class="metric-value">{{ active_alerts }}</div><div class="metric-label">Active alerts</div></div>
+        </div>
+    </section>
+
+    <div class="layout-main">
+        <section class="surface-panel">
+            <div class="eyebrow"><i class="fas fa-bolt"></i> Quick Actions</div>
+            <h2 class="section-title">Management routes</h2>
+            <div class="metric-grid">
+                <a href="{% url 'create_community' %}" class="btn btn-success btn-lg w-100">Add community</a>
+                <a href="{% url 'create_category' %}" class="btn btn-info btn-lg w-100">Add category</a>
+                <a href="{% url 'manage_users' %}" class="btn btn-primary btn-lg w-100">Manage users</a>
+                <a href="{% url 'alert_list' %}" class="btn btn-warning btn-lg w-100">View alerts</a>
+            </div>
+        </section>
+        <section class="surface-panel">
+            <div class="eyebrow"><i class="fas fa-chart-line"></i> Team Mix</div>
+            <h2 class="section-title">Roles</h2>
+            <div class="table-like-list">
+                <div class="row-item"><span>Administrators</span><strong>{{ admin_count }}</strong></div>
+                <div class="row-item"><span>Moderators</span><strong>{{ moderator_count }}</strong></div>
+                <div class="row-item"><span>Total alerts</span><strong>{{ total_alerts }}</strong></div>
+            </div>
+        </section>
+    </div>
+
+    <div class="layout-main">
+        <section class="surface-panel">
+            <div class="eyebrow"><i class="fas fa-history"></i> Recent Alerts</div>
+            <h2 class="section-title">Latest incident traffic</h2>
+            {% if recent_alerts %}
+            <div class="table-like-list">
+                {% for alert in recent_alerts %}
+                <div class="row-item">
+                    <div><strong>{{ alert.title|truncatechars:40 }}</strong><br><small class="text-muted">{{ alert.community.name }} • {{ alert.category.name }} • {{ alert.created_at|timesince }} ago</small></div>
+                    <span class="badge {% if alert.severity == 'critical' %}bg-danger{% elif alert.severity == 'high' %}bg-warning text-dark{% elif alert.severity == 'medium' %}bg-info{% else %}bg-success{% endif %}">{{ alert.get_severity_display }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}<p class="text-muted mb-0">No recent alerts.</p>{% endif %}
+        </section>
+        <section class="surface-panel">
+            <div class="eyebrow"><i class="fas fa-user-plus"></i> Recent Users</div>
+            <h2 class="section-title">New accounts</h2>
+            {% if recent_users %}
+            <div class="table-like-list">
+                {% for user in recent_users %}
+                <div class="row-item">
+                    <div><strong>{{ user.get_full_name|default:user.username }}</strong><br><small class="text-muted">{{ user.email }} • Joined {{ user.date_joined|timesince }} ago</small></div>
+                    <span class="badge {% if user.role == 'admin' %}bg-danger{% elif user.role == 'moderator' %}bg-warning text-dark{% else %}bg-secondary{% endif %}">{{ user.get_role_display }}</span>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}<p class="text-muted mb-0">No recent users.</p>{% endif %}
+        </section>
+    </div>
+</div>
+{% endblock %}

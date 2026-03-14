@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Administrator - Superuser Panel{% endblock %}
+
+{% block content %}
+<section class="page-head">
+    <div class="page-kicker"><i class="fas fa-user-plus"></i> Admin Provisioning</div>
+    <h1 class="page-title">Create an administrator account with deliberate friction.</h1>
+    <p class="page-subtitle">This page keeps privilege creation explicit, readable, and harder to do accidentally while preserving the current backend behavior.</p>
+</section>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="danger-note mb-3">Administrators can manage users, communities, categories, and system settings. Create these accounts only for trusted operators.</div>
+        <section class="surface-panel">
+            <form method="post" class="stack-md">
+                {% csrf_token %}
+                <div>
+                    <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}<div class="text-danger small mt-1">{{ form.username.errors.0 }}</div>{% endif %}
+                </div>
+                <div>
+                    <label for="{{ form.email.id_for_label }}" class="form-label">Email address</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}<div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>{% endif %}
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="{{ form.first_name.id_for_label }}" class="form-label">First name</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="{{ form.last_name.id_for_label }}" class="form-label">Last name</label>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="{{ form.password1.id_for_label }}" class="form-label">Password</label>
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}<div class="text-danger small mt-1">{{ form.password1.errors.0 }}</div>{% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="{{ form.password2.id_for_label }}" class="form-label">Confirm password</label>
+                        {{ form.password2 }}
+                        {% if form.password2.errors %}<div class="text-danger small mt-1">{{ form.password2.errors.0 }}</div>{% endif %}
+                    </div>
+                </div>
+                <div class="soft-note">
+                    New administrators will be created as active staff users with the administrator role and notifications enabled.
+                </div>
+                <div class="d-flex justify-content-between flex-wrap gap-2">
+                    <a href="{% url 'superuser_dashboard' %}" class="btn btn-outline-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-danger">Create administrator</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const password1 = document.getElementById('{{ form.password1.id_for_label }}');
+    const password2 = document.getElementById('{{ form.password2.id_for_label }}');
+    function validatePasswordMatch() {
+        if (password2.value && password1.value !== password2.value) {
+            password2.setCustomValidity("Passwords don't match");
+        } else {
+            password2.setCustomValidity('');
+        }
+    }
+    password1.addEventListener('input', validatePasswordMatch);
+    password2.addEventListener('input', validatePasswordMatch);
+    form.addEventListener('submit', function(e) {
+        const username = document.getElementById('{{ form.username.id_for_label }}').value;
+        if (!confirm(`Are you sure you want to create administrator account for "${username}"?`)) {
+            e.preventDefault();
+        }
+    });
+});
+</script>
+{% endblock %}
